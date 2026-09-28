@@ -15,7 +15,7 @@ Game/WindowManager.cpp:
 	.text  start:0x109E47E0 end:0x109E47F8
 
 Game/Options.cpp:
-	.text  start:0x10AB5AB0 end:0x10AB5ABB
+	.text  start:0x10AB5AB0 end:0x10AB5AE0
 
 Engine/UObject.cpp:
 	.text  start:0x10AFD470 end:0x10AFD4AA

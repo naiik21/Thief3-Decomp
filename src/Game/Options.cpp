@@ -6,6 +6,11 @@ class Options
 {
 public:
     int Get(int Index);
+    void GetResolution(int* Width, int* Height);
+
+    // 640x480 ... 1600x1200, indexed by the Resolution option (0..4).
+    static const int ResolutionWidths[5];
+    static const int ResolutionHeights[5];
 
     int Unknown00;
     int Values[21];          // +0x04, indexed by the names table
@@ -15,4 +20,12 @@ public:
 int Options::Get(int Index)
 {
     return Values[Index];
+}
+
+// FUNCTION: 0x10AB5AC0 ?GetResolution@Options@@QAEXPAH0@Z
+void Options::GetResolution(int* Width, int* Height)
+{
+    int Resolution = Values[11];
+    *Width = ResolutionWidths[Resolution];
+    *Height = ResolutionHeights[Resolution];
 }
