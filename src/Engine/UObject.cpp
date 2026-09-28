@@ -7,6 +7,63 @@ float appFrand();
 
 FVector appVRand();
 
+// Set while the natives that write through their first operand (Let, +=, ++,
+// dynamic array Insert/Remove, ...) evaluate it; 0x10F45C38.
+extern DWORD GPropertyLValue;
+
+// Ion Storm's Clamp orders its bounds first (the original execClamp, 0x10B03F50,
+// compiles to the same two branches).
+template<class T> inline T Clamp(const T X, const T Min, const T Max)
+{
+    return Min < Max ? (X < Min ? Min : X < Max ? X : Max)
+                     : (X < Max ? Max : X < Min ? X : Min);
+}
+
+// Stock Unreal Engine 2 layout: ArrayDim and ElementSize follow UField.
+class UProperty : public UField
+{
+public:
+    virtual void Unknown48();
+    virtual void Unknown4C();
+    virtual void Unknown50();
+    virtual void Unknown54();
+    virtual void Unknown58();
+    virtual void Unknown5C();
+    virtual void Unknown60();
+    virtual void Unknown64();
+    virtual void Unknown68();
+    virtual void Unknown6C();
+    virtual void Unknown70();
+    virtual void Unknown74();
+    virtual void Unknown78();
+    virtual void Unknown7C();
+    virtual void Unknown80();
+    virtual void Unknown84();
+    virtual void Unknown88();
+    virtual void Unknown8C();
+    virtual void Unknown90();
+    virtual void Unknown94();
+    virtual void Unknown98();
+    virtual void Unknown9C();
+    virtual void UnknownA0();
+    virtual void UnknownA4();
+    virtual void UnknownA8();
+    virtual void UnknownAC();
+    virtual void UnknownB0();
+    virtual void UnknownB4();
+    virtual void DestroyValue(void* Dest) const;   // vtable +0xB8
+
+    INT ArrayDim;                   // 0x34
+    INT ElementSize;                // 0x38
+    BYTE Unknown3C[0x24];
+};
+
+class UArrayProperty : public UProperty
+{
+public:
+    UProperty* Inner;               // 0x60
+};
+
 // FUNCTION: 0x10AFD470 ?execDynArrayLength@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execDynArrayLength(FFrame& Stack, RESULT_DECL)
 {
@@ -387,6 +444,41 @@ void UObject::execIsA(FFrame& Stack, RESULT_DECL)
         if (TempClass->GetFName() == ClassName)
             break;
     *(DWORD*)Result = TempClass != NULL;
+}
+
+// FUNCTION: 0x10B036F0 ?execDynArrayRemove@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDynArrayRemove(FFrame& Stack, RESULT_DECL)
+{
+    GProperty = NULL;
+    GPropertyLValue = 1;
+    Stack.Step(this, NULL);
+    GPropertyLValue = 0;
+    P_GET_INT(Offset);
+    P_GET_INT(Count);
+    FArray* Array = (FArray*)GPropAddr;
+    if (Array && Count)
+    {
+        if (Count < 0)
+        {
+            Stack.Logf("Attempt to remove a negative number of elements");
+            return;
+        }
+        if (Offset < 0 || Offset >= Array->Num() || Offset + Count > Array->Num())
+        {
+            if (Count == 1)
+                Stack.Logf("Attempt to remove element %i in an %i-element array", Offset, Array->Num());
+            else
+                Stack.Logf("Attempt to remove elements %i through %i in an %i-element array",
+                           Offset, Offset + Count - 1, Array->Num());
+            Offset = Clamp(Offset, 0, Array->Num());
+            if (Offset + Count > Array->Num())
+                Count = Array->Num() - Offset;
+        }
+        for (INT i = Offset; i < Offset + Count; i++)
+            ((UArrayProperty*)GProperty)->Inner->DestroyValue(
+                (BYTE*)Array->Data + ((UArrayProperty*)GProperty)->Inner->ElementSize * i);
+        Array->Remove(Offset, Count, ((UArrayProperty*)GProperty)->Inner->ElementSize);
+    }
 }
 
 // FUNCTION: 0x10B04810 ?execStaticSaveConfig@UObject@@QAEXAAVFFrame@@QAX@Z

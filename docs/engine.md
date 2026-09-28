@@ -119,6 +119,9 @@ reads the next opcode and calls it.
 | `GCasts` (`Native[256]`) | `0x10F417F8` | static (`UObject::execPrimitiveCast`) |
 | `FFrame::Step(UObject* Context, void* Result)`, `__thiscall`, out of line (stock Unreal Engine 2 inlines it) | `0x10B0FC50` | static, matched as called |
 | `UObject::execPrimitiveCast` | `0x10AFDC90` | static |
+| `GProperty` / `GPropAddr` (the last property `Step` evaluated, and its address) | `0x10F45C30` / `0x10F45C34` | matched as referenced |
+| `GPropertyLValue` (`DWORD`): 1 while a native evaluates the operand it writes through; set and cleared around that `Step` by about 40 natives (`execLet`, the `+=`/`-=`/`*=`/`/=` and `++`/`--` operators, `execDynArrayInsert`/`Remove`, ...). Ion Storm addition, name provisional | `0x10F45C38` | matched as referenced (`execDynArrayRemove`) |
+| `FArray::Remove(Index, Count, ElementSize)`, `__thiscall` (moves the tail down, shrinks) | `0x10AF3BD0` | matched as called (`execDynArrayRemove`) |
 
 The table names 234 `UObject` natives in `symbols.txt`. Seven functions are
 shared by two or three natives (the linker folded identical bodies, such as
@@ -133,6 +136,16 @@ call, into zeroed locals, and `Code++` skips the end-of-parameters opcode; the
 header `include/Core/Core.h` has these as the stock `P_GET_*` and `P_FINISH`
 macros, which match (`execIsA`, `execAdd_IntInt`, `execMultiply_FloatFloat`,
 `execNot_PreBool`).
+
+**Ion Storm's `Clamp`.** The inline `Clamp(X, Min, Max)` orders its bounds
+first: `Min < Max ? (X < Min ? Min : X < Max ? X : Max) : (X < Max ? Max : X <
+Min ? X : Min)`. The original `execClamp` (`0x10B03F50`) compiles to exactly
+these two branches, and `execDynArrayRemove` matches only with this
+definition (stock Unreal Engine 2's single `X<Min ? Min : X<Max ? X : Max`
+gives different code). Its messages also differ from stock: "Attempt to
+remove a negative number of elements", "... element %i in an %i-element
+array", "... elements %i through %i in an %i-element array", without the
+array's name.
 
 **Functions only pointers reach.** Ghidra's export started a function only
 where code flows or calls go, so a function reached only through a pointer
@@ -150,6 +163,7 @@ functions; `symbols.txt` now splits them.
 | the log file device GLog points at | `0x10EFE9D8` (vtable `0x10E47648`, one slot) | verified |
 | `FOutputDeviceFile::Serialize(const char*, EName)`, `__thiscall` | `0x10901780` | verified (hooked) |
 | `FOutputDevice::Logf(this, EName, fmt, ...)`, `__cdecl` | `0x10AF5230` | static |
+| `FOutputDevice::Logf(this, fmt, ...)`, `__cdecl`: formats into a 16 KB buffer and calls `Serialize(text, 0x2F8)` unless Log is suppressed | `0x10AF3AA0` | matched as called (`execDynArrayRemove`) |
 | probably `GError` / `GFileManager` | `0x10F01160` / `0x10F01168` | static |
 
 `Logf` returns early when the category is suppressed. When called on GLog, it

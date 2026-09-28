@@ -59,6 +59,8 @@ class FArray
 public:
     INT Num() const { return ArrayNum; }
 
+    void Remove(INT Index, INT Count, INT ElementSize);    // 0x10AF3BD0
+
     void* Data;
     INT ArrayNum;
     INT ArrayMax;
@@ -107,6 +109,9 @@ class FOutputDevice
 {
 public:
     virtual void Serialize(const ANSICHAR* V, EName Event) = 0;
+
+    // Formats and writes a line in the Log category (0x2F8); __cdecl.
+    void Logf(const ANSICHAR* Fmt, ...);                    // 0x10AF3AA0
 };
 
 // --- Objects ------------------------------------------------------------------------
