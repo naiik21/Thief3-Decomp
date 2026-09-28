@@ -11,6 +11,9 @@ Game/Window.cpp:
 	.text  start:0x109E3820 end:0x109E3877
 	.text  start:0x109E38E0 end:0x109E38E7
 
+Game/WindowManager.cpp:
+	.text  start:0x109E47E0 end:0x109E47F8
+
 Game/Options.cpp:
 	.text  start:0x10AB5AB0 end:0x10AB5ABB
 

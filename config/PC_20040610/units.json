@@ -10,5 +10,8 @@
   },
   "Game/Window.cpp": {
     "category": "game"
+  },
+  "Game/WindowManager.cpp": {
+    "category": "game"
   }
 }
