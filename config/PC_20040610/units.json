@@ -2,6 +2,9 @@
   "Engine/FFrame.cpp": {
     "category": "engine"
   },
+  "Engine/FString.cpp": {
+    "category": "engine"
+  },
   "Engine/UObject.cpp": {
     "category": "engine"
   },
