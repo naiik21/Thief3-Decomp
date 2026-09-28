@@ -283,8 +283,10 @@ AutoBowZoom, Resolution (11), ShadowDetail, Bloom, LightCutoff, MultiSampling
 | `Options::Load` / `Save` / `SetDefaults` | `0x10AB66F0` / `0x10AB6440` / `0x10AB6320` | static |
 | `Options::Get(i)` / `Set(i, value)` | `0x10AB5AB0` / `0x10AB5BC0` | static |
 | `Options::GetResolution` (option 11) | `0x10AB5AC0` | static |
-| `Options::ApplyVideo`: clamps Resolution to 0..4, keeps modes the adapter has | `0x10AB61A0` | static |
-| `SupportsDisplayMode(width, height, 32)` | `0x10C82CB0` | static |
+| `Options::ApplyVideo`: falls MultiSampling back to the most samples the adapter supports (stored only when it changes), sets the device's VSynch, clamps Resolution to 0..4 and steps it down to a mode the adapter lists, then calls the device's `SetRes` (vtable `+0x84`) when the viewport's vtable `+0x8C` returns non-zero | `0x10AB61A0` | matched |
+| `UD3DRenderDevice::SupportsMultiSample(fullscreen, samples)`, `__thiscall`: `IDirect3D8::CheckDeviceMultiSampleType` (HAL, `A8R8G8B8`); 1 always passes | `0x10C82440` | static (`ApplyVideo`) |
+| path to the render device: `GEngine` (`0x10F34AD0`) `+0x38` Client, `+0x30` Viewports data, viewport `+0x58` RenDev | | matched (`ApplyVideo`) |
+| `UD3DRenderDevice::SupportsDisplayMode(width, height, 32)`, `__thiscall`: index into the device's mode list (`+0x4600`, 16-byte entries: width, height, ...), or negative | `0x10C82CB0` | static |
 | resolution widths / heights, 5 entries each (640x480 ... 1600x1200) | `0x10E6EDC4` / `0x10E6EDD8` | verified (the SDK rewrites them) |
 | A/V options row refresh (kind 0 slider, 1 checkbox, 2 button; label `T_OptionsScreen<name>`) | `0x10B72DD0` | static |
 
