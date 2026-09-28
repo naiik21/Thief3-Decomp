@@ -8,7 +8,7 @@
 # data no unit claims stays in __shared_data.
 
 Game/Window.cpp:
-	.text  start:0x109E3820 end:0x109E3855
+	.text  start:0x109E3820 end:0x109E3877
 	.text  start:0x109E38E0 end:0x109E38E7
 
 Game/Options.cpp:

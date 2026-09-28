@@ -32,6 +32,12 @@ void Window::SetFlag(DWORD Flag)
     Flags |= Flag;
 }
 
+// FUNCTION: 0x109E3860 ?ClearFlag@Window@@UAEXK@Z
+void Window::ClearFlag(DWORD Flag)
+{
+    Flags &= ~Flag;
+}
+
 // FUNCTION: 0x109E38E0 ?GetParent@Window@@UAEPAV1@XZ
 Window* Window::GetParent()
 {
