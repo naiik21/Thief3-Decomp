@@ -41,3 +41,6 @@ Engine/UObject.cpp:
 	.text  start:0x10B02E50 end:0x10B02E9D
 	.text  start:0x10B04810 end:0x10B04835
 	.text  start:0x10E1C7C0 end:0x10E1C7D2  # .text$x: EH handlers and unwind funclets
+
+Engine/FFrame.cpp:
+	.text  start:0x10B0FCD0 end:0x10B0FCE4
