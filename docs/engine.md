@@ -183,7 +183,7 @@ in the Steam install.
 | `GEngine` (`UEngine*`): `MainLoop` calls its `Tick` (vtable `+0x7C`); `+0x38` is the client, whose `+0x30` holds the viewports | `0x10F34AD0` | static |
 | intro-movie player (`PlayIntroMovies`) | `0x10A50C30` | verified: returning at once skips the logo movies |
 | `MainLoop`: per frame `TimeManager::BeginFrame`, `GEngine->Tick(game delta)` (vtable `+0x7C`), `PumpMessages`, `TimeManager::EndFrame`; while inactive it waits in `GetMessageA` | `0x10C95BE0` | static |
-| `PumpMessages(wait, active, window)`: `PeekMessageA`, or `GetMessageA` when waiting | `0x10AEB350` | static |
+| `bool PumpMessages(wait, active, window)`, `__cdecl`: wait 0 pumps the queue with `PeekMessageA` while active; 1 blocks in `GetMessageA` while inactive and sets `GIsRequestingExit` if the queue ends first; other values handle one message. Active 0 follows `GIsAppActive`, 1 keeps pumping while `PeekMessageA(PM_NOREMOVE)` finds more. `WM_QUIT` sets `GIsRequestingExit`. Returns whether a message was handled | `0x10AEB350` | matched |
 | `appRequestExit(Force)`: logs `appRequestExit(%i)`; Force calls `ForceExit`, else `PostQuitMessage` and `GIsRequestingExit` | `0x10AEA960` | verified (an earlier SDK hook saw Force 1 at level changes; no longer hooked) |
 | `ForceExit`: releases input, `RelaunchForLevelChange`, shuts the renderer down, `TerminateProcess(-1)` | `0x10906D80` | static |
 | `RelaunchForLevelChange` (below); with no next level it restores the display mode | `0x10901D60` | verified (Ion Launcher's log shows the command line it passes) |

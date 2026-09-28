@@ -8,6 +8,9 @@
   "Engine/UObject.cpp": {
     "category": "engine"
   },
+  "Engine/Unsorted.cpp": {
+    "category": "engine"
+  },
   "Game/Options.cpp": {
     "category": "game"
   },

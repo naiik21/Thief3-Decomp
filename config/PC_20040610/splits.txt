@@ -18,6 +18,9 @@ Game/Options.cpp:
 	.text  start:0x10AB5AB0 end:0x10AB5AE0
 	.text  start:0x10AB61A0 end:0x10AB6311
 
+Engine/Unsorted.cpp:
+	.text  start:0x10AEB350 end:0x10AEB4F6
+
 Engine/FString.cpp:
 	.text  start:0x10AF8230 end:0x10AF8243
 
