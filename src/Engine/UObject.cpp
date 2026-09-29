@@ -325,6 +325,42 @@ void UObject::execGreaterGreater_IntInt(FFrame& Stack, RESULT_DECL)
     *(INT*)Result = A >> B;
 }
 
+// FUNCTION: 0x10AFECE0 ?execLess_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLess_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(DWORD*)Result = A < B;
+}
+
+// FUNCTION: 0x10AFED40 ?execGreater_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreater_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(DWORD*)Result = A > B;
+}
+
+// FUNCTION: 0x10AFEDA0 ?execLessEqual_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLessEqual_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(DWORD*)Result = A <= B;
+}
+
+// FUNCTION: 0x10AFEE00 ?execGreaterEqual_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreaterEqual_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(DWORD*)Result = A >= B;
+}
+
 // FUNCTION: 0x10AFEE60 ?execAnd_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAnd_IntInt(FFrame& Stack, RESULT_DECL)
 {
