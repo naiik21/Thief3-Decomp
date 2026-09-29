@@ -123,6 +123,53 @@ packages are loaded, about 6,000 objects and 9,800 names at the main menu. The
 menu level is `Entry`, and its player controller is `Entry.Camera__0` (class
 `Engine.Camera`, a `PlayerController`).
 
+## Class objects (built on first use)
+
+Stock Unreal Engine 2 gives each native class a static `UClass` object. Ion
+Storm keeps a pointer per class instead and builds the class object the first
+time `StaticClass()` is called, as Unreal Engine 3 later does
+(`DECLARE_STATIC_CLASS` in `include/Core/Core.h`):
+
+```
+if (!PrivateStaticClass)
+{
+    PrivateStaticClass = GetPrivateStaticClass<Class>("<Package>");
+    InitializePrivateStaticClass<Class>();
+}
+return PrivateStaticClass;
+```
+
+That sequence is inlined wherever a class is named (`Cast<T>`, `IsA` tests),
+and each site gives away the class's pointer, builder and initializer. Scanning
+them finds **266 classes**; each builder passes the class name (`"Pawn"`)
+and the package (`"Engine"`), and each initializer names the superclass and
+the within class. They are declared in `include/Core/CoreClasses.h`,
+`include/Engine/EngineClasses.h` and `include/Game/GameClasses.h` (prefix `A`
+for classes under `Actor`, `U` otherwise). Packages: Engine 164, Core 34,
+AICore 30, T3Game 11, T3Player 8, Fire 7, T3AI 6, WinDrv 2, and one each for
+GamePhysics, D3DDrv, T3GamePhysics and Window. Examples of Thief's own
+hierarchy: `Info → MetaData → Actor`, `Keypoint → Marker → Actor`,
+`Garrett → PlayerPawn → Pawn`, `Camera → PlayerController`, and dozens of
+`*LinkDataObject` classes under `LinkDataObject → Object`.
+
+| What | Address | Status |
+|---|---|---|
+| `InitializePrivateStaticClass<Class>` (264 bytes each): SuperField (NULL for a class that is its own superclass), `ClassWithin` (`+0xA4`), Class, then `Register()` if the object system is up and the class's class is `UClass` (`IMPLEMENT_STATIC_CLASS`) | per class | matched (252) |
+| `Cast<T>` out of line (`0x42` bytes each) | 23 instances | matched |
+| `InternalConstructor(void* X)`: `new((EInternal*)X) Class` (14 bytes), the pointer each builder passes | per class | matched as called |
+| `UObject::GObjInitialized`: Core's class initializers read it directly | `0x10F3E424` | matched as referenced |
+| `UObject::GetInitialized()` (returns GObjInitialized): the other packages' initializers call it | `0x10AD1D60` | matched |
+| `UObject` vtable `+0x4C`: `Register` (stock Unreal Engine 2's slot after `ScriptConsoleExec`) | | matched as called |
+| `UObject::UObject()` (writes the vtable `0x10E70A50` only); the internal constructor of 22 abstract classes (Subsystem, Engine, Field, Property, ...) jumps to it | `0x10AD1710` | static |
+
+Not matched yet: `UObject`'s own initializer (it calls itself; the verifier
+reads that intra-section call as a constant), the property classes' (their
+declarations still live in `src/Engine/UObject.cpp`), and the builders
+(`GetPrivateStaticClass<Class>`, about 0xC3 bytes each: an exception frame,
+`operator new` through the allocator (`0x10905C10`), the `UClass` constructor
+`0x10AE7E30` with the class size, flags, name, package, config name and both
+constructors).
+
 ## Script natives
 
 The UnrealScript interpreter runs a function's bytecode through native C++
@@ -145,6 +192,19 @@ reads the next opcode and calls it.
 | `FArray::Insert(Index, Count, ElementSize)`, `__thiscall` | `0x10AF4E80` | matched as called (`execDynArrayInsert`) |
 | `FArray::AddZeroed(ElementSize, Count)`, `__thiscall` | `0x10AF4CC0` | matched as called (`execDynArrayElement`) |
 | `UProperty` vtable: `+0xB0` CopySingleValue(dest, src, obj), `+0xB4` CopyCompleteValue, `+0xB8` DestroyValue, `+0xCC` creates a temporary value, `+0xD0` releases it | | matched as called (`execDynArrayElement`, `execDynArrayRemove`) |
+| Runaway loop check (Ion Storm): `execJump`/`execJumpIfNot` count jumps in `GRunaway` and, past 10,000,000, log "Runaway loop detected (over %i iterations)" unless `-norunaway` is on the command line, then reset it | `0x10F7B038` | matched as referenced |
+| `appCmdLine()` / `ParseParam(Stream, Param)` | `0x10AF4700` / `0x10AF3F40` | matched as called (`execJump`) |
+| `appRand()`: Ion Storm's own, not the CRT's `rand` | `0x10AF3A20` | matched as called (`execRand`, `execRotRand`) |
+| `UObject` vtable `+0x5C`: called by `execLetBool` with the bool property about to be assigned (a change notification, probably; name provisional `Unknown5C`) | | matched as called |
+| `FStateFrame::StateNode` at `+0x1C` (4 bytes after stock) | | matched (`execGetStateName`, `execIsInState`) |
+| a vector transform helper, `__cdecl (const FCoords&, const FVector&, FVector* Out)` | `0x109672E0` | matched as called (`execOrthoRotation`) |
+
+Rotator scaling (`execMultiply_RotatorFloat` and the rest) truncates with
+`(INT)` where stock Unreal Engine 2 rounds with `appRound` (inline assembly
+there). Five natives zero their locals with stock Unreal Engine 2's inline
+assembly `appMemzero` (`rep stosd / rep stosb` through `ebx`: `execSwitch`,
+`execCase`, `execContext`, `execClassContext`, `execStructCmpEq`/`Ne`), so
+they are left for a maintainer decision on that routine.
 
 The table names 234 `UObject` natives in `symbols.txt`. Seven functions are
 shared by two or three natives (the linker folded identical bodies, such as
@@ -246,7 +306,7 @@ in the Steam install.
 - Closing the window crashes during shutdown, with the SDK or without: exit
   code `0xC0000005`. The SDK's crash reporter places the fault at `0x1098A466`
   (reading address 0). Not analysed yet.
-- Not found yet: `UObject::GObjInitialized`.
+- `UObject::GObjInitialized` is at `0x10F3E424` (see Class objects).
 
 ## Clock (`TimeManager`)
 
