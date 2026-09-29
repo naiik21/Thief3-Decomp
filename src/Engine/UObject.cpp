@@ -134,6 +134,20 @@ template<class T> inline T Min(const T A, const T B) { return (A <= B) ? A : B; 
 
 template<class T> inline T Max(const T A, const T B) { return (A >= B) ? A : B; }
 
+// A state's running frame (UObject::StateFrame); StateNode sits 4 bytes after
+// its stock Unreal Engine 2 offset.
+struct FStateFrame : public FFrame
+{
+    DWORD Unknown14[2];
+    UState* StateNode;              // 0x1C
+};
+
+class UBoolProperty : public UProperty
+{
+public:
+    DWORD BitMask;                  // 0x60
+};
+
 // FUNCTION: 0x10AFD2F0 ?execLocalVariable@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execLocalVariable(FFrame& Stack, RESULT_DECL)
 {
@@ -155,6 +169,20 @@ void UObject::execDynArrayLength(FFrame& Stack, RESULT_DECL)
         GRuntimeUCFlags |= RUC_ArrayLengthSet;
     else
         *(INT*)Result = Array->Num();
+}
+
+// FUNCTION: 0x10AFD4B0 ?execBoolVariable@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execBoolVariable(FFrame& Stack, RESULT_DECL)
+{
+    // Get bool variable.
+    BYTE B = *Stack.Code++;
+    UBoolProperty* Property = *(UBoolProperty**)Stack.Code;
+    (this->*GNatives[B])(Stack, NULL);
+    GProperty = Property;
+
+    // A copy, not a pointer to the bool: EX_Let takes care of bools itself.
+    if (Result)
+        *(DWORD*)Result = (GPropAddr && (*(DWORD*)GPropAddr & Property->BitMask)) ? 1 : 0;
 }
 
 // FUNCTION: 0x10AFD510 ?execNativeParm@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -398,6 +426,27 @@ void UObject::execNotEqual_BoolBool(FFrame& Stack, RESULT_DECL)
     *(DWORD*)Result = ((!A) != (!B));
 }
 
+// FUNCTION: 0x10AFE480 ?execAndAnd_BoolBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAndAnd_BoolBool(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_UBOOL(A);
+    _WORD W;
+    Stack.Code++;
+    W = *(_WORD*)Stack.Code;
+    Stack.Code += 2;
+    if (A)
+    {
+        P_GET_UBOOL(B);
+        *(DWORD*)Result = A && B;
+        Stack.Code++;
+    }
+    else
+    {
+        *(DWORD*)Result = 0;
+        Stack.Code += W;
+    }
+}
+
 // FUNCTION: 0x10AFE520 ?execXorXor_BoolBool@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execXorXor_BoolBool(FFrame& Stack, RESULT_DECL)
 {
@@ -405,6 +454,27 @@ void UObject::execXorXor_BoolBool(FFrame& Stack, RESULT_DECL)
     P_GET_UBOOL(B);
     P_FINISH;
     *(DWORD*)Result = !A ^ !B;
+}
+
+// FUNCTION: 0x10AFE580 ?execOrOr_BoolBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execOrOr_BoolBool(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_UBOOL(A);
+    _WORD W;
+    Stack.Code++;
+    W = *(_WORD*)Stack.Code;
+    Stack.Code += 2;
+    if (!A)
+    {
+        P_GET_UBOOL(B);
+        *(DWORD*)Result = A || B;
+        Stack.Code++;
+    }
+    else
+    {
+        *(DWORD*)Result = 1;
+        Stack.Code += W;
+    }
 }
 
 // FUNCTION: 0x10AFE620 ?execMultiplyEqual_ByteByte@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -1434,6 +1504,28 @@ void UObject::execResetConfig(FFrame& Stack, RESULT_DECL)
     ResetConfig(GetClass());
 }
 
+// FUNCTION: 0x10B02DA0 ?execIsInState@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execIsInState(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_NAME(StateName);
+    P_FINISH;
+    if (StateFrame)
+        for (UState* Test = StateFrame->StateNode; Test; Test = (UState*)Test->SuperField)
+            if (Test->GetFName() == StateName)
+            {
+                *(DWORD*)Result = 1;
+                return;
+            }
+    *(DWORD*)Result = 0;
+}
+
+// FUNCTION: 0x10B02E00 ?execGetStateName@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGetStateName(FFrame& Stack, RESULT_DECL)
+{
+    P_FINISH;
+    *(FName*)Result = (StateFrame && StateFrame->StateNode) ? StateFrame->StateNode->GetFName() : FName(NAME_None);
+}
+
 // FUNCTION: 0x10B02E50 ?execIsA@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execIsA(FFrame& Stack, RESULT_DECL)
 {
@@ -1567,6 +1659,16 @@ void UObject::execMax(FFrame& Stack, RESULT_DECL)
     *(INT*)Result = Max(A, B);
 }
 
+// FUNCTION: 0x10B03F50 ?execClamp@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execClamp(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(V);
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = Clamp(V, A, B);
+}
+
 // FUNCTION: 0x10B04090 ?execAbs@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAbs(FFrame& Stack, RESULT_DECL)
 {
@@ -1609,6 +1711,15 @@ void UObject::execFClamp(FFrame& Stack, RESULT_DECL)
     P_GET_FLOAT(B);
     P_FINISH;
     *(FLOAT*)Result = Clamp(V, A, B);
+}
+
+// FUNCTION: 0x10B043C0 ?execClassIsChildOf@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execClassIsChildOf(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_OBJECT(UClass, K);
+    P_GET_OBJECT(UClass, C);
+    P_FINISH;
+    *(DWORD*)Result = (C && K) ? K->IsChildOf(C) : 0;
 }
 
 // FUNCTION: 0x10B04810 ?execStaticSaveConfig@UObject@@QAEXAAVFFrame@@QAX@Z

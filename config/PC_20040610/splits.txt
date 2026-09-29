@@ -30,8 +30,7 @@ Engine/FString.cpp:
 
 Engine/UObject.cpp:
 	.text  start:0x10AFD2F0 end:0x10AFD329
-	.text  start:0x10AFD470 end:0x10AFD4AA
-	.text  start:0x10AFD510 end:0x10AFD56E
+	.text  start:0x10AFD470 end:0x10AFD56E
 	.text  start:0x10AFD5D0 end:0x10AFD618
 	.text  start:0x10AFD810 end:0x10AFD819
 	.text  start:0x10AFD8C0 end:0x10AFD965
@@ -39,9 +38,7 @@ Engine/UObject.cpp:
 	.text  start:0x10AFDBB0 end:0x10AFDBE5
 	.text  start:0x10AFDC10 end:0x10AFE027
 	.text  start:0x10AFE0E0 end:0x10AFE1D1
-	.text  start:0x10AFE2E0 end:0x10AFE475
-	.text  start:0x10AFE520 end:0x10AFE580
-	.text  start:0x10AFE620 end:0x10AFFD74
+	.text  start:0x10AFE2E0 end:0x10AFFD74
 	.text  start:0x10AFFE10 end:0x10AFFE64
 	.text  start:0x10B00140 end:0x10B00290
 	.text  start:0x10B00320 end:0x10B00672
@@ -54,10 +51,11 @@ Engine/UObject.cpp:
 	.text  start:0x10B02600 end:0x10B026CA
 	.text  start:0x10B028B0 end:0x10B02BA6
 	.text  start:0x10B02C90 end:0x10B02CC4
-	.text  start:0x10B02E50 end:0x10B02E9D
+	.text  start:0x10B02DA0 end:0x10B02E9D
 	.text  start:0x10B034A0 end:0x10B0384C
-	.text  start:0x10B03E90 end:0x10B03F4E
+	.text  start:0x10B03E90 end:0x10B04010
 	.text  start:0x10B04090 end:0x10B0428B
+	.text  start:0x10B043C0 end:0x10B04440
 	.text  start:0x10B04810 end:0x10B04835
 	.text  start:0x10B04FF0 end:0x10B050DE
 	.text  start:0x10E1C7C0 end:0x10E1C7D2  # .text$x: EH handlers and unwind funclets

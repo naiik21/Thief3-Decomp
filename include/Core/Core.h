@@ -492,6 +492,14 @@ public:
 
 class UStruct : public UField
 {
+public:
+    UBOOL IsChildOf(const UStruct* SomeBase) const
+    {
+        for (const UStruct* S = this; S; S = (const UStruct*)S->SuperField)
+            if (S == SomeBase)
+                return 1;
+        return 0;
+    }
 };
 
 class UFunction : public UStruct
