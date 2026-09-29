@@ -274,6 +274,13 @@ void UObject::execByteToFloat(FFrame& Stack, RESULT_DECL)
     *(FLOAT*)Result = V;
 }
 
+// FUNCTION: 0x10AFDD40 ?execByteToString@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execByteToString(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_BYTE(B);
+    *(FString*)Result = FString::Printf("%i", B);
+}
+
 // FUNCTION: 0x10AFDDC0 ?execIntToByte@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execIntToByte(FFrame& Stack, RESULT_DECL)
 {
@@ -286,6 +293,13 @@ void UObject::execIntToFloat(FFrame& Stack, RESULT_DECL)
 {
     P_GET_INT(V);
     *(FLOAT*)Result = V;
+}
+
+// FUNCTION: 0x10AFDE20 ?execIntToString@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execIntToString(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(V);
+    *(FString*)Result = FString::Printf("%i", V);
 }
 
 // FUNCTION: 0x10AFDEA0 ?execBoolToByte@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -335,6 +349,27 @@ void UObject::execFloatToBool(FFrame& Stack, RESULT_DECL)
 {
     P_GET_FLOAT(V);
     *(DWORD*)Result = V != 0.f;
+}
+
+// FUNCTION: 0x10AFE0E0 ?execStringToByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execStringToByte(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_STR(Str);
+    *(BYTE*)Result = appAtoi(*Str);
+}
+
+// FUNCTION: 0x10AFE160 ?execStringToInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execStringToInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_STR(Str);
+    *(INT*)Result = appAtoi(*Str);
+}
+
+// FUNCTION: 0x10AFE2E0 ?execStringToFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execStringToFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_STR(Str);
+    *(FLOAT*)Result = appAtof(*Str);
 }
 
 // FUNCTION: 0x10AFE360 ?execNot_PreBool@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -1238,6 +1273,14 @@ void UObject::execGetUnAxes(FFrame& Stack, RESULT_DECL)
     *Z = Coords.ZAxis;
 }
 
+// FUNCTION: 0x10B01AB0 ?execEatString@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execEatString(FFrame& Stack, RESULT_DECL)
+{
+    // Calls a function returning a string, and discards the result.
+    FString String;
+    Stack.Step(this, &String);
+}
+
 // FUNCTION: 0x10B02200 ?execLen@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execLen(FFrame& Stack, RESULT_DECL)
 {
@@ -1255,6 +1298,14 @@ void UObject::execChr(FFrame& Stack, RESULT_DECL)
     Temp[0] = i;
     Temp[1] = 0;
     *(FString*)Result = Temp;
+}
+
+// FUNCTION: 0x10B02650 ?execAsc@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAsc(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_STR(S);
+    P_FINISH;
+    *(INT*)Result = **S;
 }
 
 // FUNCTION: 0x10B028B0 ?execHighNative0@UObject@@QAEXAAVFFrame@@QAX@Z

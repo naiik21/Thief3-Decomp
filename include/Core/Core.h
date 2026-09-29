@@ -77,6 +77,9 @@ public:
     ~FString();                                 // 0x10AF83B0
 
     FString& operator=(const ANSICHAR* Other);  // 0x10AF81C0
+    FString& operator=(const FString& Other);   // 0x10AF8340
+    const ANSICHAR* operator*() const;          // 0x10AF7F80
+    static FString Printf(const ANSICHAR* Fmt, ...);   // 0x10AF8800
 
     INT Len() const;                            // 0x10AF7F70
 };
@@ -94,6 +97,9 @@ public:
 };
 
 Allocator* GetAllocator();
+
+INT appAtoi(const ANSICHAR* S);                            // 0x10AF3710
+FLOAT appAtof(const ANSICHAR* S);
 
 // Ion Storm's own string, next to FString: one pointer to the characters,
 // with the length in the INT before them (the block is length + 5 bytes).
