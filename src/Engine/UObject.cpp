@@ -2,6 +2,11 @@
 // Declarations above the functions belong in include/ once they settle.
 
 #include "Core/Core.h"
+                     // 0x10F46DE8
+
+// An out parameter: its address when it is a variable, else a temporary. The
+// caller saves GPropertyLValue before the first and restores it after the last.
+#define P_GET_VECTOR_REF(var) FVector var##T; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T);                               FVector* var = GPropAddr ? (FVector*)GPropAddr : &var##T;
 
 float appFrand();
 
@@ -70,6 +75,19 @@ class UArrayProperty : public UProperty
 public:
     UProperty* Inner;               // 0x60
 };
+
+// A coordinate system: an origin and three axes.
+class FCoords
+{
+public:
+    FVector Origin, XAxis, YAxis, ZAxis;
+
+    FCoords& operator/=(const FRotator& Rot);   // 0x10961AF0
+    FCoords operator/(const FRotator& Rot) const { return FCoords(*this) /= Rot; }
+};
+
+// The unit coordinate system (GMath.UnitCoords in stock Unreal Engine 2).
+extern FCoords GUnitCoords;
 
 // FUNCTION: 0x10AFD470 ?execDynArrayLength@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execDynArrayLength(FFrame& Stack, RESULT_DECL)
@@ -315,6 +333,22 @@ void UObject::execAdd_RotatorRotator(FFrame& Stack, RESULT_DECL)
     P_GET_ROTATOR(B);
     P_FINISH;
     *(FRotator*)Result = A + B;
+}
+
+// FUNCTION: 0x10B016D0 ?execGetAxes@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGetAxes(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(X);
+    P_GET_VECTOR_REF(Y);
+    P_GET_VECTOR_REF(Z);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    FCoords Coords = GUnitCoords / A;
+    *X = Coords.XAxis;
+    *Y = Coords.YAxis;
+    *Z = Coords.ZAxis;
 }
 
 // FUNCTION: 0x10B02200 ?execLen@UObject@@QAEXAAVFFrame@@QAX@Z
