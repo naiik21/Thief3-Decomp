@@ -1039,6 +1039,24 @@ void UObject::execMirrorVectorByNormal(FFrame& Stack, RESULT_DECL)
     *(FVector*)Result = A - 2.f * B * (B | A);
 }
 
+// FUNCTION: 0x10B010E0 ?execEqualEqual_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execEqualEqual_RotatorRotator(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(DWORD*)Result = A == B;
+}
+
+// FUNCTION: 0x10B01150 ?execNotEqual_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNotEqual_RotatorRotator(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(DWORD*)Result = A != B;
+}
+
 // FUNCTION: 0x10B014C0 ?execAdd_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAdd_RotatorRotator(FFrame& Stack, RESULT_DECL)
 {
@@ -1046,6 +1064,37 @@ void UObject::execAdd_RotatorRotator(FFrame& Stack, RESULT_DECL)
     P_GET_ROTATOR(B);
     P_FINISH;
     *(FRotator*)Result = A + B;
+}
+
+// FUNCTION: 0x10B01530 ?execSubtract_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtract_RotatorRotator(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(FRotator*)Result = A - B;
+}
+
+// FUNCTION: 0x10B01590 ?execAddEqual_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddEqual_RotatorRotator(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_ROTATOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(FRotator*)Result = (*A += B);
+}
+
+// FUNCTION: 0x10B01630 ?execSubtractEqual_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractEqual_RotatorRotator(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_ROTATOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(FRotator*)Result = (*A -= B);
 }
 
 // FUNCTION: 0x10B016D0 ?execGetAxes@UObject@@QAEXAAVFFrame@@QAX@Z
