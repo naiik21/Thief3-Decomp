@@ -21,7 +21,7 @@
     "category": "engine"
   },
   "Game/GameClasses.cpp": {
-    "category": "game"
+    "category": "engine"
   },
   "Game/KeyHandler.cpp": {
     "category": "game"

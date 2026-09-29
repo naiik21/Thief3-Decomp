@@ -210,6 +210,17 @@ public:
 // Ion Storm keeps a pointer and builds the class on first use, as Unreal
 // Engine 3 later does. The builder takes the package name; both helpers are
 // only called from here.
+// Constructs an object in memory the object system already holds (each
+// class's InternalConstructor).
+enum EInternal
+{
+    EC_Internal
+};
+inline void* operator new(unsigned int Size, EInternal* Mem)
+{
+    return Mem;
+}
+
 #define DECLARE_STATIC_CLASS(TClass, TSuperClass, TWithinClass, TPackage) \
 public: \
     typedef TSuperClass Super; \
@@ -227,7 +238,9 @@ private: \
     static UClass* PrivateStaticClass; \
     static UClass* GetPrivateStaticClass##TClass(const ANSICHAR* Package); \
     static void InitializePrivateStaticClass##TClass(); \
-public:
+public: \
+    TClass(); \
+    static void InternalConstructor(void* X);
 
 // Links a class object once built: its superclass (none for a class that is
 // its own, UObject), the class its objects live in, and its own class; then
@@ -245,6 +258,13 @@ public:
             PrivateStaticClass->Register(); \
     }
 #define IMPLEMENT_STATIC_CLASS(TClass) IMPLEMENT_STATIC_CLASS_WITH(TClass, GetInitialized())
+
+// The function each class object keeps to construct a new object of the class.
+#define IMPLEMENT_INTERNAL_CONSTRUCTOR(TClass) \
+    void TClass::InternalConstructor(void* X) \
+    { \
+        new((EInternal*)X) TClass; \
+    }
 // Core's own classes see the flag itself.
 #define IMPLEMENT_CORE_STATIC_CLASS(TClass) IMPLEMENT_STATIC_CLASS_WITH(TClass, GObjInitialized)
 
