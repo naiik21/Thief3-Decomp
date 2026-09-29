@@ -82,6 +82,8 @@ class FCoords
 public:
     FVector Origin, XAxis, YAxis, ZAxis;
 
+    FCoords& operator*=(const FRotator& Rot);   // 0x109620B0
+    FCoords operator*(const FRotator& Rot) const { return FCoords(*this) *= Rot; }
     FCoords& operator/=(const FRotator& Rot);   // 0x10961AF0
     FCoords operator/(const FRotator& Rot) const { return FCoords(*this) /= Rot; }
 };
@@ -346,6 +348,22 @@ void UObject::execGetAxes(FFrame& Stack, RESULT_DECL)
     GPropertyLValue = SavedLValue;
     P_FINISH;
     FCoords Coords = GUnitCoords / A;
+    *X = Coords.XAxis;
+    *Y = Coords.YAxis;
+    *Z = Coords.ZAxis;
+}
+
+// FUNCTION: 0x10B01810 ?execGetUnAxes@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGetUnAxes(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(X);
+    P_GET_VECTOR_REF(Y);
+    P_GET_VECTOR_REF(Z);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    FCoords Coords = GUnitCoords * A;
     *X = Coords.XAxis;
     *Y = Coords.YAxis;
     *Z = Coords.ZAxis;

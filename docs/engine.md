@@ -137,6 +137,8 @@ reads the next opcode and calls it.
 | `FFrame::Step(UObject* Context, void* Result)`, `__thiscall`, out of line (stock Unreal Engine 2 inlines it) | `0x10B0FC50` | static, matched as called |
 | `UObject::execPrimitiveCast` | `0x10AFDC90` | static |
 | `FVector::SafeNormal() const`, returns an `FVector` by value | `0x10967580` | matched as called (`execMirrorVectorByNormal`, with stock Unreal Engine 2's inline `FVector` operators) |
+| `FCoords::operator/=(const FRotator&)` / `operator*=` (the stock inline `/` and `*` copy, then call these) | `0x10961AF0` / `0x109620B0` | matched as called (`execGetAxes`, `execGetUnAxes`) |
+| the unit coordinate system (`GMath.UnitCoords` in stock Unreal Engine 2; name provisional: `GUnitCoords`) | `0x10F46DE8` | matched as referenced (`execGetAxes`) |
 | `GProperty` / `GPropAddr` (the last property `Step` evaluated, and its address) | `0x10F45C30` / `0x10F45C34` | matched as referenced |
 | `GPropertyLValue` (`DWORD`): 1 while a native evaluates the operand it writes through; set and cleared around that `Step` by about 40 natives (`execLet`, the `+=`/`-=`/`*=`/`/=` and `++`/`--` operators, `execDynArrayInsert`/`Remove`, ...). Ion Storm addition, name provisional | `0x10F45C38` | matched as referenced (`execDynArrayRemove`) |
 | `FArray::Remove(Index, Count, ElementSize)`, `__thiscall` (moves the tail down, shrinks) | `0x10AF3BD0` | matched as called (`execDynArrayRemove`) |
@@ -157,6 +159,11 @@ call, into zeroed locals, and `Code++` skips the end-of-parameters opcode; the
 header `include/Core/Core.h` has these as the stock `P_GET_*` and `P_FINISH`
 macros, which match (`execIsA`, `execAdd_IntInt`, `execMultiply_FloatFloat`,
 `execNot_PreBool`).
+
+Out parameters (`GetAxes`, `GetUnAxes`) are read Ion Storm's way: for each one
+`GPropAddr = NULL; GPropertyLValue = 1; Step(...)`, and the variable's
+address or a temporary is used. The native saves `GPropertyLValue` before the
+first and restores it after the last (`P_GET_VECTOR_REF` in `src/Engine/UObject.cpp`).
 
 **Ion Storm's `Clamp`.** The inline `Clamp(X, Min, Max)` orders its bounds
 first: `Min < Max ? (X < Min ? Min : X < Max ? X : Max) : (X < Max ? Max : X <

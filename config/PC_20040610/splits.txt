@@ -47,7 +47,7 @@ Engine/UObject.cpp:
 	.text  start:0x10B00F30 end:0x10B00F61
 	.text  start:0x10B01000 end:0x10B010D7
 	.text  start:0x10B014C0 end:0x10B01521
-	.text  start:0x10B016D0 end:0x10B0180B
+	.text  start:0x10B016D0 end:0x10B0194B
 	.text  start:0x10B02200 end:0x10B02277
 	.text  start:0x10B028B0 end:0x10B02BA6
 	.text  start:0x10B02C90 end:0x10B02CC4
