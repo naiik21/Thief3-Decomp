@@ -330,6 +330,13 @@ void UObject::execFloatToInt(FFrame& Stack, RESULT_DECL)
     *(INT*)Result = (INT)V;
 }
 
+// FUNCTION: 0x10AFDFE0 ?execFloatToBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execFloatToBool(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(V);
+    *(DWORD*)Result = V != 0.f;
+}
+
 // FUNCTION: 0x10AFE360 ?execNot_PreBool@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execNot_PreBool(FFrame& Stack, RESULT_DECL)
 {
@@ -931,6 +938,30 @@ void UObject::execVectorConst(FFrame& Stack, RESULT_DECL)
     Stack.Code += sizeof(FVector);
 }
 
+// FUNCTION: 0x10B00140 ?execVectorToRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execVectorToRotator(FFrame& Stack, RESULT_DECL)
+{
+    FVector V(0, 0, 0);
+    Stack.Step(Stack.Object, &V);
+    *(FRotator*)Result = V.Rotation();
+}
+
+// FUNCTION: 0x10B001A0 ?execRotatorToBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execRotatorToBool(FFrame& Stack, RESULT_DECL)
+{
+    FRotator R(0, 0, 0);
+    Stack.Step(Stack.Object, &R);
+    *(DWORD*)Result = !R.IsZero();
+}
+
+// FUNCTION: 0x10B00220 ?execRotatorToVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execRotatorToVector(FFrame& Stack, RESULT_DECL)
+{
+    FRotator R(0, 0, 0);
+    Stack.Step(Stack.Object, &R);
+    *(FVector*)Result = (GUnitCoords / R).XAxis;
+}
+
 // FUNCTION: 0x10B00320 ?execSubtract_PreVector@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execSubtract_PreVector(FFrame& Stack, RESULT_DECL)
 {
@@ -1213,6 +1244,17 @@ void UObject::execLen(FFrame& Stack, RESULT_DECL)
     P_GET_STR(S);
     P_FINISH;
     *(INT*)Result = S.Len();
+}
+
+// FUNCTION: 0x10B02600 ?execChr@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execChr(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(i);
+    P_FINISH;
+    ANSICHAR Temp[2];
+    Temp[0] = i;
+    Temp[1] = 0;
+    *(FString*)Result = Temp;
 }
 
 // FUNCTION: 0x10B028B0 ?execHighNative0@UObject@@QAEXAAVFFrame@@QAX@Z
