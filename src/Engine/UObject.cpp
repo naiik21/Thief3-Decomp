@@ -420,6 +420,14 @@ void UObject::execOr_IntInt(FFrame& Stack, RESULT_DECL)
     *(INT*)Result = A | B;
 }
 
+// FUNCTION: 0x10AFF3A0 ?execRand@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execRand(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_FINISH;
+    *(INT*)Result = A > 0 ? (appRand() % A) : 0;
+}
+
 // FUNCTION: 0x10AFF3F0 ?execSubtract_PreFloat@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execSubtract_PreFloat(FFrame& Stack, RESULT_DECL)
 {
@@ -597,6 +605,16 @@ void UObject::execFRand(FFrame& Stack, RESULT_DECL)
 {
     P_FINISH;
     *(FLOAT*)Result = appFrand();
+}
+
+// FUNCTION: 0x10AFFD00 ?execLerp@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLerp(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(V);
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = A + V * (B - A);
 }
 
 // FUNCTION: 0x10AFFE10 ?execRotationConst@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -930,12 +948,66 @@ void UObject::execDynArrayRemove(FFrame& Stack, RESULT_DECL)
     }
 }
 
+// FUNCTION: 0x10B03E90 ?execMin@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMin(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = Min(A, B);
+}
+
+// FUNCTION: 0x10B03EF0 ?execMax@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMax(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = Max(A, B);
+}
+
+// FUNCTION: 0x10B04090 ?execAbs@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAbs(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = Abs(A);
+}
+
 // FUNCTION: 0x10B040F0 ?execSquare@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execSquare(FFrame& Stack, RESULT_DECL)
 {
     P_GET_FLOAT(A);
     P_FINISH;
     *(FLOAT*)Result = A * A;
+}
+
+// FUNCTION: 0x10B04130 ?execFMin@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execFMin(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = Min(A, B);
+}
+
+// FUNCTION: 0x10B041A0 ?execFMax@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execFMax(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = Max(A, B);
+}
+
+// FUNCTION: 0x10B04210 ?execFClamp@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execFClamp(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(V);
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = Clamp(V, A, B);
 }
 
 // FUNCTION: 0x10B04810 ?execStaticSaveConfig@UObject@@QAEXAAVFFrame@@QAX@Z

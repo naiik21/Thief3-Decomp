@@ -41,8 +41,8 @@ Engine/UObject.cpp:
 	.text  start:0x10AFDEA0 end:0x10AFDFDC
 	.text  start:0x10AFE360 end:0x10AFE39B
 	.text  start:0x10AFE9C0 end:0x10AFEF72
-	.text  start:0x10AFF3F0 end:0x10AFF8CA
-	.text  start:0x10AFFB10 end:0x10AFFCF5
+	.text  start:0x10AFF3A0 end:0x10AFF8CA
+	.text  start:0x10AFFB10 end:0x10AFFD74
 	.text  start:0x10AFFE10 end:0x10AFFE64
 	.text  start:0x10B00580 end:0x10B005F2
 	.text  start:0x10B00F30 end:0x10B00F61
@@ -54,7 +54,8 @@ Engine/UObject.cpp:
 	.text  start:0x10B02C90 end:0x10B02CC4
 	.text  start:0x10B02E50 end:0x10B02E9D
 	.text  start:0x10B034A0 end:0x10B0384C
-	.text  start:0x10B040F0 end:0x10B04128
+	.text  start:0x10B03E90 end:0x10B03F4E
+	.text  start:0x10B04090 end:0x10B0428B
 	.text  start:0x10B04810 end:0x10B04835
 	.text  start:0x10B04FF0 end:0x10B050DE
 	.text  start:0x10E1C7C0 end:0x10E1C7D2  # .text$x: EH handlers and unwind funclets
