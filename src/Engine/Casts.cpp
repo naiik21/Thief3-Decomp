@@ -36,6 +36,9 @@ template AVolume* Cast<AVolume>(UObject* Src);
 // FUNCTION: 0x109ED1B0 ??$Cast@VUClass@@@@YAPAVUClass@@PAVUObject@@@Z
 template UClass* Cast<UClass>(UObject* Src);
 
+// FUNCTION: 0x109F0B90 ??$Cast@VAMissingArch@@@@YAPAVAMissingArch@@PAVUObject@@@Z
+template AMissingArch* Cast<AMissingArch>(UObject* Src);
+
 // FUNCTION: 0x109F0C50 ??$Cast@VASkyZoneInfo@@@@YAPAVASkyZoneInfo@@PAVUObject@@@Z
 template ASkyZoneInfo* Cast<ASkyZoneInfo>(UObject* Src);
 
@@ -44,6 +47,9 @@ template USpriteEmitter* Cast<USpriteEmitter>(UObject* Src);
 
 // FUNCTION: 0x10A77300 ??$Cast@VULevel@@@@YAPAVULevel@@PAVUObject@@@Z
 template ULevel* Cast<ULevel>(UObject* Src);
+
+// FUNCTION: 0x10A7EF10 ??$Cast@VULinkDataObject@@@@YAPAVULinkDataObject@@PAVUObject@@@Z
+template ULinkDataObject* Cast<ULinkDataObject>(UObject* Src);
 
 // FUNCTION: 0x10ACF350 ??$Cast@VUObject@@@@YAPAVUObject@@PAV0@@Z
 template UObject* Cast<UObject>(UObject* Src);

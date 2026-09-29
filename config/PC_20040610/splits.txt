@@ -10,13 +10,16 @@
 Game/GameClasses.cpp:
 	.text  start:0x109616F0 end:0x109617F8
 	.text  start:0x10962F90 end:0x109635E8
+	.text  start:0x109E9FD0 end:0x109EA012
 	.text  start:0x10AB4170 end:0x10AB4D18
+	.text  start:0x10AB72E0 end:0x10AB7322
 	.text  start:0x10B12250 end:0x10B129B8
 	.text  start:0x10B13920 end:0x10B13A28
 	.text  start:0x10B94170 end:0x10B948D8
 	.text  start:0x10B949B0 end:0x10B95118
 	.text  start:0x10B969A0 end:0x10B97658
 	.text  start:0x10B97700 end:0x10B97B38
+	.text  start:0x10BAA420 end:0x10BAA462
 
 Engine/EngineClasses.cpp:
 	.text  start:0x10964D50 end:0x10964E58
@@ -111,9 +114,11 @@ Engine/Casts.cpp:
 	.text  start:0x109941D0 end:0x10994212
 	.text  start:0x109EA020 end:0x109EA062
 	.text  start:0x109ED1B0 end:0x109ED1F2
+	.text  start:0x109F0B90 end:0x109F0BD2
 	.text  start:0x109F0C50 end:0x109F0C92
 	.text  start:0x10A75860 end:0x10A758A2
 	.text  start:0x10A77300 end:0x10A77342
+	.text  start:0x10A7EF10 end:0x10A7EF52
 	.text  start:0x10ACF350 end:0x10ACF392
 	.text  start:0x10B03230 end:0x10B03272
 	.text  start:0x10B062E0 end:0x10B06322
@@ -156,6 +161,7 @@ Engine/FString.cpp:
 	.text  start:0x10AF8230 end:0x10AF8243
 
 Engine/UObject.cpp:
+	.text  start:0x10AD1D60 end:0x10AD1D66
 	.text  start:0x10AFD2F0 end:0x10AFD329
 	.text  start:0x10AFD470 end:0x10AFD56E
 	.text  start:0x10AFD5D0 end:0x10AFD618

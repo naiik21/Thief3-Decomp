@@ -24,6 +24,9 @@ IMPLEMENT_STATIC_CLASS(AT3MovementModel)
 // FUNCTION: 0x109634E0 ?InitializePrivateStaticClassAT3FactionModel@AT3FactionModel@@CAXXZ
 IMPLEMENT_STATIC_CLASS(AT3FactionModel)
 
+// FUNCTION: 0x109E9FD0 ??$Cast@VAGarrett@@@@YAPAVAGarrett@@PAVUObject@@@Z
+template AGarrett* Cast<AGarrett>(UObject* Src);
+
 // FUNCTION: 0x10AB4170 ?InitializePrivateStaticClassUT3GameRegistrar@UT3GameRegistrar@@CAXXZ
 IMPLEMENT_STATIC_CLASS(UT3GameRegistrar)
 
@@ -56,6 +59,9 @@ IMPLEMENT_STATIC_CLASS(ASpellProjectile)
 
 // FUNCTION: 0x10AB4C10 ?InitializePrivateStaticClassAWakeupCameraPoint@AWakeupCameraPoint@@CAXXZ
 IMPLEMENT_STATIC_CLASS(AWakeupCameraPoint)
+
+// FUNCTION: 0x10AB72E0 ??$Cast@VADifficultyInfo@@@@YAPAVADifficultyInfo@@PAVUObject@@@Z
+template ADifficultyInfo* Cast<ADifficultyInfo>(UObject* Src);
 
 // FUNCTION: 0x10B12250 ?InitializePrivateStaticClassUT3GameEngine@UT3GameEngine@@CAXXZ
 IMPLEMENT_STATIC_CLASS(UT3GameEngine)
@@ -170,3 +176,6 @@ IMPLEMENT_STATIC_CLASS(APlayBarkPoint)
 
 // FUNCTION: 0x10B97A30 ?InitializePrivateStaticClassACityPopPoint@ACityPopPoint@@CAXXZ
 IMPLEMENT_STATIC_CLASS(ACityPopPoint)
+
+// FUNCTION: 0x10BAA420 ??$Cast@VAAIPawnController@@@@YAPAVAAIPawnController@@PAVUObject@@@Z
+template AAIPawnController* Cast<AAIPawnController>(UObject* Src);

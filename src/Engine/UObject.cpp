@@ -171,6 +171,12 @@ inline FVector TransformVectorBy(const FVector& V, const FCoords& Coords)
     return Out;
 }
 
+// FUNCTION: 0x10AD1D60 ?GetInitialized@UObject@@SAHXZ
+UBOOL UObject::GetInitialized()
+{
+    return GObjInitialized;
+}
+
 // FUNCTION: 0x10AFD2F0 ?execLocalVariable@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execLocalVariable(FFrame& Stack, RESULT_DECL)
 {
