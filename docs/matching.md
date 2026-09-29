@@ -348,3 +348,8 @@ how the split objects are made rather than in the gate:
   model gives the address a `DAT_` label of its own, and delink turns an
   unnamed one into `<section> + offset`; either way objdiff's name ruler
   does not pair it with `GNatives + 0x800`.
+- Switch tables: the report compares the compiled unit as it is, where the
+  dispatch refers to MSVC's `$L` labels and the tables follow the code, while
+  the split refers to the function plus an offset and labels its table
+  `jpt_...`. `FUN_10a85660` (Game/KeyHandler.cpp), which the gate matches
+  row for row with equal tables, scores 4.3 in the report.

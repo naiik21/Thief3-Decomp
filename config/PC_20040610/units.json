@@ -11,6 +11,9 @@
   "Engine/Unsorted.cpp": {
     "category": "engine"
   },
+  "Game/KeyHandler.cpp": {
+    "category": "game"
+  },
   "Game/Options.cpp": {
     "category": "game"
   },

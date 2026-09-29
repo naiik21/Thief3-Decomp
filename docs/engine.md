@@ -337,6 +337,7 @@ normalised screen coordinates (`screenx`, `screeny` in -1..1).
 | `ParsePlacement` (CENTER 1, TOP 2, BOTTOM 3, LEFT 4, RIGHT 5, else 0) | `0x10A51DF0` | static |
 | `ReadWindowHeight` (`FULLSCREEN`, `LETTERBOX` or a number) | `0x10A538B0` | static |
 | `WindowManager::GetUIScreenSize(FVector* out)` (the layout size, `+0xCC` / `+0xD0`; `__thiscall`), returns `out` | `0x109E47E0` | static |
+| A key handler (class unknown, vtable `0x10E6C390`, this is slot 0; names provisional: `KeyHandler::OnKey(key, param, ...)`): 27 (Esc) sets `+0x34`; 38 (Up) activates (vtable `+0x20`) if the child at `+0x1C` lists `param`; 11 activates if vtable `+0x0C` (`Unknown04 != 0`) says so; 116/117 (F5/F6) call `+0x24`/`+0x28` on the object at `+0xBC` of `0x10F35DEC` | `0x10A85660` | matched |
 | `Window::GetParent`, vtable `+0xA4` (`mov eax, [ecx+0xB4]`) | `0x109E38E0` | verified |
 | `Window::HasFlag` / `SetFlag` / `ClearFlag`, vtable `+0x100` / `+0x104` / `+0x108` | `0x109E3820` / `0x109E3840` / `0x109E3860` | static |
 
