@@ -175,6 +175,7 @@ public:
     // Scaling truncates (Ion Storm; stock Unreal Engine 2 rounds with appRound).
     FRotator operator*(FLOAT Scale) const { return FRotator((INT)(Pitch * Scale), (INT)(Yaw * Scale), (INT)(Roll * Scale)); }
     friend FRotator operator*(FLOAT Scale, const FRotator& R) { return FRotator((INT)(R.Pitch * Scale), (INT)(R.Yaw * Scale), (INT)(R.Roll * Scale)); }
+    FRotator operator*=(FLOAT Scale) { Pitch = (INT)(Pitch * Scale); Yaw = (INT)(Yaw * Scale); Roll = (INT)(Roll * Scale); return *this; }
 
     INT Pitch, Yaw, Roll;
 };

@@ -160,6 +160,17 @@ public:
 // past ten million.
 extern INT GRunaway;
 
+// Transforms V by Coords into Out (0x109672E0); FVector::TransformVectorBy
+// wraps it in stock Unreal Engine 2.
+void TransformVectorBy(const FCoords& Coords, const FVector& V, FVector& Out);
+
+inline FVector TransformVectorBy(const FVector& V, const FCoords& Coords)
+{
+    FVector Out;
+    TransformVectorBy(Coords, V, Out);
+    return Out;
+}
+
 // FUNCTION: 0x10AFD2F0 ?execLocalVariable@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execLocalVariable(FFrame& Stack, RESULT_DECL)
 {
@@ -1149,6 +1160,24 @@ void UObject::execSubtract_VectorVector(FFrame& Stack, RESULT_DECL)
     *(FVector*)Result = A - B;
 }
 
+// FUNCTION: 0x10B00680 ?execLessLess_VectorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLessLess_VectorRotator(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(FVector*)Result = TransformVectorBy(A, GUnitCoords / B);
+}
+
+// FUNCTION: 0x10B00720 ?execGreaterGreater_VectorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreaterGreater_VectorRotator(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(FVector*)Result = TransformVectorBy(A, GUnitCoords * B);
+}
+
 // FUNCTION: 0x10B007C0 ?execEqualEqual_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execEqualEqual_VectorVector(FFrame& Stack, RESULT_DECL)
 {
@@ -1263,6 +1292,22 @@ void UObject::execVRand(FFrame& Stack, RESULT_DECL)
     *(FVector*)Result = appVRand();
 }
 
+// FUNCTION: 0x10B00F70 ?execRotRand@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execRotRand(FFrame& Stack, RESULT_DECL)
+{
+    DWORD bRoll = 0;
+    Stack.Step(Stack.Object, &bRoll);
+    P_FINISH;
+    FRotator RRot;
+    RRot.Yaw = ((2 * appRand()) % 65535);
+    RRot.Pitch = ((2 * appRand()) % 65535);
+    if (bRoll)
+        RRot.Roll = ((2 * appRand()) % 65535);
+    else
+        RRot.Roll = 0;
+    *(FRotator*)Result = RRot;
+}
+
 // FUNCTION: 0x10B01000 ?execMirrorVectorByNormal@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execMirrorVectorByNormal(FFrame& Stack, RESULT_DECL)
 {
@@ -1307,6 +1352,37 @@ void UObject::execMultiply_FloatRotator(FFrame& Stack, RESULT_DECL)
     P_GET_ROTATOR(B);
     P_FINISH;
     *(FRotator*)Result = A * B;
+}
+
+// FUNCTION: 0x10B012C0 ?execDivide_RotatorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivide_RotatorFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FRotator*)Result = A * (1.f / B);
+}
+
+// FUNCTION: 0x10B01340 ?execMultiplyEqual_RotatorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyEqual_RotatorFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_ROTATOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FRotator*)Result = (*A *= B);
+}
+
+// FUNCTION: 0x10B01400 ?execDivideEqual_RotatorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivideEqual_RotatorFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_ROTATOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FRotator*)Result = (*A *= (1.f / B));
 }
 
 // FUNCTION: 0x10B014C0 ?execAdd_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z

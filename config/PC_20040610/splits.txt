@@ -42,11 +42,8 @@ Engine/UObject.cpp:
 	.text  start:0x10AFFE10 end:0x10AFFE64
 	.text  start:0x10B00010 end:0x10B000A1
 	.text  start:0x10B00140 end:0x10B00290
-	.text  start:0x10B00320 end:0x10B00672
-	.text  start:0x10B007C0 end:0x10B00D98
-	.text  start:0x10B00F30 end:0x10B00F61
-	.text  start:0x10B01000 end:0x10B012B7
-	.text  start:0x10B014C0 end:0x10B0194B
+	.text  start:0x10B00320 end:0x10B00D98
+	.text  start:0x10B00F30 end:0x10B0194B
 	.text  start:0x10B01A30 end:0x10B01B0E
 	.text  start:0x10B02200 end:0x10B02277
 	.text  start:0x10B02600 end:0x10B026CA
