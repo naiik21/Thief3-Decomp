@@ -29,14 +29,15 @@ Engine/FString.cpp:
 	.text  start:0x10AF8230 end:0x10AF8243
 
 Engine/UObject.cpp:
+	.text  start:0x10AFD2F0 end:0x10AFD329
 	.text  start:0x10AFD470 end:0x10AFD4AA
-	.text  start:0x10AFD550 end:0x10AFD56E
+	.text  start:0x10AFD510 end:0x10AFD56E
+	.text  start:0x10AFD5D0 end:0x10AFD618
 	.text  start:0x10AFD810 end:0x10AFD819
-	.text  start:0x10AFD900 end:0x10AFD924
+	.text  start:0x10AFD8C0 end:0x10AFD965
 	.text  start:0x10AFDB70 end:0x10AFDB82
 	.text  start:0x10AFDBB0 end:0x10AFDBE5
-	.text  start:0x10AFDC10 end:0x10AFDC26
-	.text  start:0x10AFDC90 end:0x10AFDD3F
+	.text  start:0x10AFDC10 end:0x10AFDD3F
 	.text  start:0x10AFDDC0 end:0x10AFDE17
 	.text  start:0x10AFDEA0 end:0x10AFDFDC
 	.text  start:0x10AFE360 end:0x10AFE475

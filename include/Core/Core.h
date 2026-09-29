@@ -117,6 +117,8 @@ public:
     ANSICHAR* Data;
 };
 
+class FRotator;
+
 class FVector
 {
 public:
@@ -141,6 +143,7 @@ public:
     UBOOL operator!=(const FVector& V) const { return X != V.X || Y != V.Y || Z != V.Z; }
 
     FVector SafeNormal() const;                 // 0x10967580
+    FRotator Rotation() const;                  // 0x10B056C0
 
     FLOAT X, Y, Z;
 };
@@ -158,6 +161,7 @@ public:
     FRotator operator-=(const FRotator& R) { Pitch -= R.Pitch; Yaw -= R.Yaw; Roll -= R.Roll; return *this; }
     UBOOL operator==(const FRotator& R) const { return Pitch == R.Pitch && Yaw == R.Yaw && Roll == R.Roll; }
     UBOOL operator!=(const FRotator& R) const { return Pitch != R.Pitch || Yaw != R.Yaw || Roll != R.Roll; }
+    UBOOL IsZero() const { return ((Pitch & 65535) == 0) && ((Yaw & 65535) == 0) && ((Roll & 65535) == 0); }
 
     INT Pitch, Yaw, Roll;
 };
@@ -172,6 +176,7 @@ public:
 
     // Formats and writes a line in the Log category (0x2F8); __cdecl.
     void Logf(const ANSICHAR* Fmt, ...);                    // 0x10AF3AA0
+    void Logf(EName Event, const ANSICHAR* Fmt, ...);       // 0x10AF5230
 };
 
 // --- Objects ------------------------------------------------------------------------
@@ -212,6 +217,9 @@ public:
     // Writes the object's config properties (execSaveConfig); resets a
     // class's (execResetConfig).
     void SaveConfig(DWORD Flags, const ANSICHAR* Filename);
+
+    UFunction* FindFunctionChecked(FName InName, UBOOL Global = 0);   // 0x10AD5D90
+    UBOOL IsA(UClass* SomeBase) const;                              // 0x10AD1EE0
 
     // Package.Group.Name, up to StopOuter.
     String GetPathName(UObject* StopOuter = NULL);      // 0x10AD4FC0
@@ -530,6 +538,7 @@ public:
     void Step(UObject* Context, RESULT_DECL);
 
     INT ReadInt();                  // 0x10B0FC70
+    INT ReadWord();                 // 0x10B0FC90
     FLOAT ReadFloat();              // 0x10B0FC80
     FName ReadName();               // 0x10B0FCD0
 

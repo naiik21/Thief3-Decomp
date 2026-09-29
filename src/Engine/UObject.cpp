@@ -78,7 +78,9 @@ public:
 
     INT ArrayDim;                   // 0x34
     INT ElementSize;                // 0x38
-    BYTE Unknown3C[0x24];
+    BYTE Pad3C[0xC];
+    INT Offset;                     // 0x48: into the object, or the frame's locals
+    BYTE Pad4C[0x14];
 };
 
 class UArrayProperty : public UProperty
@@ -132,6 +134,15 @@ template<class T> inline T Min(const T A, const T B) { return (A <= B) ? A : B; 
 
 template<class T> inline T Max(const T A, const T B) { return (A >= B) ? A : B; }
 
+// FUNCTION: 0x10AFD2F0 ?execLocalVariable@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLocalVariable(FFrame& Stack, RESULT_DECL)
+{
+    GProperty = (UProperty*)Stack.ReadObject();
+    GPropAddr = Stack.Locals + GProperty->Offset;
+    if (Result)
+        GProperty->CopyCompleteValue(Result, GPropAddr, NULL);
+}
+
 // FUNCTION: 0x10AFD470 ?execDynArrayLength@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execDynArrayLength(FFrame& Stack, RESULT_DECL)
 {
@@ -146,6 +157,17 @@ void UObject::execDynArrayLength(FFrame& Stack, RESULT_DECL)
         *(INT*)Result = Array->Num();
 }
 
+// FUNCTION: 0x10AFD510 ?execNativeParm@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNativeParm(FFrame& Stack, RESULT_DECL)
+{
+    UProperty* Property = (UProperty*)Stack.ReadObject();
+    if (Result)
+    {
+        GPropAddr = Stack.Locals + Property->Offset;
+        Property->CopyCompleteValue(Result, Stack.Locals + Property->Offset, NULL);
+    }
+}
+
 // FUNCTION: 0x10AFD550 ?execEndFunctionParms@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execEndFunctionParms(FFrame& Stack, RESULT_DECL)
 {
@@ -158,16 +180,37 @@ void UObject::execStop(FFrame& Stack, RESULT_DECL)
     Stack.Code = NULL;
 }
 
+// FUNCTION: 0x10AFD5D0 ?execAssert@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAssert(FFrame& Stack, RESULT_DECL)
+{
+    INT wLine = Stack.ReadWord();
+    P_GET_UBOOL(Assertion);
+    if (!Assertion)
+        Stack.Logf((EName)0x2F9, "Assertion failed, line %i", wLine);
+}
+
 // FUNCTION: 0x10AFD810 ?execSelf@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execSelf(FFrame& Stack, RESULT_DECL)
 {
     *(UObject**)Result = this;
 }
 
+// FUNCTION: 0x10AFD8C0 ?execVirtualFunction@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execVirtualFunction(FFrame& Stack, RESULT_DECL)
+{
+    CallFunction(Stack, Result, FindFunctionChecked(Stack.ReadName()));
+}
+
 // FUNCTION: 0x10AFD900 ?execFinalFunction@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execFinalFunction(FFrame& Stack, RESULT_DECL)
 {
     CallFunction(Stack, Result, (UFunction*)Stack.ReadObject());
+}
+
+// FUNCTION: 0x10AFD930 ?execGlobalFunction@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGlobalFunction(FFrame& Stack, RESULT_DECL)
+{
+    CallFunction(Stack, Result, FindFunctionChecked(Stack.ReadName(), 1));
 }
 
 // FUNCTION: 0x10AFDB70 ?execFloatConst@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -193,6 +236,14 @@ void UObject::execIntConstByte(FFrame& Stack, RESULT_DECL)
 {
     *(INT*)Result = *Stack.Code;
     Stack.Code++;
+}
+
+// FUNCTION: 0x10AFDC30 ?execDynamicCast@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDynamicCast(FFrame& Stack, RESULT_DECL)
+{
+    UClass* Class = (UClass*)Stack.ReadObject();
+    P_GET_OBJECT(UObject, Castee);
+    *(UObject**)Result = (Castee && Castee->IsA(Class)) ? Castee : NULL;
 }
 
 // FUNCTION: 0x10AFDC90 ?execPrimitiveCast@UObject@@QAEXAAVFFrame@@QAX@Z
