@@ -140,6 +140,8 @@ reads the next opcode and calls it.
 | `GPropertyLValue` (`DWORD`): 1 while a native evaluates the operand it writes through; set and cleared around that `Step` by about 40 natives (`execLet`, the `+=`/`-=`/`*=`/`/=` and `++`/`--` operators, `execDynArrayInsert`/`Remove`, ...). Ion Storm addition, name provisional | `0x10F45C38` | matched as referenced (`execDynArrayRemove`) |
 | `FArray::Remove(Index, Count, ElementSize)`, `__thiscall` (moves the tail down, shrinks) | `0x10AF3BD0` | matched as called (`execDynArrayRemove`) |
 | `FArray::Insert(Index, Count, ElementSize)`, `__thiscall` | `0x10AF4E80` | matched as called (`execDynArrayInsert`) |
+| `FArray::AddZeroed(ElementSize, Count)`, `__thiscall` | `0x10AF4CC0` | matched as called (`execDynArrayElement`) |
+| `UProperty` vtable: `+0xB0` CopySingleValue(dest, src, obj), `+0xB4` CopyCompleteValue, `+0xB8` DestroyValue, `+0xCC` creates a temporary value, `+0xD0` releases it | | matched as called (`execDynArrayElement`, `execDynArrayRemove`) |
 
 The table names 234 `UObject` natives in `symbols.txt`. Seven functions are
 shared by two or three natives (the linker folded identical bodies, such as

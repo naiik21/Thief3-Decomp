@@ -59,6 +59,7 @@ class FArray
 public:
     INT Num() const { return ArrayNum; }
 
+    void AddZeroed(INT ElementSize, INT Count);           // 0x10AF4CC0
     void Insert(INT Index, INT Count, INT ElementSize);    // 0x10AF4E80
     void Remove(INT Index, INT Count, INT ElementSize);    // 0x10AF3BD0
 

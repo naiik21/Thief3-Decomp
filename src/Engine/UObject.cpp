@@ -49,9 +49,16 @@ public:
     virtual void UnknownA4();
     virtual void UnknownA8();
     virtual void UnknownAC();
-    virtual void UnknownB0();
-    virtual void UnknownB4();
+    virtual void CopySingleValue(void* Dest, void* Src, UObject* Obj);     // vtable +0xB0
+    virtual void CopyCompleteValue(void* Dest, void* Src, UObject* Obj);   // vtable +0xB4
     virtual void DestroyValue(void* Dest) const;   // vtable +0xB8
+    virtual void UnknownBC();
+    virtual void UnknownC0();
+    virtual void UnknownC4();
+    virtual void UnknownC8();
+    // Ion Storm: temporary storage for a value, and its release.
+    virtual BYTE* CreateDefaultValue();            // vtable +0xCC
+    virtual void DestroyDefaultValue(BYTE* Value); // vtable +0xD0
 
     INT ArrayDim;                   // 0x34
     INT ElementSize;                // 0x38
@@ -444,6 +451,48 @@ void UObject::execIsA(FFrame& Stack, RESULT_DECL)
         if (TempClass->GetFName() == ClassName)
             break;
     *(DWORD*)Result = TempClass != NULL;
+}
+
+// FUNCTION: 0x10B034A0 ?execDynArrayElement@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDynArrayElement(FFrame& Stack, RESULT_DECL)
+{
+    // The index is read, never written, whatever the element is used for.
+    DWORD SavedLValue = GPropertyLValue;
+    GPropertyLValue = 0;
+    P_GET_INT(Index);
+    GPropertyLValue = SavedLValue;
+
+    GProperty = NULL;
+    Stack.Step(this, NULL);
+    if (GProperty && GPropAddr)
+    {
+        UArrayProperty* ArrayProp = (UArrayProperty*)GProperty;
+        FArray* Array = (FArray*)GPropAddr;
+        if (Index >= Array->Num() || Index < 0)
+        {
+            // Reading clamps the index; writing grows the array.
+            if (!GPropertyLValue)
+            {
+                Stack.Logf("Accessed array out of bounds (%i/%i)", Index, ArrayProp->ArrayDim);
+                Index = Clamp(Index, 0, Array->Num() - 1);
+            }
+            else
+                Array->AddZeroed(ArrayProp->Inner->ElementSize, Index - Array->Num() + 1);
+        }
+        GPropAddr = Array->Data ? (BYTE*)Array->Data + Index * ((UArrayProperty*)GProperty)->Inner->ElementSize : NULL;
+    }
+    if (Result)
+    {
+        if (!GPropAddr)
+        {
+            // Out of range with no array: the element type's default value.
+            BYTE* Value = ((UArrayProperty*)GProperty)->Inner->CreateDefaultValue();
+            ((UArrayProperty*)GProperty)->Inner->CopySingleValue(Result, Value, NULL);
+            ((UArrayProperty*)GProperty)->Inner->DestroyDefaultValue(Value);
+        }
+        else
+            ((UArrayProperty*)GProperty)->Inner->CopySingleValue(Result, GPropAddr, NULL);
+    }
 }
 
 // FUNCTION: 0x10B03600 ?execDynArrayInsert@UObject@@QAEXAAVFFrame@@QAX@Z
