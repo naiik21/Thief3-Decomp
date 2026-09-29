@@ -254,12 +254,39 @@ void UObject::execComplement_PreInt(FFrame& Stack, RESULT_DECL)
     *(INT*)Result = ~A;
 }
 
+// FUNCTION: 0x10AFEA00 ?execGreaterGreaterGreater_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreaterGreaterGreater_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = ((DWORD)A) >> B;
+}
+
 // FUNCTION: 0x10AFEA60 ?execSubtract_PreInt@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execSubtract_PreInt(FFrame& Stack, RESULT_DECL)
 {
     P_GET_INT(A);
     P_FINISH;
     *(INT*)Result = -A;
+}
+
+// FUNCTION: 0x10AFEAA0 ?execMultiply_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiply_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A * B;
+}
+
+// FUNCTION: 0x10AFEB00 ?execDivide_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivide_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = B ? A / B : 0;
 }
 
 // FUNCTION: 0x10AFEB60 ?execAdd_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -269,6 +296,60 @@ void UObject::execAdd_IntInt(FFrame& Stack, RESULT_DECL)
     P_GET_INT(B);
     P_FINISH;
     *(INT*)Result = A + B;
+}
+
+// FUNCTION: 0x10AFEBC0 ?execSubtract_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtract_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A - B;
+}
+
+// FUNCTION: 0x10AFEC20 ?execLessLess_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLessLess_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A << B;
+}
+
+// FUNCTION: 0x10AFEC80 ?execGreaterGreater_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreaterGreater_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A >> B;
+}
+
+// FUNCTION: 0x10AFEE60 ?execAnd_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAnd_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A & B;
+}
+
+// FUNCTION: 0x10AFEEC0 ?execXor_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execXor_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A ^ B;
+}
+
+// FUNCTION: 0x10AFEF20 ?execOr_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execOr_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_INT(A);
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = A | B;
 }
 
 // FUNCTION: 0x10AFF490 ?execMultiply_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
