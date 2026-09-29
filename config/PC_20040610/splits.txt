@@ -32,19 +32,17 @@ Engine/UObject.cpp:
 	.text  start:0x10AFD2F0 end:0x10AFD329
 	.text  start:0x10AFD470 end:0x10AFD56E
 	.text  start:0x10AFD5D0 end:0x10AFD618
-	.text  start:0x10AFD810 end:0x10AFD819
+	.text  start:0x10AFD770 end:0x10AFD819
 	.text  start:0x10AFD8C0 end:0x10AFD965
 	.text  start:0x10AFDB70 end:0x10AFDB82
 	.text  start:0x10AFDBB0 end:0x10AFDBE5
 	.text  start:0x10AFDC10 end:0x10AFE027
 	.text  start:0x10AFE0E0 end:0x10AFE1D1
-	.text  start:0x10AFE2E0 end:0x10AFFD74
-	.text  start:0x10AFFE10 end:0x10AFFE64
+	.text  start:0x10AFE2E0 end:0x10AFFE64
 	.text  start:0x10B00010 end:0x10B000A1
 	.text  start:0x10B00140 end:0x10B00290
 	.text  start:0x10B00320 end:0x10B00D98
-	.text  start:0x10B00F30 end:0x10B0194B
-	.text  start:0x10B01A30 end:0x10B01B0E
+	.text  start:0x10B00F30 end:0x10B01B0E
 	.text  start:0x10B02200 end:0x10B02277
 	.text  start:0x10B02600 end:0x10B026CA
 	.text  start:0x10B028B0 end:0x10B02BA6

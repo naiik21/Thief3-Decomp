@@ -224,6 +224,13 @@ public:
 
     // Runs a script function (execFinalFunction and the other calls).
     virtual void CallFunction(FFrame& Stack, RESULT_DECL, UFunction* Function);
+    virtual void Unknown48();
+    virtual void Unknown4C();
+    virtual void Unknown50();
+    virtual void Unknown54();
+    virtual void Unknown58();
+    // Ion Storm: execLetBool calls it with the bool property about to be assigned.
+    virtual void Unknown5C(UProperty* Property);
 
     UClass* GetClass() const { return Class; }
     const FName GetFName() const { return Name; }

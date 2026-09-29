@@ -47,12 +47,7 @@ template<class T> inline T Clamp(const T X, const T Min, const T Max)
 class UProperty : public UField
 {
 public:
-    virtual void Unknown48();
-    virtual void Unknown4C();
-    virtual void Unknown50();
-    virtual void Unknown54();
-    virtual void Unknown58();
-    virtual void Unknown5C();
+    // +0x48 to +0x5C are UObject's.
     virtual void Unknown60();
     virtual void Unknown64();
     virtual void Unknown68();
@@ -103,6 +98,11 @@ class FCoords
 public:
     FVector Origin, XAxis, YAxis, ZAxis;
 
+    FCoords() {}
+    FCoords(const FVector& InOrigin, const FVector& InX, const FVector& InY, const FVector& InZ)
+        : Origin(InOrigin), XAxis(InX), YAxis(InY), ZAxis(InZ) {}
+
+    FRotator OrthoRotation() const;             // 0x10B05EF0
     FCoords& operator*=(const FRotator& Rot);   // 0x109620B0
     FCoords operator*(const FRotator& Rot) const { return FCoords(*this) *= Rot; }
     FCoords& operator/=(const FRotator& Rot);   // 0x10961AF0
@@ -238,6 +238,28 @@ void UObject::execAssert(FFrame& Stack, RESULT_DECL)
     P_GET_UBOOL(Assertion);
     if (!Assertion)
         Stack.Logf((EName)0x2F9, "Assertion failed, line %i", wLine);
+}
+
+// FUNCTION: 0x10AFD770 ?execLetBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLetBool(FFrame& Stack, RESULT_DECL)
+{
+    GPropAddr = NULL;
+    GProperty = NULL;
+    GPropertyLValue = 1;
+    Stack.Step(Stack.Object, NULL);
+    UBoolProperty* BoolProperty = (UBoolProperty*)GProperty;
+    DWORD* BoolAddr = (DWORD*)GPropAddr;
+    GPropertyLValue = 0;
+    DWORD NewValue = 0;
+    Unknown5C(GProperty);
+    Stack.Step(Stack.Object, &NewValue);
+    if (BoolAddr)
+    {
+        if (NewValue)
+            *BoolAddr |= BoolProperty->BitMask;
+        else
+            *BoolAddr &= ~BoolProperty->BitMask;
+    }
 }
 
 // FUNCTION: 0x10AFD810 ?execSelf@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -1051,6 +1073,16 @@ void UObject::execLerp(FFrame& Stack, RESULT_DECL)
     *(FLOAT*)Result = A + V * (B - A);
 }
 
+// FUNCTION: 0x10AFFD80 ?execSmerp@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSmerp(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(V);
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = A + (3.f * V * V - 2 * V * V * V) * (B - A);
+}
+
 // FUNCTION: 0x10AFFE10 ?execRotationConst@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execRotationConst(FFrame& Stack, RESULT_DECL)
 {
@@ -1455,6 +1487,17 @@ void UObject::execGetUnAxes(FFrame& Stack, RESULT_DECL)
     *X = Coords.XAxis;
     *Y = Coords.YAxis;
     *Z = Coords.ZAxis;
+}
+
+// FUNCTION: 0x10B01950 ?execOrthoRotation@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execOrthoRotation(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(X);
+    P_GET_VECTOR(Y);
+    P_GET_VECTOR(Z);
+    P_FINISH;
+    FCoords Coords = FCoords(FVector(0, 0, 0), X, Y, Z);
+    *(FRotator*)Result = Coords.OrthoRotation();
 }
 
 // FUNCTION: 0x10B01A30 ?execNormalize@UObject@@QAEXAAVFFrame@@QAX@Z
