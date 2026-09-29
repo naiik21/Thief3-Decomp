@@ -206,6 +206,12 @@ public:
 #define DECLARE_FUNCTION(func) void func(FFrame& Stack, RESULT_DECL);
 #define RESULT_DECL void* const Result
 
+// A class's class object. Not stock Unreal Engine 2 (a static object there):
+// Ion Storm keeps a pointer and builds the class on first use, as Unreal
+// Engine 3 later does. The builder takes the package name; both helpers are
+// only called from here.
+#define DECLARE_STATIC_CLASS(TClass, TPackage) public:     static UClass* StaticClass()     {         if (!PrivateStaticClass)         {             PrivateStaticClass = GetPrivateStaticClass##TClass(TPackage);             InitializePrivateStaticClass##TClass();         }         return PrivateStaticClass;     } private:     static UClass* PrivateStaticClass;     static UClass* GetPrivateStaticClass##TClass(const ANSICHAR* Package);     static void InitializePrivateStaticClass##TClass(); public:
+
 // The first 0x28 bytes match stock Unreal Engine 2 (the SDK checks Name, Class
 // and Outer at runtime). Of the virtual functions, only CallFunction's slot is
 // known; the others are named by their vtable offset.
@@ -501,6 +507,8 @@ public:
     DWORD ObjectFlags;              // 0x1C
     FName Name;                     // 0x20
     UClass* Class;                  // 0x24
+
+    DECLARE_STATIC_CLASS(UObject, "Core")
 };
 
 // SuperField is at 0x2C in this build (0x28 in stock Unreal Engine 2): one
@@ -513,28 +521,13 @@ public:
     UField* Next;                   // 0x30 (stock order, not yet seen)
 };
 
-UClass* GetPrivateStaticClassUEnum(const ANSICHAR* Package);   // 0x10ADD8A0
-void InitializePrivateStaticClassUEnum();                      // 0x10AD1FA0
-
 // An enumeration's value names.
 class UEnum : public UField
 {
 public:
     TArray<FName> Names;            // 0x34
 
-    // Created on first use, like UClass::StaticClass.
-    static UClass* StaticClass()
-    {
-        if (!PrivateStaticClass)
-        {
-            PrivateStaticClass = GetPrivateStaticClassUEnum("Core");
-            InitializePrivateStaticClassUEnum();
-        }
-        return PrivateStaticClass;
-    }
-
-private:
-    static UClass* PrivateStaticClass;  // 0x10F3E46C
+    DECLARE_STATIC_CLASS(UEnum, "Core")
 };
 
 // Script sits 4 bytes after its stock Unreal Engine 2 offset, like SuperField.
@@ -551,6 +544,8 @@ public:
                 return 1;
         return 0;
     }
+
+    DECLARE_STATIC_CLASS(UStruct, "Core")
 };
 
 class UFunction : public UStruct
@@ -563,31 +558,19 @@ class UState : public UStruct
 
 // UState has no known fields yet, so UClass's padding covers them (and
 // UStruct's after Script): shrink it when they get some.
-// Builds UClass's own class object on first use (package "Core"), then links
-// it (both called only from UClass::StaticClass).
-UClass* GetPrivateStaticClassUClass(const ANSICHAR* Package);  // 0x10AE88F0
-void InitializePrivateStaticClassUClass();                     // 0x10AE8B50
-
 class UClass : public UState
 {
 public:
     BYTE Unknown54[0x94];
     UObject* ClassDefaultObject;    // 0xE8 (docs/engine.md: static, probable)
 
-    // Not stock Unreal Engine 2 (a static object there): Ion Storm keeps a
-    // pointer and creates the class lazily, as Unreal Engine 3 later does.
-    static UClass* StaticClass()
-    {
-        if (!PrivateStaticClass)
-        {
-            PrivateStaticClass = GetPrivateStaticClassUClass("Core");
-            InitializePrivateStaticClassUClass();
-        }
-        return PrivateStaticClass;
-    }
+    DECLARE_STATIC_CLASS(UClass, "Core")
+};
 
-private:
-    static UClass* PrivateStaticClass;  // 0x10F3E514
+// A package: the outermost object of each file.
+class UPackage : public UObject
+{
+    DECLARE_STATIC_CLASS(UPackage, "Core")
 };
 
 // The checked downcast; out of line where the compiler keeps a copy

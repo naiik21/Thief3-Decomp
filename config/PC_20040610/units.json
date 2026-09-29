@@ -1,4 +1,7 @@
 {
+  "Engine/Casts.cpp": {
+    "category": "engine"
+  },
   "Engine/FFrame.cpp": {
     "category": "engine"
   },

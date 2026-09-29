@@ -7,6 +7,23 @@
 # Functions no unit claims are grouped into automatic auto/text_<ADDRESS> units;
 # data no unit claims stays in __shared_data.
 
+Engine/Casts.cpp:
+	.text  start:0x10970CA0 end:0x10970CE2
+	.text  start:0x10977EB0 end:0x10977F42
+	.text  start:0x10977FA0 end:0x10978032
+	.text  start:0x10983CA0 end:0x10983D32
+	.text  start:0x1098D000 end:0x1098D042
+	.text  start:0x109941D0 end:0x10994212
+	.text  start:0x109EA020 end:0x109EA062
+	.text  start:0x109ED1B0 end:0x109ED1F2
+	.text  start:0x109F0C50 end:0x109F0C92
+	.text  start:0x10A75860 end:0x10A758A2
+	.text  start:0x10A77300 end:0x10A77342
+	.text  start:0x10ACF350 end:0x10ACF392
+	.text  start:0x10B03230 end:0x10B03272
+	.text  start:0x10B062E0 end:0x10B06322
+	.text  start:0x10C9A860 end:0x10C9A8A2
+
 Game/Window.cpp:
 	.text  start:0x109E3820 end:0x109E3877
 	.text  start:0x109E38E0 end:0x109E38E7
