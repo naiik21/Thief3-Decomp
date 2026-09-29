@@ -9,6 +9,13 @@
 #define P_GET_VECTOR_REF(var) FVector var##T; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T);                               FVector* var = GPropAddr ? (FVector*)GPropAddr : &var##T;
 #include <math.h>
 #include <stdlib.h>
+// Out parameters of a basic type, read as P_GET_VECTOR_REF reads vectors.
+#define P_GET_INT_REF(var)   INT var##T = 0; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T); \
+                             INT* var = GPropAddr ? (INT*)GPropAddr : &var##T;
+#define P_GET_BYTE_REF(var)  BYTE var##T = 0; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T); \
+                             BYTE* var = GPropAddr ? (BYTE*)GPropAddr : &var##T;
+#define P_GET_FLOAT_REF(var) FLOAT var##T = 0.f; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T); \
+                             FLOAT* var = GPropAddr ? (FLOAT*)GPropAddr : &var##T;
 
 float appFrand();
 
@@ -278,6 +285,46 @@ void UObject::execNot_PreBool(FFrame& Stack, RESULT_DECL)
     *(DWORD*)Result = !A;
 }
 
+// FUNCTION: 0x10AFE840 ?execAddAdd_PreByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddAdd_PreByte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(BYTE*)Result = ++(*A);
+}
+
+// FUNCTION: 0x10AFE8A0 ?execSubtractSubtract_PreByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractSubtract_PreByte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(BYTE*)Result = --(*A);
+}
+
+// FUNCTION: 0x10AFE900 ?execAddAdd_Byte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddAdd_Byte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(BYTE*)Result = (*A)++;
+}
+
+// FUNCTION: 0x10AFE960 ?execSubtractSubtract_Byte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractSubtract_Byte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(BYTE*)Result = (*A)--;
+}
+
 // FUNCTION: 0x10AFE9C0 ?execComplement_PreInt@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execComplement_PreInt(FFrame& Stack, RESULT_DECL)
 {
@@ -418,6 +465,46 @@ void UObject::execOr_IntInt(FFrame& Stack, RESULT_DECL)
     P_GET_INT(B);
     P_FINISH;
     *(INT*)Result = A | B;
+}
+
+// FUNCTION: 0x10AFF1E0 ?execAddAdd_PreInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddAdd_PreInt(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(INT*)Result = ++(*A);
+}
+
+// FUNCTION: 0x10AFF250 ?execSubtractSubtract_PreInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractSubtract_PreInt(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(INT*)Result = --(*A);
+}
+
+// FUNCTION: 0x10AFF2C0 ?execAddAdd_Int@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddAdd_Int(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(INT*)Result = (*A)++;
+}
+
+// FUNCTION: 0x10AFF330 ?execSubtractSubtract_Int@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractSubtract_Int(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_FINISH;
+    *(INT*)Result = (*A)--;
 }
 
 // FUNCTION: 0x10AFF3A0 ?execRand@UObject@@QAEXAAVFFrame@@QAX@Z
