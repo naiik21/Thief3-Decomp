@@ -79,6 +79,42 @@ public:
     INT Len() const;                            // 0x10AF7F70
 };
 
+// Ion Storm's memory allocator: the object GetAllocator (0x10905AA0) returns.
+class Allocator
+{
+public:
+    virtual void Unknown00();
+    virtual void Unknown04();
+    virtual void* Malloc(INT Size, INT Unknown1, INT Unknown2, INT Unknown3, INT Unknown4);                 // +0x08
+    virtual void* Realloc(void* Block, INT Size, INT Unknown1, INT Unknown2, INT Unknown3, INT Unknown4);   // +0x0C
+    virtual void Unknown10();
+    virtual void Free(void* Block);                                                                         // +0x14
+};
+
+Allocator* GetAllocator();
+
+// Ion Storm's own string, next to FString: one pointer to the characters,
+// with the length in the INT before them (the block is length + 5 bytes).
+// NULL is the empty string. UObject::GetPathName returns one.
+class String
+{
+public:
+    String(const ANSICHAR* S);                  // 0x109081E0
+    ~String()
+    {
+        if (Data)
+        {
+            void* Block = Data - 4;
+            GetAllocator()->Free(Block);
+            Data = NULL;
+        }
+    }
+
+    const ANSICHAR* operator*() const { return Data ? Data : ""; }
+
+    ANSICHAR* Data;
+};
+
 class FVector
 {
 public:
@@ -152,6 +188,9 @@ public:
     // Writes the object's config properties (execSaveConfig); resets a
     // class's (execResetConfig).
     void SaveConfig(DWORD Flags, const ANSICHAR* Filename);
+
+    // Package.Group.Name, up to StopOuter.
+    String GetPathName(UObject* StopOuter = NULL);      // 0x10AD4FC0
     static void ResetConfig(UClass* Class);
 
     // Script natives, named by the game's native table (docs/engine.md,
@@ -329,6 +368,7 @@ public:
     DECLARE_FUNCTION(execNotEqual_StringString)
     DECLARE_FUNCTION(execNotEqual_VectorVector)
     DECLARE_FUNCTION(execNot_PreBool)
+    DECLARE_FUNCTION(execObjectToString)
     DECLARE_FUNCTION(execOrOr_BoolBool)
     DECLARE_FUNCTION(execOr_IntInt)
     DECLARE_FUNCTION(execOrthoRotation)

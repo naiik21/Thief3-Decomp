@@ -49,6 +49,23 @@ The exe has 209 such `Class::member` strings (`UObject::GObjLoaded`,
 `UGameEngine::Actors`, `UClass::ClassReps`, ...). Search the string, take the
 `mov ecx` operand next to its reference, and you have the global.
 
+## Strings and memory
+
+Besides Unreal's `FString` (an `FArray` of characters, 12 bytes, what scripts
+use), the engine has **Ion Storm's own string**: 4 bytes, a pointer to the
+characters with the length in the `INT` before them. The block holds length
++ 5 bytes, and `NULL` is the empty string. `UObject::GetPathName` returns one,
+and `Options::Save` builds `options.ini` with them.
+
+| What | Address | Status |
+|---|---|---|
+| `GetAllocator()`: the allocator object (vtable `+0x08` Malloc(size, 0, 0, 0, 0), `+0x0C` Realloc(block, size, ...), `+0x14` Free(block)) | `0x10905AA0` | matched as called (`execObjectToString`) |
+| `String::String(const char*)` (NULL and "" give an empty string) | `0x109081E0` | matched as called |
+| `String::~String()` (out of line, used by unwind funclets) | `0x10D3F9B0` | matched as called |
+| `String::SetLength(n)` (0 frees; else reallocates to n + 5 and stores n) | `0x1090A4A0` | static (`Options::Save`) |
+| `String::Printf(fmt, ...)`, returns a `String` | `0x1090A660` | static (`Options::Save`) |
+| `UObject::GetPathName(StopOuter)`, returns a `String` | `0x10AD4FC0` | matched as called (`execObjectToString`) |
+
 ## Names (FName)
 
 | What | Address | Status |

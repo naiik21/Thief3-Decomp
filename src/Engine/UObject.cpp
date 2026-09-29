@@ -487,3 +487,10 @@ void UObject::execStaticSaveConfig(FFrame& Stack, RESULT_DECL)
     P_FINISH;
     GetClass()->ClassDefaultObject->SaveConfig(0, NULL);
 }
+
+// FUNCTION: 0x10B04FF0 ?execObjectToString@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execObjectToString(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_OBJECT(UObject, Obj);
+    *(FString*)Result = *(Obj ? Obj->GetPathName() : String("None"));
+}
