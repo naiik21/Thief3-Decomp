@@ -298,6 +298,16 @@ void UObject::execVRand(FFrame& Stack, RESULT_DECL)
     *(FVector*)Result = appVRand();
 }
 
+// FUNCTION: 0x10B01000 ?execMirrorVectorByNormal@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMirrorVectorByNormal(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    B = B.SafeNormal();
+    *(FVector*)Result = A - 2.f * B * (B | A);
+}
+
 // FUNCTION: 0x10B014C0 ?execAdd_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAdd_RotatorRotator(FFrame& Stack, RESULT_DECL)
 {

@@ -124,6 +124,12 @@ public:
     FVector(FLOAT InX, FLOAT InY, FLOAT InZ) : X(InX), Y(InY), Z(InZ) {}
 
     FVector operator+(const FVector& V) const { return FVector(X + V.X, Y + V.Y, Z + V.Z); }
+    FVector operator-(const FVector& V) const { return FVector(X - V.X, Y - V.Y, Z - V.Z); }
+    FVector operator*(FLOAT Scale) const { return FVector(X * Scale, Y * Scale, Z * Scale); }
+    FLOAT operator|(const FVector& V) const { return X * V.X + Y * V.Y + Z * V.Z; }
+    friend FVector operator*(FLOAT Scale, const FVector& V) { return FVector(V.X * Scale, V.Y * Scale, V.Z * Scale); }
+
+    FVector SafeNormal() const;                 // 0x10967580
 
     FLOAT X, Y, Z;
 };

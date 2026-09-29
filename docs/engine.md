@@ -136,6 +136,7 @@ reads the next opcode and calls it.
 | `GCasts` (`Native[256]`) | `0x10F417F8` | static (`UObject::execPrimitiveCast`) |
 | `FFrame::Step(UObject* Context, void* Result)`, `__thiscall`, out of line (stock Unreal Engine 2 inlines it) | `0x10B0FC50` | static, matched as called |
 | `UObject::execPrimitiveCast` | `0x10AFDC90` | static |
+| `FVector::SafeNormal() const`, returns an `FVector` by value | `0x10967580` | matched as called (`execMirrorVectorByNormal`, with stock Unreal Engine 2's inline `FVector` operators) |
 | `GProperty` / `GPropAddr` (the last property `Step` evaluated, and its address) | `0x10F45C30` / `0x10F45C34` | matched as referenced |
 | `GPropertyLValue` (`DWORD`): 1 while a native evaluates the operand it writes through; set and cleared around that `Step` by about 40 natives (`execLet`, the `+=`/`-=`/`*=`/`/=` and `++`/`--` operators, `execDynArrayInsert`/`Remove`, ...). Ion Storm addition, name provisional | `0x10F45C38` | matched as referenced (`execDynArrayRemove`) |
 | `FArray::Remove(Index, Count, ElementSize)`, `__thiscall` (moves the tail down, shrinks) | `0x10AF3BD0` | matched as called (`execDynArrayRemove`) |
