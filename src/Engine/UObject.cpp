@@ -287,6 +287,33 @@ void UObject::execNot_PreBool(FFrame& Stack, RESULT_DECL)
     *(DWORD*)Result = !A;
 }
 
+// FUNCTION: 0x10AFE3A0 ?execEqualEqual_BoolBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execEqualEqual_BoolBool(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_UBOOL(A);
+    P_GET_UBOOL(B);
+    P_FINISH;
+    *(DWORD*)Result = ((!A) == (!B));
+}
+
+// FUNCTION: 0x10AFE410 ?execNotEqual_BoolBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNotEqual_BoolBool(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_UBOOL(A);
+    P_GET_UBOOL(B);
+    P_FINISH;
+    *(DWORD*)Result = ((!A) != (!B));
+}
+
+// FUNCTION: 0x10AFE520 ?execXorXor_BoolBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execXorXor_BoolBool(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_UBOOL(A);
+    P_GET_UBOOL(B);
+    P_FINISH;
+    *(DWORD*)Result = !A ^ !B;
+}
+
 // FUNCTION: 0x10AFE620 ?execMultiplyEqual_ByteByte@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execMultiplyEqual_ByteByte(FFrame& Stack, RESULT_DECL)
 {
