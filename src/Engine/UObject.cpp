@@ -432,6 +432,60 @@ void UObject::execSubtract_FloatFloat(FFrame& Stack, RESULT_DECL)
     *(FLOAT*)Result = A - B;
 }
 
+// FUNCTION: 0x10AFF630 ?execLess_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLess_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = A < B;
+}
+
+// FUNCTION: 0x10AFF6A0 ?execGreater_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreater_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = A > B;
+}
+
+// FUNCTION: 0x10AFF710 ?execLessEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLessEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = A <= B;
+}
+
+// FUNCTION: 0x10AFF780 ?execGreaterEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGreaterEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = A >= B;
+}
+
+// FUNCTION: 0x10AFF7F0 ?execEqualEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execEqualEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = A == B;
+}
+
+// FUNCTION: 0x10AFF860 ?execNotEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNotEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = A != B;
+}
+
 // FUNCTION: 0x10AFFCE0 ?execFRand@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execFRand(FFrame& Stack, RESULT_DECL)
 {
