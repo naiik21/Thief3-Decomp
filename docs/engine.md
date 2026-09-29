@@ -153,7 +153,10 @@ table (vtables, the native table) and placed right after another one's
 `ret` became part of it. Data pointers to 16-byte aligned addresses inside
 an exported function, right after a return, jump or padding, and sitting
 among other code pointers found 252 such starts inside 241 exported
-functions; `symbols.txt` now splits them.
+functions; `symbols.txt` now splits them. One more was found while matching:
+`UObject::execObjectToString` (`0x10B04FF0`, named by the native table and
+registered in `GNatives`) sat in the last 0xEE bytes of
+`execDefaultVariable`, whose second prologue gave it away.
 
 ## Logging
 
