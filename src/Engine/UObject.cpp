@@ -951,6 +951,61 @@ void UObject::execCross_VectorVector(FFrame& Stack, RESULT_DECL)
     *(FVector*)Result = A ^ B;
 }
 
+// FUNCTION: 0x10B009D0 ?execMultiplyEqual_VectorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyEqual_VectorFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FVector*)Result = (*A *= B);
+}
+
+// FUNCTION: 0x10B00A70 ?execMultiplyEqual_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyEqual_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = (*A *= B);
+}
+
+// FUNCTION: 0x10B00B10 ?execDivideEqual_VectorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivideEqual_VectorFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FVector*)Result = (*A /= B);
+}
+
+// FUNCTION: 0x10B00BC0 ?execAddEqual_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddEqual_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = (*A += B);
+}
+
+// FUNCTION: 0x10B00C60 ?execSubtractEqual_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractEqual_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_VECTOR_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = (*A -= B);
+}
+
 // FUNCTION: 0x10B00D00 ?execVSize@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execVSize(FFrame& Stack, RESULT_DECL)
 {
