@@ -210,7 +210,43 @@ public:
 // Ion Storm keeps a pointer and builds the class on first use, as Unreal
 // Engine 3 later does. The builder takes the package name; both helpers are
 // only called from here.
-#define DECLARE_STATIC_CLASS(TClass, TPackage) public:     static UClass* StaticClass()     {         if (!PrivateStaticClass)         {             PrivateStaticClass = GetPrivateStaticClass##TClass(TPackage);             InitializePrivateStaticClass##TClass();         }         return PrivateStaticClass;     } private:     static UClass* PrivateStaticClass;     static UClass* GetPrivateStaticClass##TClass(const ANSICHAR* Package);     static void InitializePrivateStaticClass##TClass(); public:
+#define DECLARE_STATIC_CLASS(TClass, TSuperClass, TWithinClass, TPackage) \
+public: \
+    typedef TSuperClass Super; \
+    typedef TWithinClass WithinClass; \
+    static UClass* StaticClass() \
+    { \
+        if (!PrivateStaticClass) \
+        { \
+            PrivateStaticClass = GetPrivateStaticClass##TClass(TPackage); \
+            InitializePrivateStaticClass##TClass(); \
+        } \
+        return PrivateStaticClass; \
+    } \
+private: \
+    static UClass* PrivateStaticClass; \
+    static UClass* GetPrivateStaticClass##TClass(const ANSICHAR* Package); \
+    static void InitializePrivateStaticClass##TClass(); \
+public:
+
+// Links a class object once built: its superclass (none for a class that is
+// its own, UObject), the class its objects live in, and its own class; then
+// registers it if the object system is already up.
+#define IMPLEMENT_STATIC_CLASS_WITH(TClass, Initialized) \
+    void TClass::InitializePrivateStaticClass##TClass() \
+    { \
+        if (Super::StaticClass() != PrivateStaticClass) \
+            PrivateStaticClass->SuperField = Super::StaticClass(); \
+        else \
+            PrivateStaticClass->SuperField = NULL; \
+        PrivateStaticClass->ClassWithin = WithinClass::StaticClass(); \
+        PrivateStaticClass->Class = UClass::StaticClass(); \
+        if (Initialized && PrivateStaticClass->GetClass() == UClass::StaticClass()) \
+            PrivateStaticClass->Register(); \
+    }
+#define IMPLEMENT_STATIC_CLASS(TClass) IMPLEMENT_STATIC_CLASS_WITH(TClass, GetInitialized())
+// Core's own classes see the flag itself.
+#define IMPLEMENT_CORE_STATIC_CLASS(TClass) IMPLEMENT_STATIC_CLASS_WITH(TClass, GObjInitialized)
 
 // The first 0x28 bytes match stock Unreal Engine 2 (the SDK checks Name, Class
 // and Outer at runtime). Of the virtual functions, only CallFunction's slot is
@@ -239,7 +275,9 @@ public:
     // Runs a script function (execFinalFunction and the other calls).
     virtual void CallFunction(FFrame& Stack, RESULT_DECL, UFunction* Function);
     virtual void Unknown48();
-    virtual void Unknown4C();
+    // Stock Unreal Engine 2's slot after ScriptConsoleExec; class objects call
+    // it once linked (IMPLEMENT_STATIC_CLASS).
+    virtual void Register();        // +0x4C
     virtual void Unknown50();
     virtual void Unknown54();
     virtual void Unknown58();
@@ -247,6 +285,7 @@ public:
     virtual void Unknown5C(UProperty* Property);
 
     UClass* GetClass() const { return Class; }
+    static UBOOL GetInitialized();  // 0x10AD1D60: GObjInitialized
     const FName GetFName() const { return Name; }
 
     // Writes the object's config properties (execSaveConfig); resets a
@@ -508,7 +547,12 @@ public:
     FName Name;                     // 0x20
     UClass* Class;                  // 0x24
 
-    DECLARE_STATIC_CLASS(UObject, "Core")
+    DECLARE_STATIC_CLASS(UObject, UObject, UObject, "Core")
+
+protected:
+    // Read directly by Core's classes (IMPLEMENT_CORE_STATIC_CLASS), through
+    // GetInitialized by the others.
+    static UBOOL GObjInitialized;   // 0x10F3E424
 };
 
 // SuperField is at 0x2C in this build (0x28 in stock Unreal Engine 2): one
@@ -519,6 +563,8 @@ public:
     DWORD Unknown28;                // 0x28
     UField* SuperField;             // 0x2C: all 287 classes chain up to Object
     UField* Next;                   // 0x30 (stock order, not yet seen)
+
+    DECLARE_STATIC_CLASS(UField, UObject, UObject, "Core")
 };
 
 // An enumeration's value names.
@@ -527,7 +573,7 @@ class UEnum : public UField
 public:
     TArray<FName> Names;            // 0x34
 
-    DECLARE_STATIC_CLASS(UEnum, "Core")
+    DECLARE_STATIC_CLASS(UEnum, UField, UStruct, "Core")
 };
 
 // Script sits 4 bytes after its stock Unreal Engine 2 offset, like SuperField.
@@ -545,15 +591,23 @@ public:
         return 0;
     }
 
-    DECLARE_STATIC_CLASS(UStruct, "Core")
+    DECLARE_STATIC_CLASS(UStruct, UField, UObject, "Core")
 };
 
 class UFunction : public UStruct
 {
+    DECLARE_STATIC_CLASS(UFunction, UStruct, UState, "Core")
 };
 
 class UState : public UStruct
 {
+    DECLARE_STATIC_CLASS(UState, UStruct, UObject, "Core")
+};
+
+// A package: the outermost object of each file.
+class UPackage : public UObject
+{
+    DECLARE_STATIC_CLASS(UPackage, UObject, UObject, "Core")
 };
 
 // UState has no known fields yet, so UClass's padding covers them (and
@@ -561,16 +615,12 @@ class UState : public UStruct
 class UClass : public UState
 {
 public:
-    BYTE Unknown54[0x94];
+    BYTE Unknown54[0x50];
+    UClass* ClassWithin;            // 0xA4: set by IMPLEMENT_STATIC_CLASS
+    BYTE UnknownA8[0x40];
     UObject* ClassDefaultObject;    // 0xE8 (docs/engine.md: static, probable)
 
-    DECLARE_STATIC_CLASS(UClass, "Core")
-};
-
-// A package: the outermost object of each file.
-class UPackage : public UObject
-{
-    DECLARE_STATIC_CLASS(UPackage, "Core")
+    DECLARE_STATIC_CLASS(UClass, UState, UPackage, "Core")
 };
 
 // The checked downcast; out of line where the compiler keeps a copy

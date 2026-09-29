@@ -7,6 +7,101 @@
 # Functions no unit claims are grouped into automatic auto/text_<ADDRESS> units;
 # data no unit claims stays in __shared_data.
 
+Game/GameClasses.cpp:
+	.text  start:0x109616F0 end:0x109617F8
+	.text  start:0x10962F90 end:0x109635E8
+	.text  start:0x10AB4170 end:0x10AB4D18
+	.text  start:0x10B12250 end:0x10B129B8
+	.text  start:0x10B13920 end:0x10B13A28
+	.text  start:0x10B94170 end:0x10B948D8
+	.text  start:0x10B949B0 end:0x10B95118
+	.text  start:0x10B969A0 end:0x10B97658
+	.text  start:0x10B97700 end:0x10B97B38
+
+Engine/EngineClasses.cpp:
+	.text  start:0x10964D50 end:0x10964E58
+	.text  start:0x10964FA0 end:0x109652C8
+	.text  start:0x10965570 end:0x10965AB8
+	.text  start:0x109686A0 end:0x109687A8
+	.text  start:0x10968E30 end:0x10968F38
+	.text  start:0x1096A1C0 end:0x1096A2C8
+	.text  start:0x1096A3C0 end:0x1096A4C8
+	.text  start:0x1096AA90 end:0x1096AB98
+	.text  start:0x1096C170 end:0x1096C278
+	.text  start:0x1096CC20 end:0x1096CD28
+	.text  start:0x1096DDB0 end:0x1096DEB8
+	.text  start:0x10970670 end:0x10970888
+	.text  start:0x10973980 end:0x10973A88
+	.text  start:0x10974160 end:0x10974268
+	.text  start:0x10976590 end:0x10976698
+	.text  start:0x109770A0 end:0x109771A8
+	.text  start:0x10977280 end:0x10977388
+	.text  start:0x10977460 end:0x10977568
+	.text  start:0x10977640 end:0x10977748
+	.text  start:0x10977820 end:0x10977928
+	.text  start:0x10977A00 end:0x10977B08
+	.text  start:0x10977DA0 end:0x10977EA8
+	.text  start:0x10983480 end:0x10983588
+	.text  start:0x1098AAE0 end:0x1098ABE8
+	.text  start:0x1098B020 end:0x1098B128
+	.text  start:0x1098B160 end:0x1098B268
+	.text  start:0x1098B970 end:0x1098BB88
+	.text  start:0x1098CBD0 end:0x1098CCD8
+	.text  start:0x1098CE00 end:0x1098CF08
+	.text  start:0x1098E6B0 end:0x1098E7B8
+	.text  start:0x1098F180 end:0x1098F288
+	.text  start:0x1098F430 end:0x1098F538
+	.text  start:0x1098F610 end:0x1098F718
+	.text  start:0x1098F8C0 end:0x1098F9C8
+	.text  start:0x1098FAA0 end:0x1098FBA8
+	.text  start:0x1098FC80 end:0x1098FD88
+	.text  start:0x1098FE60 end:0x1098FF68
+	.text  start:0x10990040 end:0x10990148
+	.text  start:0x109912E0 end:0x10991A48
+	.text  start:0x10993030 end:0x10993AC8
+	.text  start:0x109948A0 end:0x10994BC8
+	.text  start:0x10994C40 end:0x10994E58
+	.text  start:0x10995900 end:0x10995A08
+	.text  start:0x10995C50 end:0x10996088
+	.text  start:0x10996110 end:0x10996218
+	.text  start:0x10996380 end:0x10996488
+	.text  start:0x10997950 end:0x10997C78
+	.text  start:0x10999730 end:0x10999838
+	.text  start:0x10999900 end:0x10999A08
+	.text  start:0x1099A480 end:0x1099AAD8
+	.text  start:0x1099B520 end:0x1099B738
+	.text  start:0x1099BD50 end:0x1099D398
+	.text  start:0x1099D470 end:0x1099D578
+	.text  start:0x1099D650 end:0x1099D978
+	.text  start:0x1099DA50 end:0x1099F1A8
+	.text  start:0x109A4440 end:0x109A50F8
+	.text  start:0x109A51E0 end:0x109A52E8
+	.text  start:0x109A66A0 end:0x109A67A8
+	.text  start:0x109AA1D0 end:0x109AA2D8
+	.text  start:0x109AD740 end:0x109AD848
+	.text  start:0x109ADE80 end:0x109ADF88
+	.text  start:0x109AE6A0 end:0x109AE7A8
+	.text  start:0x109AF200 end:0x109AF308
+	.text  start:0x109B2300 end:0x109B2408
+	.text  start:0x109B2540 end:0x109B2868
+	.text  start:0x109CD520 end:0x109CD628
+	.text  start:0x109CD870 end:0x109CD978
+	.text  start:0x109D11B0 end:0x109D12B8
+	.text  start:0x109D1FA0 end:0x109D20A8
+	.text  start:0x109D8FC0 end:0x109D90C8
+	.text  start:0x109DAA00 end:0x109DAC18
+	.text  start:0x109DADF0 end:0x109DAEF8
+	.text  start:0x109DB7C0 end:0x109DB8C8
+	.text  start:0x109DB9F0 end:0x109DBAF8
+	.text  start:0x109DBBC0 end:0x109DBCC8
+	.text  start:0x109DD6E0 end:0x109DD7E8
+	.text  start:0x109DEF30 end:0x109DF038
+	.text  start:0x10B7BEF0 end:0x10B7BFF8
+	.text  start:0x10C826F0 end:0x10C827F8
+	.text  start:0x10C85200 end:0x10C85308
+	.text  start:0x10C85F10 end:0x10C86018
+	.text  start:0x10C94BF0 end:0x10C94CF8
+
 Engine/Casts.cpp:
 	.text  start:0x10970CA0 end:0x10970CE2
 	.text  start:0x10977EB0 end:0x10977F42
@@ -38,6 +133,21 @@ Game/KeyHandler.cpp:
 Game/Options.cpp:
 	.text  start:0x10AB5AB0 end:0x10AB5AE0
 	.text  start:0x10AB61A0 end:0x10AB6311
+
+Engine/CoreClasses.cpp:
+	.text  start:0x10AD1FA0 end:0x10AD20A8
+	.text  start:0x10AD42D0 end:0x10AD4708
+	.text  start:0x10AD47D0 end:0x10AD48D8
+	.text  start:0x10AD49F0 end:0x10AD4AF8
+	.text  start:0x10ADFDA0 end:0x10AE00C8
+	.text  start:0x10AE34C0 end:0x10AE35C8
+	.text  start:0x10AE44B0 end:0x10AE45B8
+	.text  start:0x10AE5B40 end:0x10AE5C48
+	.text  start:0x10AE8B50 end:0x10AE8D18
+	.text  start:0x10AE90B0 end:0x10AE91B8
+	.text  start:0x10AE95E0 end:0x10AE97F8
+	.text  start:0x10AEADF0 end:0x10AEAEF8
+	.text  start:0x10B0F310 end:0x10B0F418
 
 Engine/Unsorted.cpp:
 	.text  start:0x10AEB350 end:0x10AEB4F6

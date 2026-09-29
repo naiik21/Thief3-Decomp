@@ -2,6 +2,12 @@
   "Engine/Casts.cpp": {
     "category": "engine"
   },
+  "Engine/CoreClasses.cpp": {
+    "category": "engine"
+  },
+  "Engine/EngineClasses.cpp": {
+    "category": "engine"
+  },
   "Engine/FFrame.cpp": {
     "category": "engine"
   },
@@ -13,6 +19,9 @@
   },
   "Engine/Unsorted.cpp": {
     "category": "engine"
+  },
+  "Game/GameClasses.cpp": {
+    "category": "game"
   },
   "Game/KeyHandler.cpp": {
     "category": "game"
