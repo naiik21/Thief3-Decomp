@@ -300,7 +300,8 @@ normalised screen coordinates (`screenx`, `screeny` in -1..1).
 | What | Address | Status |
 |---|---|---|
 | `GWindowManager` (`WindowManager*`) | `0x10F35DC4` | verified |
-| `Window::PlacedPosition(FVector* out)`, vtable `+0x18`, returns `out` | `0x10A52530` | verified (hooked) |
+| `Window::PlacedPosition(FVector* out)`, vtable `+0x18`, returns `out` | `0x10A52530` | verified (hooked), matched |
+| `WindowManager::LayoutToNormalized(x, y)`, `__thiscall`, returns an `FVector` by value: `x / (width * 0.5) - 1`, `1 - y / (height * 0.5)` (layout units to -1..1, y up) | `0x109E4290` | static (`PlacedPosition`) |
 | `Window::LoadConfig` (reads the window's INI section) | `0x10A54080` | static |
 | `ParsePlacement` (CENTER 1, TOP 2, BOTTOM 3, LEFT 4, RIGHT 5, else 0) | `0x10A51DF0` | static |
 | `ReadWindowHeight` (`FULLSCREEN`, `LETTERBOX` or a number) | `0x10A538B0` | static |
@@ -327,6 +328,18 @@ same with TOP/BOTTOM. The result is relative to the parent. `Width=FULLSCREEN`
 makes `w` the layout width, so a full-width window at `Pos_X=325` (the main
 menu buttons) sits 325 units from the left edge at any width. Callers use the
 returned pointer: a detour must return it.
+
+The matched source (`src/Game/Window.cpp`) adds what the trace did not show.
+First, if the window has a mover at `+0x100` (its vtable `+0x0C` returns a
+position), the window takes that position (`Window` vtable `+0x14`). With
+layout origin 0 (centred) and no parent, `avail` is
+`LayoutToNormalized(layout size)`, and the placements use half sizes around
+the centre: CENTER `x = Pos_X - w/2`, `y = h/2 + Pos_Y`; LEFT `x = Pos_X -
+avail/2`; RIGHT `x = avail/2 + Pos_X`; TOP `y = avail/2 + Pos_Y`; BOTTOM `y =
+-avail/2`, the one case that ignores `Pos_Y`. An unknown placement leaves the
+layout size in the result. Placement 0 is tested with an `if` and the other
+three with a `switch`, which is why the code compares instead of using a jump
+table.
 
 ## Display: viewport and Direct3D 8
 
