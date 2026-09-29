@@ -50,7 +50,7 @@ Engine/UObject.cpp:
 	.text  start:0x10B028B0 end:0x10B02BA6
 	.text  start:0x10B02C90 end:0x10B02CC4
 	.text  start:0x10B02E50 end:0x10B02E9D
-	.text  start:0x10B036F0 end:0x10B0384C
+	.text  start:0x10B03600 end:0x10B0384C
 	.text  start:0x10B04810 end:0x10B04835
 	.text  start:0x10B04FF0 end:0x10B050DE
 	.text  start:0x10E1C7C0 end:0x10E1C7D2  # .text$x: EH handlers and unwind funclets

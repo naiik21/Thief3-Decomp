@@ -446,6 +446,32 @@ void UObject::execIsA(FFrame& Stack, RESULT_DECL)
     *(DWORD*)Result = TempClass != NULL;
 }
 
+// FUNCTION: 0x10B03600 ?execDynArrayInsert@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDynArrayInsert(FFrame& Stack, RESULT_DECL)
+{
+    GProperty = NULL;
+    GPropertyLValue = 1;
+    Stack.Step(this, NULL);
+    GPropertyLValue = 0;
+    P_GET_INT(Offset);
+    P_GET_INT(Count);
+    FArray* Array = (FArray*)GPropAddr;
+    if (Array && Count)
+    {
+        if (Count < 0)
+        {
+            Stack.Logf("Attempt to insert a negative number of elements");
+            return;
+        }
+        if (Offset < 0 || Offset > Array->Num())
+        {
+            Stack.Logf("Attempt to insert %i elements at %i an %i-element array", Count, Offset, Array->Num());
+            Offset = Clamp(Offset, 0, Array->Num());
+        }
+        Array->Insert(Offset, Count, ((UArrayProperty*)GProperty)->Inner->ElementSize);
+    }
+}
+
 // FUNCTION: 0x10B036F0 ?execDynArrayRemove@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execDynArrayRemove(FFrame& Stack, RESULT_DECL)
 {

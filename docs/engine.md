@@ -139,6 +139,7 @@ reads the next opcode and calls it.
 | `GProperty` / `GPropAddr` (the last property `Step` evaluated, and its address) | `0x10F45C30` / `0x10F45C34` | matched as referenced |
 | `GPropertyLValue` (`DWORD`): 1 while a native evaluates the operand it writes through; set and cleared around that `Step` by about 40 natives (`execLet`, the `+=`/`-=`/`*=`/`/=` and `++`/`--` operators, `execDynArrayInsert`/`Remove`, ...). Ion Storm addition, name provisional | `0x10F45C38` | matched as referenced (`execDynArrayRemove`) |
 | `FArray::Remove(Index, Count, ElementSize)`, `__thiscall` (moves the tail down, shrinks) | `0x10AF3BD0` | matched as called (`execDynArrayRemove`) |
+| `FArray::Insert(Index, Count, ElementSize)`, `__thiscall` | `0x10AF4E80` | matched as called (`execDynArrayInsert`) |
 
 The table names 234 `UObject` natives in `symbols.txt`. Seven functions are
 shared by two or three natives (the linker folded identical bodies, such as
