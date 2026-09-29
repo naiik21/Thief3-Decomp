@@ -7,6 +7,8 @@
 // An out parameter: its address when it is a variable, else a temporary. The
 // caller saves GPropertyLValue before the first and restores it after the last.
 #define P_GET_VECTOR_REF(var) FVector var##T; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T);                               FVector* var = GPropAddr ? (FVector*)GPropAddr : &var##T;
+#include <math.h>
+#include <stdlib.h>
 
 float appFrand();
 
@@ -90,6 +92,36 @@ public:
 
 // The unit coordinate system (GMath.UnitCoords in stock Unreal Engine 2).
 extern FCoords GUnitCoords;
+
+// Stock Unreal Engine 2's math wrappers (UnVcWin32.h) and templates (UnTemplate.h).
+inline DOUBLE appSqrt(DOUBLE Value) { return sqrt(Value); }
+
+inline DOUBLE appSin(DOUBLE Value) { return sin(Value); }
+
+inline DOUBLE appCos(DOUBLE Value) { return cos(Value); }
+
+inline DOUBLE appTan(DOUBLE Value) { return tan(Value); }
+
+inline DOUBLE appAtan(DOUBLE Value) { return atan(Value); }
+
+inline DOUBLE appLoge(DOUBLE Value) { return log(Value); }
+
+inline DOUBLE appExp(DOUBLE Value) { return exp(Value); }
+
+inline DOUBLE appFmod(DOUBLE Y, DOUBLE X) { return fmod(Y, X); }
+
+inline DOUBLE appPow(DOUBLE A, DOUBLE B) { return pow(A, B); }
+
+// Ion Storm's own, out of line (execRand calls it, not the CRT's rand).
+INT appRand();
+
+                                  // 0x10AF3A20
+
+template<class T> inline T Abs(const T A) { return (A >= (T)0) ? A : -A; }
+
+template<class T> inline T Min(const T A, const T B) { return (A <= B) ? A : B; }
+
+template<class T> inline T Max(const T A, const T B) { return (A >= B) ? A : B; }
 
 // FUNCTION: 0x10AFD470 ?execDynArrayLength@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execDynArrayLength(FFrame& Stack, RESULT_DECL)
@@ -396,6 +428,15 @@ void UObject::execSubtract_PreFloat(FFrame& Stack, RESULT_DECL)
     *(FLOAT*)Result = -A;
 }
 
+// FUNCTION: 0x10AFF430 ?execMultiplyMultiply_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyMultiply_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = appPow(A, B);
+}
+
 // FUNCTION: 0x10AFF490 ?execMultiply_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execMultiply_FloatFloat(FFrame& Stack, RESULT_DECL)
 {
@@ -412,6 +453,15 @@ void UObject::execDivide_FloatFloat(FFrame& Stack, RESULT_DECL)
     P_GET_FLOAT(B);
     P_FINISH;
     *(FLOAT*)Result = A / B;
+}
+
+// FUNCTION: 0x10AFF530 ?execPercent_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execPercent_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = appFmod(A, B);
 }
 
 // FUNCTION: 0x10AFF590 ?execAdd_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -484,6 +534,62 @@ void UObject::execNotEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
     P_GET_FLOAT(B);
     P_FINISH;
     *(DWORD*)Result = A != B;
+}
+
+// FUNCTION: 0x10AFFB10 ?execSin@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSin(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appSin(A);
+}
+
+// FUNCTION: 0x10AFFB50 ?execCos@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execCos(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appCos(A);
+}
+
+// FUNCTION: 0x10AFFB90 ?execTan@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execTan(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appTan(A);
+}
+
+// FUNCTION: 0x10AFFBD0 ?execAtan@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAtan(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appAtan(A);
+}
+
+// FUNCTION: 0x10AFFC10 ?execExp@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execExp(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appExp(A);
+}
+
+// FUNCTION: 0x10AFFC60 ?execLoge@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execLoge(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appLoge(A);
+}
+
+// FUNCTION: 0x10AFFCA0 ?execSqrt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSqrt(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_FINISH;
+    *(FLOAT*)Result = appSqrt(A);
 }
 
 // FUNCTION: 0x10AFFCE0 ?execFRand@UObject@@QAEXAAVFFrame@@QAX@Z
