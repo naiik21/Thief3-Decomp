@@ -1,4 +1,4 @@
-{"measures":{"fuzzy_match_percent":0.36737746,"total_code":"5324477","matched_code":"17804","matched_code_percent":0.33438027,"total_data":"1845836","total_functions":40838,"matched_functions":175,"matched_functions_percent":0.42852247,"total_units":126},"version":2,"categories":[{"id":"main","name":"Game & engine","measures":{"fuzzy_match_percent":0.4618954,"total_code":"4234926","matched_code":"17804","matched_code_percent":0.42040876,"matched_data_percent":100.0,"total_functions":35640,"matched_functions":175,"matched_functions_percent":0.49102134,"complete_data_percent":100.0,"total_units":107}},{"id":"game","name":"Game","measures":{"fuzzy_match_percent":78.31735,"total_code":"1408","matched_code":"1089","matched_code_percent":77.34375,"matched_data_percent":100.0,"total_functions":10,"matched_functions":9,"matched_functions_percent":90.0,"complete_data_percent":100.0,"total_units":4}},{"id":"engine","name":"Engine","measures":{"fuzzy_match_percent":99.66103,"total_code":"18521","matched_code":"16715","matched_code_percent":90.24891,"matched_data_percent":100.0,"total_functions":195,"matched_functions":166,"matched_functions_percent":85.128204,"complete_data_percent":100.0,"total_units":4}},{"id":"libs","name":"Libraries","measures":{"total_code":"1089551","matched_data_percent":100.0,"total_functions":5198,"complete_data_percent":100.0,"total_units":18}}],"units":[
+{"measures":{"fuzzy_match_percent":0.37383822,"total_code":"5324477","matched_code":"18148","matched_code_percent":0.340841,"total_data":"1845836","total_functions":40838,"matched_functions":177,"matched_functions_percent":0.43341982,"total_units":127},"version":2,"categories":[{"id":"main","name":"Game & engine","measures":{"fuzzy_match_percent":0.47001836,"total_code":"4234926","matched_code":"18148","matched_code_percent":0.4285317,"matched_data_percent":100.0,"total_functions":35640,"matched_functions":177,"matched_functions_percent":0.496633,"complete_data_percent":100.0,"total_units":108}},{"id":"game","name":"Game","measures":{"fuzzy_match_percent":78.31735,"total_code":"1408","matched_code":"1089","matched_code_percent":77.34375,"matched_data_percent":100.0,"total_functions":10,"matched_functions":9,"matched_functions_percent":90.0,"complete_data_percent":100.0,"total_units":4}},{"id":"engine","name":"Engine","measures":{"fuzzy_match_percent":99.66722,"total_code":"18865","matched_code":"17059","matched_code_percent":90.42671,"matched_data_percent":100.0,"total_functions":197,"matched_functions":168,"matched_functions_percent":85.27919,"complete_data_percent":100.0,"total_units":4}},{"id":"libs","name":"Libraries","measures":{"total_code":"1089551","matched_data_percent":100.0,"total_functions":5198,"complete_data_percent":100.0,"total_units":18}}],"units":[
  {"name":"Game/Window","measures":{"fuzzy_match_percent":100.0,"total_code":"653","matched_code":"653","matched_code_percent":100.0,"matched_data_percent":100.0,"total_functions":5,"matched_functions":5,"matched_functions_percent":100.0,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"653","fuzzy_match_percent":100.0,"metadata":{}}],"metadata":{"source_path":"src/Game/Window.cpp","progress_categories":["main","game"],"auto_generated":false},"functions":[
   {"name":"?HasFlag@Window@@UAEHK@Z","size":"19","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: virtual int __thiscall Window::HasFlag(unsigned long)","virtual_address":"278804512"},"address":"0"},
   {"name":"?SetFlag@Window@@UAEXK@Z","size":"21","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: virtual void __thiscall Window::SetFlag(unsigned long)","virtual_address":"278804544"},"address":"19"},
@@ -23,7 +23,7 @@
  {"name":"Engine/FString","measures":{"fuzzy_match_percent":100.0,"total_code":"19","matched_code":"19","matched_code_percent":100.0,"matched_data_percent":100.0,"total_functions":1,"matched_functions":1,"matched_functions_percent":100.0,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"19","fuzzy_match_percent":100.0,"metadata":{}}],"metadata":{"source_path":"src/Engine/FString.cpp","progress_categories":["main","engine"],"auto_generated":false},"functions":[
   {"name":"??0FString@@QAE@XZ","size":"19","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: __thiscall FString::FString(void)","virtual_address":"279937584"},"address":"0"}
  ]},
- {"name":"Engine/UObject","measures":{"fuzzy_match_percent":99.65238,"total_code":"18060","matched_code":"16254","matched_code_percent":90.0,"matched_data_percent":100.0,"total_functions":192,"matched_functions":163,"matched_functions_percent":84.89583,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"18060","fuzzy_match_percent":99.65238,"metadata":{}}],"metadata":{"source_path":"src/Engine/UObject.cpp","progress_categories":["main","engine"],"auto_generated":false},"functions":[
+ {"name":"Engine/UObject","measures":{"fuzzy_match_percent":99.65888,"total_code":"18404","matched_code":"16598","matched_code_percent":90.18692,"matched_data_percent":100.0,"total_functions":194,"matched_functions":165,"matched_functions_percent":85.05155,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"18404","fuzzy_match_percent":99.65888,"metadata":{}}],"metadata":{"source_path":"src/Engine/UObject.cpp","progress_categories":["main","engine"],"auto_generated":false},"functions":[
   {"name":"?execLocalVariable@UObject@@QAEXAAVFFrame@@QAX@Z","size":"57","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execLocalVariable(class FFrame &, void *const)","virtual_address":"279958256"},"address":"0"},
   {"name":"?execDynArrayLength@UObject@@QAEXAAVFFrame@@QAX@Z","size":"58","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execDynArrayLength(class FFrame &, void *const)","virtual_address":"279958640"},"address":"57"},
   {"name":"?execBoolVariable@UObject@@QAEXAAVFFrame@@QAX@Z","size":"86","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execBoolVariable(class FFrame &, void *const)","virtual_address":"279958704"},"address":"115"},
@@ -199,23 +199,25 @@
   {"name":"?execDynArrayRemove@UObject@@QAEXAAVFFrame@@QAX@Z","size":"348","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execDynArrayRemove(class FFrame &, void *const)","virtual_address":"279983856"},"address":"16018"},
   {"name":"?execJump@UObject@@QAEXAAVFFrame@@QAX@Z","size":"102","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execJump(class FFrame &, void *const)","virtual_address":"279984736"},"address":"16366"},
   {"name":"?execJumpIfNot@UObject@@QAEXAAVFFrame@@QAX@Z","size":"138","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execJumpIfNot(class FFrame &, void *const)","virtual_address":"279984848"},"address":"16468"},
-  {"name":"?execMin@UObject@@QAEXAAVFFrame@@QAX@Z","size":"94","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execMin(class FFrame &, void *const)","virtual_address":"279985808"},"address":"16606"},
-  {"name":"?execMax@UObject@@QAEXAAVFFrame@@QAX@Z","size":"94","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execMax(class FFrame &, void *const)","virtual_address":"279985904"},"address":"16700"},
-  {"name":"?execClamp@UObject@@QAEXAAVFFrame@@QAX@Z","size":"192","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execClamp(class FFrame &, void *const)","virtual_address":"279986000"},"address":"16794"},
-  {"name":"?execComplementEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z","size":"125","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execComplementEqual_FloatFloat(class FFrame &, void *const)","virtual_address":"279986192"},"address":"16986"},
-  {"name":"?execAbs@UObject@@QAEXAAVFFrame@@QAX@Z","size":"81","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execAbs(class FFrame &, void *const)","virtual_address":"279986320"},"address":"17111"},
-  {"name":"?execSquare@UObject@@QAEXAAVFFrame@@QAX@Z","size":"56","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execSquare(class FFrame &, void *const)","virtual_address":"279986416"},"address":"17192"},
-  {"name":"?execFMin@UObject@@QAEXAAVFFrame@@QAX@Z","size":"104","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execFMin(class FFrame &, void *const)","virtual_address":"279986480"},"address":"17248"},
-  {"name":"?execFMax@UObject@@QAEXAAVFFrame@@QAX@Z","size":"104","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execFMax(class FFrame &, void *const)","virtual_address":"279986592"},"address":"17352"},
-  {"name":"?execFClamp@UObject@@QAEXAAVFFrame@@QAX@Z","size":"123","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execFClamp(class FFrame &, void *const)","virtual_address":"279986704"},"address":"17456"},
-  {"name":"?execClassIsChildOf@UObject@@QAEXAAVFFrame@@QAX@Z","size":"128","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execClassIsChildOf(class FFrame &, void *const)","virtual_address":"279987136"},"address":"17579"},
-  {"name":"?execStaticSaveConfig@UObject@@QAEXAAVFFrame@@QAX@Z","size":"37","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execStaticSaveConfig(class FFrame &, void *const)","virtual_address":"279988240"},"address":"17707"},
-  {"name":"?execObjectToString@UObject@@QAEXAAVFFrame@@QAX@Z","size":"238","fuzzy_match_percent":99.96,"metadata":{"demangled_name":"public: void __thiscall UObject::execObjectToString(class FFrame &, void *const)","virtual_address":"279990256"},"address":"17744"},
-  {"name":"Unwind@10e1c7c0","size":"8","metadata":{"virtual_address":"283232192"},"address":"17982"},
-  {"name":"__ehhandler$?execLen@UObject@@QAEXAAVFFrame@@QAX@Z","size":"10","fuzzy_match_percent":97.5,"metadata":{"virtual_address":"283232200"},"address":"17990"},
-  {"name":"Unwind@10e1c8b0","size":"25","metadata":{"virtual_address":"283232432"},"address":"18000"},
-  {"name":"Unwind@10e1c8c9","size":"25","metadata":{"virtual_address":"283232457"},"address":"18025"},
-  {"name":"__ehhandler$?execObjectToString@UObject@@QAEXAAVFFrame@@QAX@Z","size":"10","fuzzy_match_percent":97.5,"metadata":{"virtual_address":"283232482"},"address":"18050"}
+  {"name":"?execMetaCast@UObject@@QAEXAAVFFrame@@QAX@Z","size":"147","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execMetaCast(class FFrame &, void *const)","virtual_address":"279985504"},"address":"16606"},
+  {"name":"?execMin@UObject@@QAEXAAVFFrame@@QAX@Z","size":"94","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execMin(class FFrame &, void *const)","virtual_address":"279985808"},"address":"16753"},
+  {"name":"?execMax@UObject@@QAEXAAVFFrame@@QAX@Z","size":"94","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execMax(class FFrame &, void *const)","virtual_address":"279985904"},"address":"16847"},
+  {"name":"?execClamp@UObject@@QAEXAAVFFrame@@QAX@Z","size":"192","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execClamp(class FFrame &, void *const)","virtual_address":"279986000"},"address":"16941"},
+  {"name":"?execComplementEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z","size":"125","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execComplementEqual_FloatFloat(class FFrame &, void *const)","virtual_address":"279986192"},"address":"17133"},
+  {"name":"?execAbs@UObject@@QAEXAAVFFrame@@QAX@Z","size":"81","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execAbs(class FFrame &, void *const)","virtual_address":"279986320"},"address":"17258"},
+  {"name":"?execSquare@UObject@@QAEXAAVFFrame@@QAX@Z","size":"56","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execSquare(class FFrame &, void *const)","virtual_address":"279986416"},"address":"17339"},
+  {"name":"?execFMin@UObject@@QAEXAAVFFrame@@QAX@Z","size":"104","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execFMin(class FFrame &, void *const)","virtual_address":"279986480"},"address":"17395"},
+  {"name":"?execFMax@UObject@@QAEXAAVFFrame@@QAX@Z","size":"104","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execFMax(class FFrame &, void *const)","virtual_address":"279986592"},"address":"17499"},
+  {"name":"?execFClamp@UObject@@QAEXAAVFFrame@@QAX@Z","size":"123","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execFClamp(class FFrame &, void *const)","virtual_address":"279986704"},"address":"17603"},
+  {"name":"?execClassIsChildOf@UObject@@QAEXAAVFFrame@@QAX@Z","size":"128","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execClassIsChildOf(class FFrame &, void *const)","virtual_address":"279987136"},"address":"17726"},
+  {"name":"?execStaticSaveConfig@UObject@@QAEXAAVFFrame@@QAX@Z","size":"37","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execStaticSaveConfig(class FFrame &, void *const)","virtual_address":"279988240"},"address":"17854"},
+  {"name":"?execGetEnum@UObject@@QAEXAAVFFrame@@QAX@Z","size":"197","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: void __thiscall UObject::execGetEnum(class FFrame &, void *const)","virtual_address":"279988288"},"address":"17891"},
+  {"name":"?execObjectToString@UObject@@QAEXAAVFFrame@@QAX@Z","size":"238","fuzzy_match_percent":99.96,"metadata":{"demangled_name":"public: void __thiscall UObject::execObjectToString(class FFrame &, void *const)","virtual_address":"279990256"},"address":"18088"},
+  {"name":"Unwind@10e1c7c0","size":"8","metadata":{"virtual_address":"283232192"},"address":"18326"},
+  {"name":"__ehhandler$?execLen@UObject@@QAEXAAVFFrame@@QAX@Z","size":"10","fuzzy_match_percent":97.5,"metadata":{"virtual_address":"283232200"},"address":"18334"},
+  {"name":"Unwind@10e1c8b0","size":"25","metadata":{"virtual_address":"283232432"},"address":"18344"},
+  {"name":"Unwind@10e1c8c9","size":"25","metadata":{"virtual_address":"283232457"},"address":"18369"},
+  {"name":"__ehhandler$?execObjectToString@UObject@@QAEXAAVFFrame@@QAX@Z","size":"10","fuzzy_match_percent":97.5,"metadata":{"virtual_address":"283232482"},"address":"18394"}
  ]},
  {"name":"Engine/FFrame","measures":{"fuzzy_match_percent":100.0,"total_code":"20","matched_code":"20","matched_code_percent":100.0,"matched_data_percent":100.0,"total_functions":1,"matched_functions":1,"matched_functions_percent":100.0,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"20","fuzzy_match_percent":100.0,"metadata":{}}],"metadata":{"source_path":"src/Engine/FFrame.cpp","progress_categories":["main","engine"],"auto_generated":false},"functions":[
   {"name":"?ReadName@FFrame@@QAE?AVFName@@XZ","size":"20","fuzzy_match_percent":100.0,"metadata":{"demangled_name":"public: class FName __thiscall FFrame::ReadName(void)","virtual_address":"280034512"},"address":"0"}
@@ -8488,7 +8490,7 @@
   {"name":"FUN_10ad1f10","size":"45","metadata":{"virtual_address":"279781136"},"address":"45324"},
   {"name":"FUN_10ad1f40","size":"69","metadata":{"virtual_address":"279781184"},"address":"45369"},
   {"name":"FUN_10ad1f90","size":"16","metadata":{"virtual_address":"279781264"},"address":"45438"},
-  {"name":"FUN_10ad1fa0","size":"264","metadata":{"virtual_address":"279781280"},"address":"45454"},
+  {"name":"?InitializePrivateStaticClassUEnum@@YAXXZ","size":"264","metadata":{"demangled_name":"void __cdecl InitializePrivateStaticClassUEnum(void)","virtual_address":"279781280"},"address":"45454"},
   {"name":"FUN_10ad20b0","size":"127","metadata":{"virtual_address":"279781552"},"address":"45718"},
   {"name":"FUN_10ad2130","size":"6","metadata":{"virtual_address":"279781680"},"address":"45845"},
   {"name":"FUN_10ad2140","size":"89","metadata":{"virtual_address":"279781696"},"address":"45851"},
@@ -8684,7 +8686,7 @@
   {"name":"FUN_10add870","size":"14","metadata":{"virtual_address":"279828592"},"address":"28007"},
   {"name":"FUN_10add880","size":"14","metadata":{"virtual_address":"279828608"},"address":"28021"},
   {"name":"FUN_10add890","size":"14","metadata":{"virtual_address":"279828624"},"address":"28035"},
-  {"name":"FUN_10add8a0","size":"192","metadata":{"virtual_address":"279828640"},"address":"28049"},
+  {"name":"?GetPrivateStaticClassUEnum@@YAPAVUClass@@PBD@Z","size":"192","metadata":{"demangled_name":"class UClass * __cdecl GetPrivateStaticClassUEnum(char const *)","virtual_address":"279828640"},"address":"28049"},
   {"name":"FUN_10add960","size":"192","metadata":{"virtual_address":"279828832"},"address":"28241"},
   {"name":"FUN_10adda20","size":"196","metadata":{"virtual_address":"279829024"},"address":"28433"},
   {"name":"FUN_10addaf0","size":"196","metadata":{"virtual_address":"279829232"},"address":"28629"},
@@ -8822,10 +8824,10 @@
   {"name":"FUN_10ae8480","size":"192","metadata":{"virtual_address":"279872640"},"address":"7042"},
   {"name":"FUN_10ae8540","size":"195","metadata":{"virtual_address":"279872832"},"address":"7234"},
   {"name":"FUN_10ae8610","size":"725","metadata":{"virtual_address":"279873040"},"address":"7429"},
-  {"name":"FUN_10ae88f0","size":"195","metadata":{"virtual_address":"279873776"},"address":"8154"},
+  {"name":"?GetPrivateStaticClassUClass@@YAPAVUClass@@PBD@Z","size":"195","metadata":{"demangled_name":"class UClass * __cdecl GetPrivateStaticClassUClass(char const *)","virtual_address":"279873776"},"address":"8154"},
   {"name":"FUN_10ae89c0","size":"126","metadata":{"virtual_address":"279873984"},"address":"8349"},
   {"name":"FUN_10ae8a40","size":"267","metadata":{"virtual_address":"279874112"},"address":"8475"},
-  {"name":"FUN_10ae8b50","size":"180","metadata":{"virtual_address":"279874384"},"address":"8742"},
+  {"name":"?InitializePrivateStaticClassUClass@@YAXXZ","size":"180","metadata":{"demangled_name":"void __cdecl InitializePrivateStaticClassUClass(void)","virtual_address":"279874384"},"address":"8742"},
   {"name":"FUN_10ae8c10","size":"264","metadata":{"virtual_address":"279874576"},"address":"8922"},
   {"name":"FUN_10ae8d20","size":"471","metadata":{"virtual_address":"279874848"},"address":"9186"},
   {"name":"FUN_10ae8f00","size":"147","metadata":{"virtual_address":"279875328"},"address":"9657"},
@@ -9369,7 +9371,7 @@
   {"name":"FUN_10b02f00","size":"356","metadata":{"virtual_address":"279981824"},"address":"92"},
   {"name":"FUN_10b03070","size":"334","metadata":{"virtual_address":"279982192"},"address":"448"},
   {"name":"FUN_10b031c0","size":"110","metadata":{"virtual_address":"279982528"},"address":"782"},
-  {"name":"FUN_10b03230","size":"66","metadata":{"virtual_address":"279982640"},"address":"892"},
+  {"name":"??$Cast@VUEnum@@@@YAPAVUEnum@@PAVUObject@@@Z","size":"66","metadata":{"demangled_name":"class UEnum * __cdecl Cast<class UEnum>(class UObject *)","virtual_address":"279982640"},"address":"892"},
   {"name":"FUN_10b03280","size":"124","metadata":{"virtual_address":"279982720"},"address":"958"},
   {"name":"UObject::execClassContext","size":"162","metadata":{"virtual_address":"279982848"},"address":"1082"},
   {"name":"UObject::execArrayElement","size":"225","metadata":{"virtual_address":"279983024"},"address":"1244"}
@@ -9378,12 +9380,13 @@
   {"name":"UObject::execStructMember","size":"211","metadata":{"virtual_address":"279984208"},"address":"0"},
   {"name":"UObject::execSwitch","size":"302","metadata":{"virtual_address":"279984432"},"address":"211"}
  ]},
- {"name":"auto/text_10B03B60","measures":{"total_code":"781","matched_data_percent":100.0,"total_functions":5,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"781","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
+ {"name":"auto/text_10B03B60","measures":{"total_code":"498","matched_data_percent":100.0,"total_functions":3,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"498","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
   {"name":"UObject::execGotoLabel","size":"160","metadata":{"virtual_address":"279984992"},"address":"0"},
   {"name":"UObject::execStringConst","size":"151","metadata":{"virtual_address":"279985152"},"address":"160"},
-  {"name":"UObject::execUnicodeStringConst","size":"187","metadata":{"virtual_address":"279985312"},"address":"311"},
-  {"name":"UObject::execMetaCast","size":"147","metadata":{"virtual_address":"279985504"},"address":"498"},
-  {"name":"UObject::execNameToString","size":"136","metadata":{"virtual_address":"279985664"},"address":"645"}
+  {"name":"UObject::execUnicodeStringConst","size":"187","metadata":{"virtual_address":"279985312"},"address":"311"}
+ ]},
+ {"name":"auto/text_10B03E00","measures":{"total_code":"136","matched_data_percent":100.0,"total_functions":1,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"136","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
+  {"name":"UObject::execNameToString","size":"136","metadata":{"virtual_address":"279985664"},"address":"0"}
  ]},
  {"name":"auto/text_10B04290","measures":{"total_code":"302","matched_data_percent":100.0,"total_functions":1,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"302","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
   {"name":"UObject::execLocalize","size":"302","metadata":{"virtual_address":"279986832"},"address":"0"}
@@ -9393,12 +9396,11 @@
   {"name":"UObject::execEnable","size":"252","metadata":{"virtual_address":"279987744"},"address":"465"},
   {"name":"UObject::execDisable","size":"233","metadata":{"virtual_address":"279988000"},"address":"717"}
  ]},
- {"name":"auto/text_10B04840","measures":{"total_code":"1937","matched_data_percent":100.0,"total_functions":5,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"1937","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
-  {"name":"UObject::execGetEnum","size":"197","metadata":{"virtual_address":"279988288"},"address":"0"},
-  {"name":"FUN_10b04910","size":"460","metadata":{"virtual_address":"279988496"},"address":"197"},
-  {"name":"FUN_10b04ae0","size":"344","metadata":{"virtual_address":"279988960"},"address":"657"},
-  {"name":"FUN_10b04c40","size":"488","metadata":{"virtual_address":"279989312"},"address":"1001"},
-  {"name":"UObject::execDefaultVariable","size":"448","metadata":{"virtual_address":"279989808"},"address":"1489"}
+ {"name":"auto/text_10B04910","measures":{"total_code":"1740","matched_data_percent":100.0,"total_functions":4,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"1740","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
+  {"name":"FUN_10b04910","size":"460","metadata":{"virtual_address":"279988496"},"address":"0"},
+  {"name":"FUN_10b04ae0","size":"344","metadata":{"virtual_address":"279988960"},"address":"460"},
+  {"name":"FUN_10b04c40","size":"488","metadata":{"virtual_address":"279989312"},"address":"804"},
+  {"name":"UObject::execDefaultVariable","size":"448","metadata":{"virtual_address":"279989808"},"address":"1292"}
  ]},
  {"name":"auto/text_10B050E0","measures":{"total_code":"42737","matched_data_percent":100.0,"total_functions":175,"complete_data_percent":100.0,"total_units":1},"sections":[{"name":".text","size":"42737","metadata":{}}],"metadata":{"progress_categories":["main"],"auto_generated":true},"functions":[
   {"name":"UObject::execGetPropertyText","size":"223","metadata":{"virtual_address":"279990496"},"address":"0"},

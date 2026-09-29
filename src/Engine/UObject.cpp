@@ -1839,6 +1839,16 @@ void UObject::execJumpIfNot(FFrame& Stack, RESULT_DECL)
         Stack.Code = (BYTE*)Stack.Node->Script.Data + wOffset;
 }
 
+// FUNCTION: 0x10B03D60 ?execMetaCast@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMetaCast(FFrame& Stack, RESULT_DECL)
+{
+    UClass* MetaClass = (UClass*)Stack.ReadObject();
+
+    // Compile actual expression.
+    P_GET_OBJECT(UObject, Castee);
+    *(UObject**)Result = (Castee && Castee->IsA(UClass::StaticClass()) && ((UClass*)Castee)->IsChildOf(MetaClass)) ? Castee : NULL;
+}
+
 // FUNCTION: 0x10B03E90 ?execMin@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execMin(FFrame& Stack, RESULT_DECL)
 {
@@ -1934,6 +1944,18 @@ void UObject::execStaticSaveConfig(FFrame& Stack, RESULT_DECL)
 {
     P_FINISH;
     GetClass()->ClassDefaultObject->SaveConfig(0, NULL);
+}
+
+// FUNCTION: 0x10B04840 ?execGetEnum@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execGetEnum(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_OBJECT(UObject, E);
+    P_GET_INT(i);
+    P_FINISH;
+
+    *(FName*)Result = NAME_None;
+    if (Cast<UEnum>(E) && i >= 0 && i < Cast<UEnum>(E)->Names.Num())
+        *(FName*)Result = Cast<UEnum>(E)->Names(i);
 }
 
 // FUNCTION: 0x10B04FF0 ?execObjectToString@UObject@@QAEXAAVFFrame@@QAX@Z

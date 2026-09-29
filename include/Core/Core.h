@@ -68,6 +68,14 @@ public:
     INT ArrayMax;
 };
 
+// A typed view of the same header.
+template<class T> class TArray : public FArray
+{
+public:
+    T& operator()(INT i) { return ((T*)Data)[i]; }
+    const T& operator()(INT i) const { return ((T*)Data)[i]; }
+};
+
 // A string: its characters and terminator in an array (TArray<ANSICHAR> in
 // stock Unreal Engine 2), with these members out of line in this build.
 class FString : public FArray
@@ -505,6 +513,30 @@ public:
     UField* Next;                   // 0x30 (stock order, not yet seen)
 };
 
+UClass* GetPrivateStaticClassUEnum(const ANSICHAR* Package);   // 0x10ADD8A0
+void InitializePrivateStaticClassUEnum();                      // 0x10AD1FA0
+
+// An enumeration's value names.
+class UEnum : public UField
+{
+public:
+    TArray<FName> Names;            // 0x34
+
+    // Created on first use, like UClass::StaticClass.
+    static UClass* StaticClass()
+    {
+        if (!PrivateStaticClass)
+        {
+            PrivateStaticClass = GetPrivateStaticClassUEnum("Core");
+            InitializePrivateStaticClassUEnum();
+        }
+        return PrivateStaticClass;
+    }
+
+private:
+    static UClass* PrivateStaticClass;  // 0x10F3E46C
+};
+
 // Script sits 4 bytes after its stock Unreal Engine 2 offset, like SuperField.
 class UStruct : public UField
 {
@@ -531,12 +563,39 @@ class UState : public UStruct
 
 // UState has no known fields yet, so UClass's padding covers them (and
 // UStruct's after Script): shrink it when they get some.
+// Builds UClass's own class object on first use (package "Core"), then links
+// it (both called only from UClass::StaticClass).
+UClass* GetPrivateStaticClassUClass(const ANSICHAR* Package);  // 0x10AE88F0
+void InitializePrivateStaticClassUClass();                     // 0x10AE8B50
+
 class UClass : public UState
 {
 public:
     BYTE Unknown54[0x94];
     UObject* ClassDefaultObject;    // 0xE8 (docs/engine.md: static, probable)
+
+    // Not stock Unreal Engine 2 (a static object there): Ion Storm keeps a
+    // pointer and creates the class lazily, as Unreal Engine 3 later does.
+    static UClass* StaticClass()
+    {
+        if (!PrivateStaticClass)
+        {
+            PrivateStaticClass = GetPrivateStaticClassUClass("Core");
+            InitializePrivateStaticClassUClass();
+        }
+        return PrivateStaticClass;
+    }
+
+private:
+    static UClass* PrivateStaticClass;  // 0x10F3E514
 };
+
+// The checked downcast; out of line where the compiler keeps a copy
+// (Cast<UEnum> at 0x10B03230).
+template<class T> T* Cast(UObject* Src)
+{
+    return Src && Src->IsA(T::StaticClass()) ? (T*)Src : NULL;
+}
 
 // --- Script execution ---------------------------------------------------------------
 
