@@ -128,6 +128,17 @@ public:
     FVector operator*(FLOAT Scale) const { return FVector(X * Scale, Y * Scale, Z * Scale); }
     FLOAT operator|(const FVector& V) const { return X * V.X + Y * V.Y + Z * V.Z; }
     friend FVector operator*(FLOAT Scale, const FVector& V) { return FVector(V.X * Scale, V.Y * Scale, V.Z * Scale); }
+    FVector operator-() const { return FVector(-X, -Y, -Z); }
+    FVector operator*(const FVector& V) const { return FVector(X * V.X, Y * V.Y, Z * V.Z); }
+    FVector operator/(FLOAT Scale) const { FLOAT RScale = 1.f / Scale; return FVector(X * RScale, Y * RScale, Z * RScale); }
+    FVector operator^(const FVector& V) const { return FVector(Y * V.Z - Z * V.Y, Z * V.X - X * V.Z, X * V.Y - Y * V.X); }
+    FVector operator+=(const FVector& V) { X += V.X; Y += V.Y; Z += V.Z; return *this; }
+    FVector operator-=(const FVector& V) { X -= V.X; Y -= V.Y; Z -= V.Z; return *this; }
+    FVector operator*=(FLOAT Scale) { X *= Scale; Y *= Scale; Z *= Scale; return *this; }
+    FVector operator/=(FLOAT V) { FLOAT RV = 1.f / V; X *= RV; Y *= RV; Z *= RV; return *this; }
+    FVector operator*=(const FVector& V) { X *= V.X; Y *= V.Y; Z *= V.Z; return *this; }
+    UBOOL operator==(const FVector& V) const { return X == V.X && Y == V.Y && Z == V.Z; }
+    UBOOL operator!=(const FVector& V) const { return X != V.X || Y != V.Y || Z != V.Z; }
 
     FVector SafeNormal() const;                 // 0x10967580
 
@@ -142,6 +153,11 @@ public:
     FRotator(INT InPitch, INT InYaw, INT InRoll) : Pitch(InPitch), Yaw(InYaw), Roll(InRoll) {}
 
     FRotator operator+(const FRotator& R) const { return FRotator(Pitch + R.Pitch, Yaw + R.Yaw, Roll + R.Roll); }
+    FRotator operator-(const FRotator& R) const { return FRotator(Pitch - R.Pitch, Yaw - R.Yaw, Roll - R.Roll); }
+    FRotator operator+=(const FRotator& R) { Pitch += R.Pitch; Yaw += R.Yaw; Roll += R.Roll; return *this; }
+    FRotator operator-=(const FRotator& R) { Pitch -= R.Pitch; Yaw -= R.Yaw; Roll -= R.Roll; return *this; }
+    UBOOL operator==(const FRotator& R) const { return Pitch == R.Pitch && Yaw == R.Yaw && Roll == R.Roll; }
+    UBOOL operator!=(const FRotator& R) const { return Pitch != R.Pitch || Yaw != R.Yaw || Roll != R.Roll; }
 
     INT Pitch, Yaw, Roll;
 };

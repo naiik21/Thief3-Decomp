@@ -16,6 +16,8 @@
                              BYTE* var = GPropAddr ? (BYTE*)GPropAddr : &var##T;
 #define P_GET_FLOAT_REF(var) FLOAT var##T = 0.f; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T); \
                              FLOAT* var = GPropAddr ? (FLOAT*)GPropAddr : &var##T;
+#define P_GET_ROTATOR_REF(var) FRotator var##T; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T); \
+                               FRotator* var = GPropAddr ? (FRotator*)GPropAddr : &var##T;
 
 float appFrand();
 
@@ -851,6 +853,50 @@ void UObject::execVectorConst(FFrame& Stack, RESULT_DECL)
     Stack.Code += sizeof(FVector);
 }
 
+// FUNCTION: 0x10B00320 ?execSubtract_PreVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtract_PreVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_FINISH;
+    *(FVector*)Result = -A;
+}
+
+// FUNCTION: 0x10B00380 ?execMultiply_VectorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiply_VectorFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FVector*)Result = A * B;
+}
+
+// FUNCTION: 0x10B00400 ?execMultiply_FloatVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiply_FloatVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = A * B;
+}
+
+// FUNCTION: 0x10B00480 ?execMultiply_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiply_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = A * B;
+}
+
+// FUNCTION: 0x10B00500 ?execDivide_VectorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivide_VectorFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FVector*)Result = A / B;
+}
+
 // FUNCTION: 0x10B00580 ?execAdd_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAdd_VectorVector(FFrame& Stack, RESULT_DECL)
 {
@@ -858,6 +904,67 @@ void UObject::execAdd_VectorVector(FFrame& Stack, RESULT_DECL)
     P_GET_VECTOR(B);
     P_FINISH;
     *(FVector*)Result = A + B;
+}
+
+// FUNCTION: 0x10B00600 ?execSubtract_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtract_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = A - B;
+}
+
+// FUNCTION: 0x10B007C0 ?execEqualEqual_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execEqualEqual_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(DWORD*)Result = A == B;
+}
+
+// FUNCTION: 0x10B00850 ?execNotEqual_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNotEqual_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(DWORD*)Result = A != B;
+}
+
+// FUNCTION: 0x10B008E0 ?execDot_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDot_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FLOAT*)Result = A | B;
+}
+
+// FUNCTION: 0x10B00940 ?execCross_VectorVector@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execCross_VectorVector(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_GET_VECTOR(B);
+    P_FINISH;
+    *(FVector*)Result = A ^ B;
+}
+
+// FUNCTION: 0x10B00D00 ?execVSize@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execVSize(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_FINISH;
+    *(FLOAT*)Result = appSqrt(A.X * A.X + A.Y * A.Y + A.Z * A.Z);
+}
+
+// FUNCTION: 0x10B00D50 ?execNormal@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNormal(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_VECTOR(A);
+    P_FINISH;
+    *(FVector*)Result = A.SafeNormal();
 }
 
 // FUNCTION: 0x10B00F30 ?execVRand@UObject@@QAEXAAVFFrame@@QAX@Z
