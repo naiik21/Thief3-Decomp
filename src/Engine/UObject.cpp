@@ -285,6 +285,50 @@ void UObject::execNot_PreBool(FFrame& Stack, RESULT_DECL)
     *(DWORD*)Result = !A;
 }
 
+// FUNCTION: 0x10AFE620 ?execMultiplyEqual_ByteByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyEqual_ByteByte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_BYTE(B);
+    P_FINISH;
+    *(BYTE*)Result = (*A *= B);
+}
+
+// FUNCTION: 0x10AFE6A0 ?execDivideEqual_ByteByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivideEqual_ByteByte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_BYTE(B);
+    P_FINISH;
+    *(BYTE*)Result = B ? (*A /= B) : 0;
+}
+
+// FUNCTION: 0x10AFE740 ?execAddEqual_ByteByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddEqual_ByteByte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_BYTE(B);
+    P_FINISH;
+    *(BYTE*)Result = (*A += B);
+}
+
+// FUNCTION: 0x10AFE7C0 ?execSubtractEqual_ByteByte@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractEqual_ByteByte(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_BYTE_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_BYTE(B);
+    P_FINISH;
+    *(BYTE*)Result = (*A -= B);
+}
+
 // FUNCTION: 0x10AFE840 ?execAddAdd_PreByte@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAddAdd_PreByte(FFrame& Stack, RESULT_DECL)
 {
@@ -467,6 +511,50 @@ void UObject::execOr_IntInt(FFrame& Stack, RESULT_DECL)
     *(INT*)Result = A | B;
 }
 
+// FUNCTION: 0x10AFEF80 ?execMultiplyEqual_IntFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyEqual_IntFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(INT*)Result = *A = (INT)(*A * B);
+}
+
+// FUNCTION: 0x10AFF010 ?execDivideEqual_IntFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivideEqual_IntFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(INT*)Result = *A = (INT)(B ? *A / B : 0.f);
+}
+
+// FUNCTION: 0x10AFF0C0 ?execAddEqual_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddEqual_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = (*A += B);
+}
+
+// FUNCTION: 0x10AFF150 ?execSubtractEqual_IntInt@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractEqual_IntInt(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_INT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_INT(B);
+    P_FINISH;
+    *(INT*)Result = (*A -= B);
+}
+
 // FUNCTION: 0x10AFF1E0 ?execAddAdd_PreInt@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAddAdd_PreInt(FFrame& Stack, RESULT_DECL)
 {
@@ -629,6 +717,50 @@ void UObject::execNotEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
     P_GET_FLOAT(B);
     P_FINISH;
     *(DWORD*)Result = A != B;
+}
+
+// FUNCTION: 0x10AFF8D0 ?execMultiplyEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiplyEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_FLOAT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = (*A *= B);
+}
+
+// FUNCTION: 0x10AFF960 ?execDivideEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execDivideEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_FLOAT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = (*A /= B);
+}
+
+// FUNCTION: 0x10AFF9F0 ?execAddEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execAddEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_FLOAT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = (*A += B);
+}
+
+// FUNCTION: 0x10AFFA80 ?execSubtractEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execSubtractEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    DWORD SavedLValue = GPropertyLValue;
+    P_GET_FLOAT_REF(A);
+    GPropertyLValue = SavedLValue;
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FLOAT*)Result = (*A -= B);
 }
 
 // FUNCTION: 0x10AFFB10 ?execSin@UObject@@QAEXAAVFFrame@@QAX@Z
