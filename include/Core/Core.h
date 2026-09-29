@@ -99,6 +99,9 @@ public:
 Allocator* GetAllocator();
 
 INT appAtoi(const ANSICHAR* S);                            // 0x10AF3710
+const ANSICHAR* appCmdLine();                              // 0x10AF4700
+// Whether Stream holds -Param or /Param.
+UBOOL ParseParam(const ANSICHAR* Stream, const ANSICHAR* Param);   // 0x10AF3F40
 FLOAT appAtof(const ANSICHAR* S);
 
 // Ion Storm's own string, next to FString: one pointer to the characters,
@@ -147,6 +150,7 @@ public:
     FVector operator*=(const FVector& V) { X *= V.X; Y *= V.Y; Z *= V.Z; return *this; }
     UBOOL operator==(const FVector& V) const { return X == V.X && Y == V.Y && Z == V.Z; }
     UBOOL operator!=(const FVector& V) const { return X != V.X || Y != V.Y || Z != V.Z; }
+    UBOOL IsZero() const { return X == 0.f && Y == 0.f && Z == 0.f; }
 
     FVector SafeNormal() const;                 // 0x10967580
     FRotator Rotation() const;                  // 0x10B056C0
@@ -168,6 +172,9 @@ public:
     UBOOL operator==(const FRotator& R) const { return Pitch == R.Pitch && Yaw == R.Yaw && Roll == R.Roll; }
     UBOOL operator!=(const FRotator& R) const { return Pitch != R.Pitch || Yaw != R.Yaw || Roll != R.Roll; }
     UBOOL IsZero() const { return ((Pitch & 65535) == 0) && ((Yaw & 65535) == 0) && ((Roll & 65535) == 0); }
+    // Scaling truncates (Ion Storm; stock Unreal Engine 2 rounds with appRound).
+    FRotator operator*(FLOAT Scale) const { return FRotator((INT)(Pitch * Scale), (INT)(Yaw * Scale), (INT)(Roll * Scale)); }
+    friend FRotator operator*(FLOAT Scale, const FRotator& R) { return FRotator((INT)(R.Pitch * Scale), (INT)(R.Yaw * Scale), (INT)(R.Roll * Scale)); }
 
     INT Pitch, Yaw, Roll;
 };
@@ -490,9 +497,13 @@ public:
     UField* Next;                   // 0x30 (stock order, not yet seen)
 };
 
+// Script sits 4 bytes after its stock Unreal Engine 2 offset, like SuperField.
 class UStruct : public UField
 {
 public:
+    BYTE Unknown34[0x14];
+    FArray Script;                  // 0x48: the bytecode (TArray<BYTE>)
+
     UBOOL IsChildOf(const UStruct* SomeBase) const
     {
         for (const UStruct* S = this; S; S = (const UStruct*)S->SuperField)
@@ -510,12 +521,12 @@ class UState : public UStruct
 {
 };
 
-// UStruct and UState have no known fields yet, so UClass's padding covers
-// theirs: shrink it when they get some.
+// UState has no known fields yet, so UClass's padding covers them (and
+// UStruct's after Script): shrink it when they get some.
 class UClass : public UState
 {
 public:
-    BYTE Unknown34[0xB4];
+    BYTE Unknown54[0x94];
     UObject* ClassDefaultObject;    // 0xE8 (docs/engine.md: static, probable)
 };
 

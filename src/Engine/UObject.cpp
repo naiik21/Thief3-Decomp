@@ -18,6 +18,14 @@
                              FLOAT* var = GPropAddr ? (FLOAT*)GPropAddr : &var##T;
 #define P_GET_ROTATOR_REF(var) FRotator var##T; GPropAddr = NULL; GPropertyLValue = 1; Stack.Step(Stack.Object, &var##T); \
                                FRotator* var = GPropAddr ? (FRotator*)GPropAddr : &var##T;
+                            // 0x10F7B038
+#define CHECK_RUNAWAY \
+    if (++GRunaway > 10000000) \
+    { \
+        if (!ParseParam(appCmdLine(), "norunaway")) \
+            Stack.Logf((EName)0x2F9, "Runaway loop detected (over %i iterations)", 10000000); \
+        GRunaway = 0; \
+    }
 
 float appFrand();
 
@@ -147,6 +155,10 @@ class UBoolProperty : public UProperty
 public:
     DWORD BitMask;                  // 0x60
 };
+
+// Ion Storm's runaway loop check: counts jumps, and warns (unless -norunaway)
+// past ten million.
+extern INT GRunaway;
 
 // FUNCTION: 0x10AFD2F0 ?execLocalVariable@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execLocalVariable(FFrame& Stack, RESULT_DECL)
@@ -1043,6 +1055,14 @@ void UObject::execVectorConst(FFrame& Stack, RESULT_DECL)
     Stack.Code += sizeof(FVector);
 }
 
+// FUNCTION: 0x10B00010 ?execVectorToBool@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execVectorToBool(FFrame& Stack, RESULT_DECL)
+{
+    FVector V(0, 0, 0);
+    Stack.Step(Stack.Object, &V);
+    *(DWORD*)Result = !V.IsZero();
+}
+
 // FUNCTION: 0x10B00140 ?execVectorToRotator@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execVectorToRotator(FFrame& Stack, RESULT_DECL)
 {
@@ -1271,6 +1291,24 @@ void UObject::execNotEqual_RotatorRotator(FFrame& Stack, RESULT_DECL)
     *(DWORD*)Result = A != B;
 }
 
+// FUNCTION: 0x10B011C0 ?execMultiply_RotatorFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiply_RotatorFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(FRotator*)Result = A * B;
+}
+
+// FUNCTION: 0x10B01240 ?execMultiply_FloatRotator@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execMultiply_FloatRotator(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_ROTATOR(B);
+    P_FINISH;
+    *(FRotator*)Result = A * B;
+}
+
 // FUNCTION: 0x10B014C0 ?execAdd_RotatorRotator@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execAdd_RotatorRotator(FFrame& Stack, RESULT_DECL)
 {
@@ -1341,6 +1379,23 @@ void UObject::execGetUnAxes(FFrame& Stack, RESULT_DECL)
     *X = Coords.XAxis;
     *Y = Coords.YAxis;
     *Z = Coords.ZAxis;
+}
+
+// FUNCTION: 0x10B01A30 ?execNormalize@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execNormalize(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_ROTATOR(Rot);
+    P_FINISH;
+    Rot.Pitch = Rot.Pitch & 0xFFFF;
+    if (Rot.Pitch > 32767)
+        Rot.Pitch -= 0x10000;
+    Rot.Roll = Rot.Roll & 0xFFFF;
+    if (Rot.Roll > 32767)
+        Rot.Roll -= 0x10000;
+    Rot.Yaw = Rot.Yaw & 0xFFFF;
+    if (Rot.Yaw > 32767)
+        Rot.Yaw -= 0x10000;
+    *(FRotator*)Result = Rot;
 }
 
 // FUNCTION: 0x10B01AB0 ?execEatString@UObject@@QAEXAAVFFrame@@QAX@Z
@@ -1641,6 +1696,30 @@ void UObject::execDynArrayRemove(FFrame& Stack, RESULT_DECL)
     }
 }
 
+// FUNCTION: 0x10B03A60 ?execJump@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execJump(FFrame& Stack, RESULT_DECL)
+{
+    CHECK_RUNAWAY;
+    // Jump immediate.
+    INT Offset = Stack.ReadWord();
+    Stack.Code = (BYTE*)Stack.Node->Script.Data + Offset;
+}
+
+// FUNCTION: 0x10B03AD0 ?execJumpIfNot@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execJumpIfNot(FFrame& Stack, RESULT_DECL)
+{
+    CHECK_RUNAWAY;
+    // Get code offset.
+    INT wOffset = Stack.ReadWord();
+
+    // Get boolean test value.
+    P_GET_UBOOL(Value);
+
+    // Jump if false.
+    if (!Value)
+        Stack.Code = (BYTE*)Stack.Node->Script.Data + wOffset;
+}
+
 // FUNCTION: 0x10B03E90 ?execMin@UObject@@QAEXAAVFFrame@@QAX@Z
 void UObject::execMin(FFrame& Stack, RESULT_DECL)
 {
@@ -1667,6 +1746,15 @@ void UObject::execClamp(FFrame& Stack, RESULT_DECL)
     P_GET_INT(B);
     P_FINISH;
     *(INT*)Result = Clamp(V, A, B);
+}
+
+// FUNCTION: 0x10B04010 ?execComplementEqual_FloatFloat@UObject@@QAEXAAVFFrame@@QAX@Z
+void UObject::execComplementEqual_FloatFloat(FFrame& Stack, RESULT_DECL)
+{
+    P_GET_FLOAT(A);
+    P_GET_FLOAT(B);
+    P_FINISH;
+    *(DWORD*)Result = Abs(A - B) < (1.e-4);
 }
 
 // FUNCTION: 0x10B04090 ?execAbs@UObject@@QAEXAAVFFrame@@QAX@Z
