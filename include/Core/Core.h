@@ -102,7 +102,25 @@ public:
     virtual void* Realloc(void* Block, INT Size, INT Unknown1, INT Unknown2, INT Unknown3, INT Unknown4);   // +0x0C
     virtual void Unknown10();
     virtual void Free(void* Block);                                                                         // +0x14
+    virtual void Unknown18();
+    virtual void Unknown1C();
+    // Called with (0, 0) before a class object is built and without arguments
+    // after (GetPrivateStaticClass<Class>): probably a scope for permanent
+    // allocations. Names provisional.
+    virtual void Unknown20(INT Unknown1, INT Unknown2);                                                     // +0x20
+    virtual void Unknown24();                                                                               // +0x24
 };
+
+// Every `new` in the game (about 2,700 calls) passes one of these by reference
+// before four INTs; it is always zero-initialized, and operator new ignores it
+// (it forwards the size and the four INTs to Allocator::Malloc). Name
+// provisional.
+struct FMemoryTag
+{
+    DWORD Unknown;
+};
+void* operator new(unsigned int Size, const FMemoryTag& Tag, INT Unknown1, INT Unknown2, INT Unknown3, INT Unknown4);  // 0x10905C10
+void operator delete(void* Ptr, const FMemoryTag& Tag, INT Unknown1, INT Unknown2, INT Unknown3, INT Unknown4);
 
 Allocator* GetAllocator();
 
@@ -210,6 +228,27 @@ public:
 // Ion Storm keeps a pointer and builds the class on first use, as Unreal
 // Engine 3 later does. The builder takes the package name; both helpers are
 // only called from here.
+// Stock Unreal Engine 2 object flags a class object is built with.
+enum
+{
+    RF_Public = 0x00000004,
+    RF_Transient = 0x00004000,
+    RF_Standalone = 0x00080000,
+    RF_Native = 0x04000000,
+};
+
+// A 128-bit id; class objects get a zero one.
+struct FGuid
+{
+    DWORD A, B, C, D;
+    FGuid(DWORD InA, DWORD InB, DWORD InC, DWORD InD) : A(InA), B(InB), C(InC), D(InD) {}
+};
+
+enum EStaticConstructor
+{
+    EC_StaticConstructor
+};
+
 // Constructs an object in memory the object system already holds (each
 // class's InternalConstructor).
 enum EInternal
@@ -221,7 +260,10 @@ inline void* operator new(unsigned int Size, EInternal* Mem)
     return Mem;
 }
 
-#define DECLARE_STATIC_CLASS(TClass, TSuperClass, TWithinClass, TPackage) \
+// An abstract class declares no constructor of its own: its class object keeps
+// the nearest concrete ancestor's InternalConstructor (UObject's for 21 of
+// them, UTexture's for FractalTexture and WaterTexture).
+#define DECLARE_ABSTRACT_STATIC_CLASS(TClass, TSuperClass, TWithinClass, TPackage) \
 public: \
     typedef TSuperClass Super; \
     typedef TWithinClass WithinClass; \
@@ -238,7 +280,10 @@ private: \
     static UClass* PrivateStaticClass; \
     static UClass* GetPrivateStaticClass##TClass(const ANSICHAR* Package); \
     static void InitializePrivateStaticClass##TClass(); \
-public: \
+public:
+
+#define DECLARE_STATIC_CLASS(TClass, TSuperClass, TWithinClass, TPackage) \
+    DECLARE_ABSTRACT_STATIC_CLASS(TClass, TSuperClass, TWithinClass, TPackage) \
     TClass(); \
     static void InternalConstructor(void* X);
 
@@ -258,6 +303,21 @@ public: \
             PrivateStaticClass->Register(); \
     }
 #define IMPLEMENT_STATIC_CLASS(TClass) IMPLEMENT_STATIC_CLASS_WITH(TClass, GetInitialized())
+
+// Builds a class object (Unreal Engine 3's IMPLEMENT_CLASS, with Ion Storm's
+// allocator scope). TSize is sizeof(TClass) and TClassFlags its class flags:
+// literal here, from the game, until the classes' fields are declared. The
+// name is the class's without its prefix.
+#define IMPLEMENT_CLASS_BUILDER(TClass, TSize, TClassFlags) \
+    UClass* TClass::GetPrivateStaticClass##TClass(const ANSICHAR* Package) \
+    { \
+        GetAllocator()->Unknown20(0, 0); \
+        UClass* ReturnClass = new(FMemoryTag(), 0, 0, 0, 0) UClass(EC_StaticConstructor, TSize, TClassFlags, \
+            FGuid(0, 0, 0, 0), #TClass + 1, Package, StaticConfigName(), RF_Public | RF_Standalone | RF_Transient | RF_Native, \
+            InternalConstructor, (void (UObject::*)())&TClass::StaticConstructor); \
+        GetAllocator()->Unknown24(); \
+        return ReturnClass; \
+    }
 
 // The function each class object keeps to construct a new object of the class.
 #define IMPLEMENT_INTERNAL_CONSTRUCTOR(TClass) \
@@ -306,6 +366,10 @@ public:
 
     UClass* GetClass() const { return Class; }
     static UBOOL GetInitialized();  // 0x10AD1D60: GObjInitialized
+    // Empty in UObject (the function at 0x10D660B0, a lone `ret`, which the
+    // linker may share with other empty functions).
+    void StaticConstructor();
+    static const ANSICHAR* StaticConfigName() { return "System"; }
     const FName GetFName() const { return Name; }
 
     // Writes the object's config properties (execSaveConfig); resets a
@@ -584,7 +648,7 @@ public:
     UField* SuperField;             // 0x2C: all 287 classes chain up to Object
     UField* Next;                   // 0x30 (stock order, not yet seen)
 
-    DECLARE_STATIC_CLASS(UField, UObject, UObject, "Core")
+    DECLARE_ABSTRACT_STATIC_CLASS(UField, UObject, UObject, "Core")
 };
 
 // An enumeration's value names.
@@ -639,8 +703,14 @@ public:
     UClass* ClassWithin;            // 0xA4: set by IMPLEMENT_STATIC_CLASS
     BYTE UnknownA8[0x40];
     UObject* ClassDefaultObject;    // 0xE8 (docs/engine.md: static, probable)
+    BYTE UnknownEC[0x28];           // to 0x114, the size its builder allocates
 
     DECLARE_STATIC_CLASS(UClass, UState, UPackage, "Core")
+
+    // A native class's class object: stock Unreal Engine 2's argument order.
+    UClass(EStaticConstructor, DWORD InSize, DWORD InClassFlags, FGuid InGuid, const ANSICHAR* InNameStr,
+           const ANSICHAR* InPackageName, const ANSICHAR* InClassConfigName, DWORD InFlags,
+           void (*InClassConstructor)(void*), void (UObject::*InClassStaticConstructor)());  // 0x10AE7E30
 };
 
 // The checked downcast; out of line where the compiler keeps a copy

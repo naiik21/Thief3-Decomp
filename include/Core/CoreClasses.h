@@ -15,22 +15,26 @@ class UCommandlet : public UObject
 
 class UExporter : public UObject
 {
-    DECLARE_STATIC_CLASS(UExporter, UObject, UObject, "Core")
+    DECLARE_ABSTRACT_STATIC_CLASS(UExporter, UObject, UObject, "Core")
+
+    void StaticConstructor();
 };
 
 class UFactory : public UObject
 {
-    DECLARE_STATIC_CLASS(UFactory, UObject, UObject, "Core")
+    DECLARE_ABSTRACT_STATIC_CLASS(UFactory, UObject, UObject, "Core")
+
+    void StaticConstructor();
 };
 
 class ULanguage : public UObject
 {
-    DECLARE_STATIC_CLASS(ULanguage, UObject, UObject, "Core")
+    DECLARE_ABSTRACT_STATIC_CLASS(ULanguage, UObject, UObject, "Core")
 };
 
 class ULinkDataObject : public UObject
 {
-    DECLARE_STATIC_CLASS(ULinkDataObject, UObject, UObject, "Core")
+    DECLARE_ABSTRACT_STATIC_CLASS(ULinkDataObject, UObject, UObject, "Core")
 };
 
 class ULinker : public UObject
@@ -40,7 +44,7 @@ class ULinker : public UObject
 
 class USubsystem : public UObject
 {
-    DECLARE_STATIC_CLASS(USubsystem, UObject, UObject, "Core")
+    DECLARE_ABSTRACT_STATIC_CLASS(USubsystem, UObject, UObject, "Core")
 };
 
 class UTextBuffer : public UObject
@@ -66,6 +70,8 @@ class ULinkerSave : public ULinker
 class USystem : public USubsystem
 {
     DECLARE_STATIC_CLASS(USystem, USubsystem, UObject, "Core")
+
+    void StaticConstructor();
 };
 
 class UBitfieldEnum : public UEnum

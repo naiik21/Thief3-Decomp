@@ -20,7 +20,7 @@ class UAnimation : public UObject
 
 class UBitmap : public UObject
 {
-    DECLARE_STATIC_CLASS(UBitmap, UObject, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UBitmap, UObject, UObject, "Engine")
 };
 
 class UCARDEntry : public UObject
@@ -35,7 +35,9 @@ class UCanvas : public UObject
 
 class UClient : public UObject
 {
-    DECLARE_STATIC_CLASS(UClient, UObject, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UClient, UObject, UObject, "Engine")
+
+    void StaticConstructor();
 };
 
 class UFont : public UObject
@@ -45,7 +47,7 @@ class UFont : public UObject
 
 class ULevelBase : public UObject
 {
-    DECLARE_STATIC_CLASS(ULevelBase, UObject, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(ULevelBase, UObject, UObject, "Engine")
 };
 
 class UMatObject : public UObject
@@ -70,7 +72,7 @@ class UParticleEmitter : public UObject
 
 class UPlayer : public UObject
 {
-    DECLARE_STATIC_CLASS(UPlayer, UObject, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UPlayer, UObject, UObject, "Engine")
 };
 
 class UPolys : public UObject
@@ -85,7 +87,7 @@ class UPrimitive : public UObject
 
 class URenderResource : public UObject
 {
-    DECLARE_STATIC_CLASS(URenderResource, UObject, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(URenderResource, UObject, UObject, "Engine")
 };
 
 class UStaticMesh : public UObject
@@ -95,7 +97,7 @@ class UStaticMesh : public UObject
 
 class UTriggerRegistrar : public UObject
 {
-    DECLARE_STATIC_CLASS(UTriggerRegistrar, UObject, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UTriggerRegistrar, UObject, UObject, "Engine")
 };
 
 class UWindowManager : public UObject
@@ -105,7 +107,7 @@ class UWindowManager : public UObject
 
 class UAISubsystem : public USubsystem
 {
-    DECLARE_STATIC_CLASS(UAISubsystem, USubsystem, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UAISubsystem, USubsystem, UObject, "Engine")
 };
 
 class UAlarmLinkDataObject : public ULinkDataObject
@@ -180,7 +182,9 @@ class UElevatorLinkDataObject : public ULinkDataObject
 
 class UEngine : public USubsystem
 {
-    DECLARE_STATIC_CLASS(UEngine, USubsystem, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UEngine, USubsystem, UObject, "Engine")
+
+    void StaticConstructor();
 };
 
 class AFX : public AActor
@@ -210,7 +214,7 @@ class UFrobLinkDataObject : public ULinkDataObject
 
 class UGameSubsystem : public USubsystem
 {
-    DECLARE_STATIC_CLASS(UGameSubsystem, USubsystem, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UGameSubsystem, USubsystem, UObject, "Engine")
 };
 
 class UHardpointLinkDataObject : public ULinkDataObject
@@ -335,7 +339,7 @@ class APawn : public AActor
 
 class UPhysicsSubsystem : public USubsystem
 {
-    DECLARE_STATIC_CLASS(UPhysicsSubsystem, USubsystem, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UPhysicsSubsystem, USubsystem, UObject, "Engine")
 };
 
 class UPlayerSetupInfoLinkDataObject : public ULinkDataObject
@@ -370,7 +374,9 @@ class UReferenceLinkDataObject : public ULinkDataObject
 
 class URenderDevice : public USubsystem
 {
-    DECLARE_STATIC_CLASS(URenderDevice, USubsystem, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(URenderDevice, USubsystem, UObject, "Engine")
+
+    void StaticConstructor();
 };
 
 class URuntimeFireEffectLinkDataObject : public ULinkDataObject
@@ -381,6 +387,8 @@ class URuntimeFireEffectLinkDataObject : public ULinkDataObject
 class UServerCommandlet : public UCommandlet
 {
     DECLARE_STATIC_CLASS(UServerCommandlet, UCommandlet, UObject, "Engine")
+
+    void StaticConstructor();
 };
 
 class USittingLinkDataObject : public ULinkDataObject
@@ -460,12 +468,12 @@ class UUserLinkDataObject : public ULinkDataObject
 
 class UVertexStreamBase : public URenderResource
 {
-    DECLARE_STATIC_CLASS(UVertexStreamBase, URenderResource, UObject, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UVertexStreamBase, URenderResource, UObject, "Engine")
 };
 
 class UViewport : public UPlayer
 {
-    DECLARE_STATIC_CLASS(UViewport, UPlayer, UClient, "Engine")
+    DECLARE_ABSTRACT_STATIC_CLASS(UViewport, UPlayer, UClient, "Engine")
 };
 
 class UVulnerabilityLinkDataObject : public ULinkDataObject
@@ -486,11 +494,15 @@ class UWeaponModLinkDataObject : public ULinkDataObject
 class UWindowsClient : public UClient
 {
     DECLARE_STATIC_CLASS(UWindowsClient, UClient, UObject, "WinDrv")
+
+    void StaticConstructor();
 };
 
 class UD3DRenderDevice : public URenderDevice
 {
     DECLARE_STATIC_CLASS(UD3DRenderDevice, URenderDevice, UObject, "D3DDrv")
+
+    void StaticConstructor();
 };
 
 class AAIController : public AController
@@ -546,6 +558,8 @@ class UFlinderizeLinkDataObject : public UHardpointLinkDataObject
 class UGameEngine : public UEngine
 {
     DECLARE_STATIC_CLASS(UGameEngine, UEngine, UObject, "Engine")
+
+    void StaticConstructor();
 };
 
 class UHingedAttachmentLinkDataObject : public UAttachmentLinkDataObject
@@ -695,12 +709,12 @@ class AVulnerabilityObject : public AMetaProperty
 
 class UFractalTexture : public UTexture
 {
-    DECLARE_STATIC_CLASS(UFractalTexture, UTexture, UObject, "Fire")
+    DECLARE_ABSTRACT_STATIC_CLASS(UFractalTexture, UTexture, UObject, "Fire")
 };
 
 class UGamePhysics : public UPhysicsSubsystem
 {
-    DECLARE_STATIC_CLASS(UGamePhysics, UPhysicsSubsystem, UObject, "GamePhysics")
+    DECLARE_ABSTRACT_STATIC_CLASS(UGamePhysics, UPhysicsSubsystem, UObject, "GamePhysics")
 };
 
 class UWindowsViewport : public UViewport
@@ -840,7 +854,7 @@ class UIceTexture : public UFractalTexture
 
 class UWaterTexture : public UFractalTexture
 {
-    DECLARE_STATIC_CLASS(UWaterTexture, UFractalTexture, UObject, "Fire")
+    DECLARE_ABSTRACT_STATIC_CLASS(UWaterTexture, UFractalTexture, UObject, "Fire")
 };
 
 class ADefaultPhysicsVolume : public APhysicsVolume

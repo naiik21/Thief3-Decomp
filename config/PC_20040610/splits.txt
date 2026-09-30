@@ -9,150 +9,189 @@
 
 Game/GameClasses.cpp:
 	.text  start:0x109616F0 end:0x109617F8
+	.text  start:0x10961960 end:0x10961A24
 	.text  start:0x10962F90 end:0x109635E8
-	.text  start:0x109644E0 end:0x1096453E
+	.text  start:0x109644E0 end:0x10964A13
 	.text  start:0x109E9FD0 end:0x109EA012
 	.text  start:0x10AB3D50 end:0x10AB3D5E
-	.text  start:0x10AB4170 end:0x10AB4D5E
-	.text  start:0x10AB53B0 end:0x10AB53FE
-	.text  start:0x10AB59A0 end:0x10AB59AE
+	.text  start:0x10AB40A0 end:0x10AB4D5E
+	.text  start:0x10AB5070 end:0x10AB57C0
+	.text  start:0x10AB59A0 end:0x10AB5A73
 	.text  start:0x10AB72E0 end:0x10AB7322
 	.text  start:0x10B12250 end:0x10B129CE
-	.text  start:0x10B12DE0 end:0x10B12E1E
-	.text  start:0x10B13550 end:0x10B1355E
-	.text  start:0x10B136E0 end:0x10B136EE
+	.text  start:0x10B12C50 end:0x10B12D14
+	.text  start:0x10B12DE0 end:0x10B13120
+	.text  start:0x10B13550 end:0x10B13627
+	.text  start:0x10B136E0 end:0x10B137B4
 	.text  start:0x10B13920 end:0x10B13A28
-	.text  start:0x10B15370 end:0x10B1537E
+	.text  start:0x10B15370 end:0x10B15444
 	.text  start:0x10B93400 end:0x10B9340E
-	.text  start:0x10B94170 end:0x10B948D8
-	.text  start:0x10B949B0 end:0x10B952DE
-	.text  start:0x10B969A0 end:0x10B97658
-	.text  start:0x10B97700 end:0x10B97B4E
+	.text  start:0x10B94170 end:0x10B97658
+	.text  start:0x10B97700 end:0x10B97C13
 	.text  start:0x10BAA420 end:0x10BAA462
+	.text  start:0x10E06410 end:0x10E06433  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E066A0 end:0x10E066C3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E181A0 end:0x10E181C3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1DA70 end:0x10E1DA93  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1DE20 end:0x10E1DE43  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E24D80 end:0x10E24DA3  # .text$x: EH handlers and unwind funclets
 
 Engine/EngineClasses.cpp:
-	.text  start:0x10964D50 end:0x10964E58
+	.text  start:0x10964C80 end:0x10964F21
 	.text  start:0x10964FA0 end:0x109652C8
 	.text  start:0x10965570 end:0x10965AB8
-	.text  start:0x10966A00 end:0x10966A6E
+	.text  start:0x10966A00 end:0x10966FB0
 	.text  start:0x109686A0 end:0x109687A8
-	.text  start:0x10968C50 end:0x10968C5E
+	.text  start:0x10968C50 end:0x10968D24
 	.text  start:0x10968E30 end:0x10968F38
-	.text  start:0x10969BE0 end:0x10969BEE
-	.text  start:0x1096A1C0 end:0x1096A2C8
+	.text  start:0x10969BE0 end:0x10969CB0
+	.text  start:0x1096A0F0 end:0x1096A2C8
 	.text  start:0x1096A3C0 end:0x1096A4C8
 	.text  start:0x1096AA90 end:0x1096AB98
 	.text  start:0x1096B280 end:0x1096B28E
+	.text  start:0x1096B610 end:0x1096B6D1
+	.text  start:0x1096BE70 end:0x1096BF34
 	.text  start:0x1096C020 end:0x1096C02E
-	.text  start:0x1096C170 end:0x1096C278
+	.text  start:0x1096C0A0 end:0x1096C278
 	.text  start:0x1096CC20 end:0x1096CD28
 	.text  start:0x1096D4B0 end:0x1096D4BE
+	.text  start:0x1096D570 end:0x1096D630
 	.text  start:0x1096DDB0 end:0x1096DEB8
-	.text  start:0x1096FD60 end:0x1096FD6E
+	.text  start:0x1096FD60 end:0x1096FE33
 	.text  start:0x10970670 end:0x10970888
 	.text  start:0x10970ED0 end:0x10970EDE
+	.text  start:0x10970F30 end:0x10970FF3
 	.text  start:0x10971E60 end:0x10971E6E
-	.text  start:0x10973980 end:0x10973A88
+	.text  start:0x10972090 end:0x10972150
+	.text  start:0x109738B0 end:0x10973A88
 	.text  start:0x10974160 end:0x10974268
 	.text  start:0x10975FA0 end:0x10975FAE
-	.text  start:0x10976590 end:0x10976698
-	.text  start:0x109770A0 end:0x109771A8
-	.text  start:0x10977280 end:0x10977388
-	.text  start:0x10977460 end:0x10977568
-	.text  start:0x10977640 end:0x10977748
-	.text  start:0x10977820 end:0x10977928
-	.text  start:0x10977A00 end:0x10977B08
+	.text  start:0x10976090 end:0x10976153
+	.text  start:0x109764C0 end:0x10976698
+	.text  start:0x109770A0 end:0x10977B08
 	.text  start:0x10977DA0 end:0x10977EA8
 	.text  start:0x10978080 end:0x1097808E
+	.text  start:0x10978140 end:0x10978204
+	.text  start:0x109785D0 end:0x10978694
 	.text  start:0x10983480 end:0x10983588
-	.text  start:0x10987930 end:0x1098793E
+	.text  start:0x10987930 end:0x10987A04
 	.text  start:0x1098AAE0 end:0x1098ABE8
-	.text  start:0x1098ACA0 end:0x1098ACAE
+	.text  start:0x1098ACA0 end:0x1098AD71
 	.text  start:0x1098B020 end:0x1098B128
 	.text  start:0x1098B160 end:0x1098B268
-	.text  start:0x1098B580 end:0x1098B59E
+	.text  start:0x1098B580 end:0x1098B720
 	.text  start:0x1098B970 end:0x1098BB88
 	.text  start:0x1098BE70 end:0x1098BE7E
+	.text  start:0x1098C070 end:0x1098C130
 	.text  start:0x1098C490 end:0x1098C49E
+	.text  start:0x1098C4D0 end:0x1098C594
 	.text  start:0x1098CB80 end:0x1098CB8E
 	.text  start:0x1098CBD0 end:0x1098CCD8
-	.text  start:0x1098CE00 end:0x1098CF08
+	.text  start:0x1098CD30 end:0x1098CF08
 	.text  start:0x1098D050 end:0x1098D05E
-	.text  start:0x1098E440 end:0x1098E5DE
-	.text  start:0x1098E6B0 end:0x1098E7B8
-	.text  start:0x1098F180 end:0x1098F288
-	.text  start:0x1098F430 end:0x1098F538
-	.text  start:0x1098F610 end:0x1098F718
-	.text  start:0x1098F8C0 end:0x1098F9C8
-	.text  start:0x1098FAA0 end:0x1098FBA8
-	.text  start:0x1098FC80 end:0x1098FD88
-	.text  start:0x1098FE60 end:0x1098FF68
-	.text  start:0x10990040 end:0x10990148
+	.text  start:0x1098DFF0 end:0x1098E0B7
+	.text  start:0x1098E440 end:0x10990553
 	.text  start:0x109912E0 end:0x10991A48
 	.text  start:0x10993030 end:0x10993AC8
 	.text  start:0x10994570 end:0x1099459E
-	.text  start:0x109948A0 end:0x10994E58
+	.text  start:0x10994630 end:0x10995407
 	.text  start:0x10995900 end:0x10995A08
 	.text  start:0x10995C50 end:0x10996088
 	.text  start:0x10996110 end:0x10996218
 	.text  start:0x10996380 end:0x10996488
-	.text  start:0x10997440 end:0x1099744E
+	.text  start:0x10997440 end:0x10997513
 	.text  start:0x10997950 end:0x10997C78
 	.text  start:0x10997E40 end:0x10997E5E
-	.text  start:0x109996C0 end:0x10999838
-	.text  start:0x10999900 end:0x10999A08
+	.text  start:0x109983E0 end:0x10998563
+	.text  start:0x109996C0 end:0x10999EA0
 	.text  start:0x1099A480 end:0x1099AAD8
-	.text  start:0x1099B040 end:0x1099B07E
+	.text  start:0x1099B040 end:0x1099B3B3
 	.text  start:0x1099B520 end:0x1099B738
 	.text  start:0x1099BC10 end:0x1099BC3E
-	.text  start:0x1099BD50 end:0x1099D398
-	.text  start:0x1099D470 end:0x1099D578
-	.text  start:0x1099D650 end:0x1099D978
-	.text  start:0x1099DA50 end:0x1099F1A8
+	.text  start:0x1099BD50 end:0x1099F1A8
 	.text  start:0x109A15A0 end:0x109A167E
 	.text  start:0x109A1690 end:0x109A192E
-	.text  start:0x109A4440 end:0x109A510E
-	.text  start:0x109A51E0 end:0x109A52E8
+	.text  start:0x109A19F0 end:0x109A52E8
 	.text  start:0x109A66A0 end:0x109A67A8
-	.text  start:0x109A9FC0 end:0x109A9FCE
+	.text  start:0x109A9FC0 end:0x109AA093
 	.text  start:0x109AA1D0 end:0x109AA2D8
-	.text  start:0x109AD660 end:0x109AD66E
-	.text  start:0x109AD740 end:0x109AD848
-	.text  start:0x109ADDA0 end:0x109ADDAE
-	.text  start:0x109ADE80 end:0x109ADF88
-	.text  start:0x109AE5B0 end:0x109AE5BE
+	.text  start:0x109AD660 end:0x109AD848
+	.text  start:0x109ADDA0 end:0x109ADF88
+	.text  start:0x109AE5B0 end:0x109AE683
 	.text  start:0x109AE6A0 end:0x109AE7A8
-	.text  start:0x109AF120 end:0x109AF12E
-	.text  start:0x109AF200 end:0x109AF308
+	.text  start:0x109AF120 end:0x109AF308
+	.text  start:0x109B18F0 end:0x109B19B3
 	.text  start:0x109B2300 end:0x109B2408
 	.text  start:0x109B2540 end:0x109B2868
 	.text  start:0x109B5090 end:0x109B509E
-	.text  start:0x109CBF70 end:0x109CBF8E
+	.text  start:0x109B5600 end:0x109B56C1
+	.text  start:0x109C5870 end:0x109C5934
+	.text  start:0x109CBF70 end:0x109CC123
 	.text  start:0x109CD520 end:0x109CD628
 	.text  start:0x109CD870 end:0x109CD978
-	.text  start:0x109D04A0 end:0x109D04AE
-	.text  start:0x109D10D0 end:0x109D10DE
-	.text  start:0x109D11B0 end:0x109D12B8
-	.text  start:0x109D1540 end:0x109D154E
+	.text  start:0x109D04A0 end:0x109D0573
+	.text  start:0x109D10D0 end:0x109D12B8
+	.text  start:0x109D1540 end:0x109D1613
 	.text  start:0x109D1FA0 end:0x109D20A8
 	.text  start:0x109D2140 end:0x109D214E
-	.text  start:0x109D8FC0 end:0x109D90C8
+	.text  start:0x109D23E0 end:0x109D24A1
+	.text  start:0x109D8EF0 end:0x109D90C8
+	.text  start:0x109D93F0 end:0x109D94B4
 	.text  start:0x109DAA00 end:0x109DAC18
 	.text  start:0x109DADF0 end:0x109DAEF8
 	.text  start:0x109DB7C0 end:0x109DB8C8
 	.text  start:0x109DB9F0 end:0x109DBAF8
 	.text  start:0x109DBBC0 end:0x109DBCC8
-	.text  start:0x109DC360 end:0x109DC3AE
-	.text  start:0x109DD6E0 end:0x109DD7E8
+	.text  start:0x109DC360 end:0x109DC7B3
+	.text  start:0x109DD610 end:0x109DD7E8
 	.text  start:0x109DEF30 end:0x109DF038
+	.text  start:0x109DFA10 end:0x109DFAD4
 	.text  start:0x10B7BEF0 end:0x10B7BFF8
+	.text  start:0x10B7C5A0 end:0x10B7C664
 	.text  start:0x10C826F0 end:0x10C827F8
+	.text  start:0x10C84A60 end:0x10C84B24
 	.text  start:0x10C85200 end:0x10C85308
-	.text  start:0x10C85C30 end:0x10C85C3E
+	.text  start:0x10C85C30 end:0x10C85D04
 	.text  start:0x10C85F10 end:0x10C86018
-	.text  start:0x10C8DAF0 end:0x10C8DAFE
+	.text  start:0x10C8DAF0 end:0x10C8DBC4
 	.text  start:0x10C94BF0 end:0x10C94CF8
-	.text  start:0x10C958C0 end:0x10C958CE
+	.text  start:0x10C958C0 end:0x10C95991
+	.text  start:0x10E06710 end:0x10E06733  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E068C0 end:0x10E068E3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E06910 end:0x10E06933  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E06960 end:0x10E06983  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E06BD0 end:0x10E06BF3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E06DB0 end:0x10E06DD3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E06E20 end:0x10E06E43  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E06FE0 end:0x10E07003  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E072D0 end:0x10E072F3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E073F0 end:0x10E07413  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E080C0 end:0x10E080E3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E08340 end:0x10E08363  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E08390 end:0x10E083B3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E084F0 end:0x10E08513  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E08A50 end:0x10E08A73  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E08B30 end:0x10E08B53  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E08F10 end:0x10E08F33  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E08F80 end:0x10E08FA3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E09150 end:0x10E09173  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E092D0 end:0x10E092F3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E09470 end:0x10E09493  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E094E0 end:0x10E09503  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E09530 end:0x10E09553  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E09620 end:0x10E09643  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E096F0 end:0x10E09713  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E09A10 end:0x10E09A33  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E0A670 end:0x10E0A693  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E0A920 end:0x10E0A943  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E0A9F0 end:0x10E0AA13  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E0ABE0 end:0x10E0AC33  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E0AEB0 end:0x10E0AED3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E23F00 end:0x10E23F23  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E33050 end:0x10E33073  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E330A0 end:0x10E330C3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E336B0 end:0x10E336D3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E33D80 end:0x10E33DA3  # .text$x: EH handlers and unwind funclets
 
 Engine/Casts.cpp:
 	.text  start:0x10970CA0 end:0x10970CE2
@@ -190,26 +229,39 @@ Game/Options.cpp:
 
 Engine/CoreClasses.cpp:
 	.text  start:0x10AD1FA0 end:0x10AD20A8
+	.text  start:0x10AD2560 end:0x10AD2621
+	.text  start:0x10AD2D40 end:0x10AD2ED1
 	.text  start:0x10AD42D0 end:0x10AD4708
 	.text  start:0x10AD47D0 end:0x10AD48D8
 	.text  start:0x10AD49F0 end:0x10AD4AF8
 	.text  start:0x10ADCBD0 end:0x10ADCBDE
 	.text  start:0x10ADCD50 end:0x10ADCD5E
+	.text  start:0x10ADD4F0 end:0x10ADD5B0
+	.text  start:0x10ADD610 end:0x10ADD7A0
 	.text  start:0x10ADD840 end:0x10ADD85E
-	.text  start:0x10ADD870 end:0x10ADD89E
+	.text  start:0x10ADD870 end:0x10ADDC84
 	.text  start:0x10ADFDA0 end:0x10AE00C8
-	.text  start:0x10AE34C0 end:0x10AE35C8
-	.text  start:0x10AE44B0 end:0x10AE45B8
+	.text  start:0x10AE33F0 end:0x10AE35C8
+	.text  start:0x10AE43E0 end:0x10AE45B8
 	.text  start:0x10AE52C0 end:0x10AE52CE
 	.text  start:0x10AE5B40 end:0x10AE5C48
 	.text  start:0x10AE78B0 end:0x10AE78CE
-	.text  start:0x10AE8370 end:0x10AE837E
+	.text  start:0x10AE8110 end:0x10AE82A0
+	.text  start:0x10AE8370 end:0x10AE8441
+	.text  start:0x10AE8480 end:0x10AE8603
+	.text  start:0x10AE88F0 end:0x10AE89B3
 	.text  start:0x10AE8B50 end:0x10AE8D18
 	.text  start:0x10AE90B0 end:0x10AE91B8
 	.text  start:0x10AE95E0 end:0x10AE97F8
 	.text  start:0x10AEADF0 end:0x10AEAEF8
-	.text  start:0x10AEBEE0 end:0x10AEBEEE
-	.text  start:0x10B0F310 end:0x10B0F418
+	.text  start:0x10AEBEE0 end:0x10AEBFB1
+	.text  start:0x10B0F240 end:0x10B0F418
+	.text  start:0x10E19E50 end:0x10E19E73  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1B4D0 end:0x10E1B4F3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1B610 end:0x10E1B633  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1B940 end:0x10E1B963  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1BCA0 end:0x10E1BCC3  # .text$x: EH handlers and unwind funclets
+	.text  start:0x10E1D610 end:0x10E1D633  # .text$x: EH handlers and unwind funclets
 
 Engine/Unsorted.cpp:
 	.text  start:0x10AEB350 end:0x10AEB4F6

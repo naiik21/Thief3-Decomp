@@ -6,6 +6,9 @@
 // FUNCTION: 0x109616F0 ?InitializePrivateStaticClassUT3GamePhysics@UT3GamePhysics@@CAXXZ
 IMPLEMENT_STATIC_CLASS(UT3GamePhysics)
 
+// FUNCTION: 0x10961960 ?GetPrivateStaticClassUT3GamePhysics@UT3GamePhysics@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UT3GamePhysics, 0xac, 0x4)
+
 // FUNCTION: 0x10962F90 ?InitializePrivateStaticClassAT3AIPawnController@AT3AIPawnController@@CAXXZ
 IMPLEMENT_STATIC_CLASS(AT3AIPawnController)
 
@@ -42,11 +45,32 @@ IMPLEMENT_INTERNAL_CONSTRUCTOR(AT3MovementModel)
 // FUNCTION: 0x10964530 ?InternalConstructor@AT3SensoryModel@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(AT3SensoryModel)
 
+// FUNCTION: 0x10964540 ?GetPrivateStaticClassAT3AIPawnController@AT3AIPawnController@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3AIPawnController, 0x11c, 0x0)
+
+// FUNCTION: 0x10964610 ?GetPrivateStaticClassAT3BehaviorModel@AT3BehaviorModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3BehaviorModel, 0xc0, 0x0)
+
+// FUNCTION: 0x109646E0 ?GetPrivateStaticClassAT3SensoryModel@AT3SensoryModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3SensoryModel, 0xc0, 0x0)
+
+// FUNCTION: 0x109647B0 ?GetPrivateStaticClassAT3CombatModel@AT3CombatModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3CombatModel, 0xc0, 0x0)
+
+// FUNCTION: 0x10964880 ?GetPrivateStaticClassAT3MovementModel@AT3MovementModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3MovementModel, 0xe0, 0x0)
+
+// FUNCTION: 0x10964950 ?GetPrivateStaticClassAT3FactionModel@AT3FactionModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3FactionModel, 0xc0, 0x0)
+
 // FUNCTION: 0x109E9FD0 ??$Cast@VAGarrett@@@@YAPAVAGarrett@@PAVUObject@@@Z
 template AGarrett* Cast<AGarrett>(UObject* Src);
 
 // FUNCTION: 0x10AB3D50 ?InternalConstructor@UT3GameRegistrar@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UT3GameRegistrar)
+
+// FUNCTION: 0x10AB40A0 ?GetPrivateStaticClassUT3GameRegistrar@UT3GameRegistrar@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UT3GameRegistrar, 0x2c, 0x4)
 
 // FUNCTION: 0x10AB4170 ?InitializePrivateStaticClassUT3GameRegistrar@UT3GameRegistrar@@CAXXZ
 IMPLEMENT_STATIC_CLASS(UT3GameRegistrar)
@@ -93,6 +117,18 @@ IMPLEMENT_INTERNAL_CONSTRUCTOR(AExitMissionInfo)
 // FUNCTION: 0x10AB4D50 ?InternalConstructor@ASpellProjectile@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(ASpellProjectile)
 
+// FUNCTION: 0x10AB5070 ?GetPrivateStaticClassADifficultyInfo@ADifficultyInfo@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ADifficultyInfo, 0x1a4, 0x0)
+
+// FUNCTION: 0x10AB5140 ?GetPrivateStaticClassAExitMissionInfo@AExitMissionInfo@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AExitMissionInfo, 0x100, 0x0)
+
+// FUNCTION: 0x10AB5210 ?GetPrivateStaticClassASpellProjectile@ASpellProjectile@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ASpellProjectile, 0xd4, 0x800)
+
+// FUNCTION: 0x10AB52E0 ?GetPrivateStaticClassAWakeupCameraPoint@AWakeupCameraPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AWakeupCameraPoint, 0xcc, 0x0)
+
 // FUNCTION: 0x10AB53B0 ?InternalConstructor@UInventorySwitchLinkDataObject@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UInventorySwitchLinkDataObject)
 
@@ -108,8 +144,26 @@ IMPLEMENT_INTERNAL_CONSTRUCTOR(URopeArrowSpawnLinkDataObject)
 // FUNCTION: 0x10AB53F0 ?InternalConstructor@USpawnPoolLinkDataObject@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(USpawnPoolLinkDataObject)
 
+// FUNCTION: 0x10AB5400 ?GetPrivateStaticClassULockLinkDataObject@ULockLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ULockLinkDataObject, 0x50, 0x0)
+
+// FUNCTION: 0x10AB54C0 ?GetPrivateStaticClassUSpawnPoolLinkDataObject@USpawnPoolLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(USpawnPoolLinkDataObject, 0x50, 0x0)
+
+// FUNCTION: 0x10AB5580 ?GetPrivateStaticClassULockTickLinkDataObject@ULockTickLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ULockTickLinkDataObject, 0x58, 0x0)
+
+// FUNCTION: 0x10AB5640 ?GetPrivateStaticClassUInventorySwitchLinkDataObject@UInventorySwitchLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UInventorySwitchLinkDataObject, 0x50, 0x0)
+
+// FUNCTION: 0x10AB5700 ?GetPrivateStaticClassURopeArrowSpawnLinkDataObject@URopeArrowSpawnLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(URopeArrowSpawnLinkDataObject, 0x60, 0x0)
+
 // FUNCTION: 0x10AB59A0 ?InternalConstructor@AEnterMissionInfo@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(AEnterMissionInfo)
+
+// FUNCTION: 0x10AB59B0 ?GetPrivateStaticClassAEnterMissionInfo@AEnterMissionInfo@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AEnterMissionInfo, 0x118, 0x0)
 
 // FUNCTION: 0x10AB72E0 ??$Cast@VADifficultyInfo@@@@YAPAVADifficultyInfo@@PAVUObject@@@Z
 template ADifficultyInfo* Cast<ADifficultyInfo>(UObject* Src);
@@ -138,6 +192,9 @@ IMPLEMENT_STATIC_CLASS(AT3PlayerController)
 // FUNCTION: 0x10B129C0 ?InternalConstructor@AT3PlayerController@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(AT3PlayerController)
 
+// FUNCTION: 0x10B12C50 ?GetPrivateStaticClassAT3PlayerController@AT3PlayerController@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AT3PlayerController, 0x2c8, 0x4)
+
 // FUNCTION: 0x10B12DE0 ?InternalConstructor@UAttachment_LinkDataObject@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UAttachment_LinkDataObject)
 
@@ -150,17 +207,38 @@ IMPLEMENT_INTERNAL_CONSTRUCTOR(UHUDRenderLinkDataObject)
 // FUNCTION: 0x10B12E10 ?InternalConstructor@UInvenBook_LinkDataObject@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UInvenBook_LinkDataObject)
 
+// FUNCTION: 0x10B12E20 ?GetPrivateStaticClassUAttachment_LinkDataObject@UAttachment_LinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UAttachment_LinkDataObject, 0x54, 0x0)
+
+// FUNCTION: 0x10B12EE0 ?GetPrivateStaticClassUInvenBook_LinkDataObject@UInvenBook_LinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UInvenBook_LinkDataObject, 0x50, 0x0)
+
+// FUNCTION: 0x10B12FA0 ?GetPrivateStaticClassUHUDRenderLinkDataObject@UHUDRenderLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UHUDRenderLinkDataObject, 0x50, 0x0)
+
+// FUNCTION: 0x10B13060 ?GetPrivateStaticClassUGarrettEquipLinkDataObject@UGarrettEquipLinkDataObject@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UGarrettEquipLinkDataObject, 0x5c, 0x0)
+
 // FUNCTION: 0x10B13550 ?InternalConstructor@AGarrett@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(AGarrett)
 
+// FUNCTION: 0x10B13560 ?GetPrivateStaticClassAGarrett@AGarrett@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AGarrett, 0x560, 0x800)
+
 // FUNCTION: 0x10B136E0 ?InternalConstructor@UT3GameEngine@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UT3GameEngine)
+
+// FUNCTION: 0x10B136F0 ?GetPrivateStaticClassUT3GameEngine@UT3GameEngine@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UT3GameEngine, 0x180, 0xc)
 
 // FUNCTION: 0x10B13920 ?InitializePrivateStaticClassUT3Game@UT3Game@@CAXXZ
 IMPLEMENT_STATIC_CLASS(UT3Game)
 
 // FUNCTION: 0x10B15370 ?InternalConstructor@UT3Game@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UT3Game)
+
+// FUNCTION: 0x10B15380 ?GetPrivateStaticClassUT3Game@UT3Game@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UT3Game, 0x1bc, 0x4)
 
 // FUNCTION: 0x10B93400 ?InternalConstructor@UAI@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(UAI)
@@ -185,6 +263,9 @@ IMPLEMENT_STATIC_CLASS(AAIContextVolume)
 
 // FUNCTION: 0x10B947D0 ?InitializePrivateStaticClassAAITaggedVolume@AAITaggedVolume@@CAXXZ
 IMPLEMENT_STATIC_CLASS(AAITaggedVolume)
+
+// FUNCTION: 0x10B948E0 ?GetPrivateStaticClassUAI@UAI@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(UAI, 0x34, 0x4)
 
 // FUNCTION: 0x10B949B0 ?InitializePrivateStaticClassUAI@UAI@@CAXXZ
 IMPLEMENT_STATIC_CLASS(UAI)
@@ -291,6 +372,90 @@ IMPLEMENT_INTERNAL_CONSTRUCTOR(AAIMovementModel)
 // FUNCTION: 0x10B952D0 ?InternalConstructor@AAISensoryModel@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(AAISensoryModel)
 
+// FUNCTION: 0x10B952E0 ?GetPrivateStaticClassAAIModel@AAIModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIModel, 0xc0, 0x0)
+
+// FUNCTION: 0x10B953B0 ?GetPrivateStaticClassAAISensoryModel@AAISensoryModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAISensoryModel, 0xc0, 0x0)
+
+// FUNCTION: 0x10B95480 ?GetPrivateStaticClassAAIBehaviorModel@AAIBehaviorModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIBehaviorModel, 0xc0, 0x0)
+
+// FUNCTION: 0x10B95550 ?GetPrivateStaticClassAAIMovementModel@AAIMovementModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIMovementModel, 0xe0, 0x0)
+
+// FUNCTION: 0x10B95620 ?GetPrivateStaticClassAAICombatModel@AAICombatModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAICombatModel, 0xc0, 0x0)
+
+// FUNCTION: 0x10B956F0 ?GetPrivateStaticClassAAIFactionModel@AAIFactionModel@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIFactionModel, 0xc0, 0x0)
+
+// FUNCTION: 0x10B957C0 ?GetPrivateStaticClassAAIPathPoint@AAIPathPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIPathPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95890 ?GetPrivateStaticClassAFocusPoint@AFocusPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AFocusPoint, 0xc0, 0x0)
+
+// FUNCTION: 0x10B95960 ?GetPrivateStaticClassAPatrolPoint@APatrolPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(APatrolPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95A30 ?GetPrivateStaticClassAWanderPoint@AWanderPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AWanderPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95B00 ?GetPrivateStaticClassAAddAIPoint@AAddAIPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAddAIPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95BD0 ?GetPrivateStaticClassAFormationPoint@AFormationPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AFormationPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95CA0 ?GetPrivateStaticClassAFormationPointAbsolute@AFormationPointAbsolute@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AFormationPointAbsolute, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95D70 ?GetPrivateStaticClassAChangeDirectionPoint@AChangeDirectionPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AChangeDirectionPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95E40 ?GetPrivateStaticClassALookPoint@ALookPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ALookPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95F10 ?GetPrivateStaticClassAPlayAnimPoint@APlayAnimPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(APlayAnimPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B95FE0 ?GetPrivateStaticClassAPlayBarkPoint@APlayBarkPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(APlayBarkPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B960B0 ?GetPrivateStaticClassAHeadTurnPoint@AHeadTurnPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AHeadTurnPoint, 0xc4, 0x0)
+
+// FUNCTION: 0x10B96180 ?GetPrivateStaticClassAAIPawnController@AAIPawnController@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIPawnController, 0x11c, 0x0)
+
+// FUNCTION: 0x10B96250 ?GetPrivateStaticClassAAIContextVolume@AAIContextVolume@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIContextVolume, 0x148, 0x0)
+
+// FUNCTION: 0x10B96320 ?GetPrivateStaticClassAAITaggedVolume@AAITaggedVolume@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAITaggedVolume, 0x148, 0x0)
+
+// FUNCTION: 0x10B963F0 ?GetPrivateStaticClassAEnumStateType@AEnumStateType@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AEnumStateType, 0xc4, 0x0)
+
+// FUNCTION: 0x10B964C0 ?GetPrivateStaticClassAEnumEvidenceType@AEnumEvidenceType@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AEnumEvidenceType, 0xc4, 0x0)
+
+// FUNCTION: 0x10B96590 ?GetPrivateStaticClassAEnumInferenceType@AEnumInferenceType@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AEnumInferenceType, 0xc4, 0x0)
+
+// FUNCTION: 0x10B96660 ?GetPrivateStaticClassANavMeshSubtractionVolume@ANavMeshSubtractionVolume@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ANavMeshSubtractionVolume, 0x148, 0x0)
+
+// FUNCTION: 0x10B96730 ?GetPrivateStaticClassANavMeshInsertionPoint@ANavMeshInsertionPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ANavMeshInsertionPoint, 0xc0, 0x0)
+
+// FUNCTION: 0x10B96800 ?GetPrivateStaticClassACitySectionPopulationInfo@ACitySectionPopulationInfo@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ACitySectionPopulationInfo, 0xc0, 0x0)
+
+// FUNCTION: 0x10B968D0 ?GetPrivateStaticClassACityPopPoint@ACityPopPoint@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(ACityPopPoint, 0xc4, 0x0)
+
 // FUNCTION: 0x10B969A0 ?InitializePrivateStaticClassAAISensoryModel@AAISensoryModel@@CAXXZ
 IMPLEMENT_STATIC_CLASS(AAISensoryModel)
 
@@ -341,6 +506,9 @@ IMPLEMENT_STATIC_CLASS(ACityPopPoint)
 
 // FUNCTION: 0x10B97B40 ?InternalConstructor@AAIPawn@@SAXPAX@Z
 IMPLEMENT_INTERNAL_CONSTRUCTOR(AAIPawn)
+
+// FUNCTION: 0x10B97B50 ?GetPrivateStaticClassAAIPawn@AAIPawn@@CAPAVUClass@@PBD@Z
+IMPLEMENT_CLASS_BUILDER(AAIPawn, 0x238, 0x0)
 
 // FUNCTION: 0x10BAA420 ??$Cast@VAAIPawnController@@@@YAPAVAAIPawnController@@PAVUObject@@@Z
 template AAIPawnController* Cast<AAIPawnController>(UObject* Src);
