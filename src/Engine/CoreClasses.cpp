@@ -3,6 +3,9 @@
 
 #include "Core/CoreClasses.h"
 
+// FUNCTION: 0x10964A80 ?InternalConstructor@UObject@@SAXPAX@Z
+IMPLEMENT_INTERNAL_CONSTRUCTOR(UObject)
+
 // FUNCTION: 0x10AD1FA0 ?InitializePrivateStaticClassUEnum@UEnum@@CAXXZ
 IMPLEMENT_CORE_STATIC_CLASS(UEnum)
 

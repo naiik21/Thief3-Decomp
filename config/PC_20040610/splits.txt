@@ -50,6 +50,7 @@ Engine/EngineClasses.cpp:
 	.text  start:0x1096AA90 end:0x1096AB98
 	.text  start:0x1096B280 end:0x1096B28E
 	.text  start:0x1096B610 end:0x1096B6D1
+	.text  start:0x1096BE30 end:0x1096BE3E
 	.text  start:0x1096BE70 end:0x1096BF34
 	.text  start:0x1096C020 end:0x1096C02E
 	.text  start:0x1096C0A0 end:0x1096C278
@@ -228,6 +229,7 @@ Game/Options.cpp:
 	.text  start:0x10AB61A0 end:0x10AB6311
 
 Engine/CoreClasses.cpp:
+	.text  start:0x10964A80 end:0x10964A8E
 	.text  start:0x10AD1FA0 end:0x10AD20A8
 	.text  start:0x10AD2560 end:0x10AD2621
 	.text  start:0x10AD2D40 end:0x10AD2ED1
